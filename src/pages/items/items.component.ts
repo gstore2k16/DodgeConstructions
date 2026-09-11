@@ -12,78 +12,89 @@ import { LoadingComponent } from '../../components/loading/loading.component';
 import { ErrorComponent } from '../../components/error/error.component';
 import { ProductCompareComponent } from '../../components/product-compare/product-compare.component';
 
+/**
+ * Main Product Listing Page component connecting reactive filter state to the grid UI.
+ */
 @Component({
-    selector: 'app-item-list',
-    standalone: true,
-    imports: [
-        CommonModule,
-        FormsModule,
-        ItemGridComponent,
-        ItemFilterComponent,
-        LoadingComponent,
-        ErrorComponent,
-        ProductCompareComponent
-    ],
-    templateUrl: './items.component.html',
-    styleUrls: ['./items.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-item-list',
+  standalone: true,
+  imports: [
+    CommonModule,
+    FormsModule,
+    ItemGridComponent,
+    ItemFilterComponent,
+    LoadingComponent,
+    ErrorComponent,
+    ProductCompareComponent
+  ],
+  templateUrl: './items.component.html',
+  styleUrls: ['./items.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemsComponent {
-    private readonly stateService = inject(ItemStateService);
-    private readonly titleService = inject(Title);
-    private readonly route = inject(ActivatedRoute);
-    private readonly destroyRef = inject(DestroyRef);
+  private readonly stateService = inject(ItemStateService);
+  private readonly titleService = inject(Title);
+  private readonly route = inject(ActivatedRoute);
+  private readonly destroyRef = inject(DestroyRef);
 
-    constructor() {
-        this.titleService.setTitle('Products - DodgeConstructions');
-        this.route.queryParamMap.pipe(
-            takeUntilDestroyed(this.destroyRef)
-        ).subscribe(params => {
-            const cat = params.get('category');
-            if (cat) {
-                this.stateService.setCategoryFilter(cat);
-            }
-        });
-    }
+  constructor() {
+    this.titleService.setTitle('Products - DodgeConstructions');
 
-    // Readonly signals exposed for template rendering
-    public readonly loading = this.stateService.loading;
-    public readonly error = this.stateService.error;
-    public readonly filter = this.stateService.filter;
-    public readonly selectedCategory = this.stateService.selectedCategory;
-    public readonly minPrice = this.stateService.minPrice;
-    public readonly maxPrice = this.stateService.maxPrice;
-    public readonly inStockOnly = this.stateService.inStockOnly;
-    public readonly sortOrder = this.stateService.sortOrder;
-    public readonly categories = this.stateService.categories;
-    public readonly filteredItems = this.stateService.filteredItems;
+    // Automatically sync query parameters (e.g. ?category=Accessories) to state service
+    this.route.queryParamMap.pipe(
+      takeUntilDestroyed(this.destroyRef)
+    ).subscribe(params => {
+      const cat = params.get('category');
+      if (cat) {
+        this.stateService.setCategoryFilter(cat);
+      }
+    });
+  }
 
-    // Encapsulated state mutator actions
-    public onSearchChange(val: string): void {
-        this.stateService.setSearchFilter(val);
-    }
+  // Readonly signals exposed for template rendering
+  public readonly loading = this.stateService.loading;
+  public readonly error = this.stateService.error;
+  public readonly filter = this.stateService.filter;
+  public readonly selectedCategory = this.stateService.selectedCategory;
+  public readonly minPrice = this.stateService.minPrice;
+  public readonly maxPrice = this.stateService.maxPrice;
+  public readonly inStockOnly = this.stateService.inStockOnly;
+  public readonly sortOrder = this.stateService.sortOrder;
+  public readonly categories = this.stateService.categories;
+  public readonly filteredItems = this.stateService.filteredItems;
 
-    public onCategoryChange(val: string): void {
-        this.stateService.setCategoryFilter(val);
-    }
+  /** Updates search text filter */
+  public onSearchChange(val: string): void {
+    this.stateService.setSearchFilter(val);
+  }
 
-    public onMinPriceChange(val: number | null): void {
-        this.stateService.setMinPrice(val);
-    }
+  /** Updates category filter option */
+  public onCategoryChange(val: string): void {
+    this.stateService.setCategoryFilter(val);
+  }
 
-    public onMaxPriceChange(val: number | null): void {
-        this.stateService.setMaxPrice(val);
-    }
+  /** Updates minimum price bound */
+  public onMinPriceChange(val: number | null): void {
+    this.stateService.setMinPrice(val);
+  }
 
-    public onInStockToggle(val: boolean): void {
-        this.stateService.setInStockOnly(val);
-    }
+  /** Updates maximum price bound */
+  public onMaxPriceChange(val: number | null): void {
+    this.stateService.setMaxPrice(val);
+  }
 
-    public onSortChange(val: SortOption): void {
-        this.stateService.setSortOrder(val);
-    }
+  /** Updates in-stock availability filter */
+  public onInStockToggle(val: boolean): void {
+    this.stateService.setInStockOnly(val);
+  }
 
-    public resetFilters(): void {
-        this.stateService.resetFilters();
-    }
+  /** Updates product sorting order */
+  public onSortChange(val: SortOption): void {
+    this.stateService.setSortOrder(val);
+  }
+
+  /** Resets all active filters */
+  public resetFilters(): void {
+    this.stateService.resetFilters();
+  }
 }

@@ -1,5 +1,7 @@
+<!-- Responsive Product Grid Layout Container -->
 <div class="item-grid" role="region" aria-label="Product items grid">
     @for (item of items(); track item.id) {
+        <!-- Lazy-load item cards with viewport trigger & skeleton placeholder -->
         @defer (on viewport) {
             <app-item-card [item]="item"></app-item-card>
         } @placeholder {
@@ -16,3 +18,4 @@
         }
     }
 </div>
+

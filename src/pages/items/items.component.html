@@ -1,46 +1,54 @@
+<!-- ============================================
+     Product Listing Page Section
+     ============================================ -->
 <section class="items-page" aria-labelledby="items-page-heading">
-    <h1 id="items-page-heading" class="items-page__title">Products</h1>
+  <!-- Page Header Title -->
+  <h1 id="items-page-heading" class="items-page__title">Products</h1>
 
-    <!-- Reusable Filter & Sort Component -->
-    <app-item-filter
-        [categories]="categories()"
-        [searchTerm]="filter()"
-        [selectedCategory]="selectedCategory()"
-        [minPrice]="minPrice()"
-        [maxPrice]="maxPrice()"
-        [inStockOnly]="inStockOnly()"
-        [sortOrder]="sortOrder()"
-        (searchTermChange)="onSearchChange($event)"
-        (categoryChange)="onCategoryChange($event)"
-        (minPriceChange)="onMinPriceChange($event)"
-        (maxPriceChange)="onMaxPriceChange($event)"
-        (inStockChange)="onInStockToggle($event)"
-        (sortOrderChange)="onSortChange($event)"
-        (reset)="resetFilters()">
-    </app-item-filter>
+  <!-- Reusable Filter & Sorting Control Bar -->
+  <app-item-filter
+    [categories]="categories()"
+    [searchTerm]="filter()"
+    [selectedCategory]="selectedCategory()"
+    [minPrice]="minPrice()"
+    [maxPrice]="maxPrice()"
+    [inStockOnly]="inStockOnly()"
+    [sortOrder]="sortOrder()"
+    (searchTermChange)="onSearchChange($event)"
+    (categoryChange)="onCategoryChange($event)"
+    (minPriceChange)="onMinPriceChange($event)"
+    (maxPriceChange)="onMaxPriceChange($event)"
+    (inStockChange)="onInStockToggle($event)"
+    (sortOrderChange)="onSortChange($event)"
+    (reset)="resetFilters()">
+  </app-item-filter>
 
-    <!-- Product comparison bar (visible below filter when items selected) -->
-    <app-product-compare></app-product-compare>
+  <!-- Product Comparison Floating Bar (Displayed below filter when products are selected) -->
+  <app-product-compare></app-product-compare>
 
-    <!-- Loading state -->
-    @if (loading()) {
-        <app-loading message="Loading products…"></app-loading>
+  <!-- Loading State Indicator -->
+  @if (loading()) {
+    <app-loading message="Loading products…"></app-loading>
+  }
+
+  <!-- Error Alert Banner -->
+  @if (error()) {
+    <app-error [message]="error()!"></app-error>
+  }
+
+  <!-- Product Grid & Empty Filter Result State -->
+  @if (!loading() && !error()) {
+    @if (filteredItems().length === 0) {
+      <!-- Empty Filter Results Message -->
+      <div class="items-page__empty-state" role="status" aria-live="polite">
+        <p class="items-page__empty-message">No products match your search or filter criteria.</p>
+        <button type="button" class="items-page__reset-btn" (click)="resetFilters()" aria-label="Clear all applied filters">
+          Clear Filters
+        </button>
+      </div>
+    } @else {
+      <!-- Product Grid Component -->
+      <app-item-grid [items]="filteredItems()"></app-item-grid>
     }
-
-    <!-- Error state -->
-    @if (error()) {
-        <app-error [message]="error()!"></app-error>
-    }
-
-    <!-- Product grid component -->
-    @if (!loading() && !error()) {
-        @if (filteredItems().length === 0) {
-            <div class="items-page__empty-state" role="status" aria-live="polite">
-                <p class="items-page__empty-message">No products match your search or filter criteria.</p>
-                <button type="button" class="items-page__reset-btn" (click)="resetFilters()" aria-label="Clear all applied filters">Clear Filters</button>
-            </div>
-        } @else {
-            <app-item-grid [items]="filteredItems()"></app-item-grid>
-        }
-    }
+  }
 </section>
