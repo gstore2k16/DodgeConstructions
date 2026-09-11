@@ -1,4 +1,5 @@
-import { Component, OnInit, signal, computed, inject } from '@angular/core';
+import { Component, OnInit, signal, computed, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ItemService } from '../../services/item.service';
@@ -24,6 +25,7 @@ import { ErrorComponent } from '../../components/error/error.component';
 })
 export class ItemsComponent implements OnInit {
     private readonly itemService = inject(ItemService);
+    private readonly destroyRef = inject(DestroyRef);
 
     /** All items loaded from the service */
     public readonly items = signal<Item[]>([]);
@@ -114,7 +116,9 @@ export class ItemsComponent implements OnInit {
         this.loading.set(true);
         this.error.set(null);
 
-        this.itemService.getItems().subscribe({
+        this.itemService.getItems().pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe({
             next: (data: Item[]) => {
                 this.items.set(data);
                 this.loading.set(false);

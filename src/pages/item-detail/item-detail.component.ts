@@ -1,6 +1,7 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, OnInit, signal, inject, DestroyRef } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
 import { ItemDetailViewComponent } from '../../components/item-detail-view/item-detail-view.component';
@@ -17,6 +18,7 @@ import { ErrorComponent } from '../../components/error/error.component';
 export class ItemDetailComponent implements OnInit {
     private readonly route = inject(ActivatedRoute);
     private readonly itemService = inject(ItemService);
+    private readonly destroyRef = inject(DestroyRef);
 
     /** The loaded item */
     public readonly item = signal<Item | undefined>(undefined);
@@ -28,14 +30,18 @@ export class ItemDetailComponent implements OnInit {
     public readonly error = signal<string | null>(null);
 
     ngOnInit(): void {
-        const idParam: string | null = this.route.snapshot.paramMap.get('id');
-        if (idParam) {
-            const id: number = Number(idParam);
-            this.loadItem(id);
-        } else {
-            this.error.set('No item ID provided.');
-            this.loading.set(false);
-        }
+        this.route.paramMap.pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe((params: ParamMap) => {
+            const idParam: string | null = params.get('id');
+            if (idParam) {
+                const id: number = Number(idParam);
+                this.loadItem(id);
+            } else {
+                this.error.set('No item ID provided.');
+                this.loading.set(false);
+            }
+        });
     }
 
     /**
@@ -45,7 +51,9 @@ export class ItemDetailComponent implements OnInit {
         this.loading.set(true);
         this.error.set(null);
 
-        this.itemService.getItemById(id).subscribe({
+        this.itemService.getItemById(id).pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe({
             next: (data: Item | undefined) => {
                 if (data) {
                     this.item.set(data);

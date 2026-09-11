@@ -1,4 +1,4 @@
-import { Component, input, signal, ViewChild, ElementRef } from '@angular/core';
+import { Component, input, signal, viewChild, ElementRef, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -24,8 +24,8 @@ export class ImageZoomComponent {
     /** Signal tracking full-screen modal zoom level (1.0 to 3.5x) */
     public readonly modalZoom = signal<number>(1.2);
 
-    /** Reference to native HTML dialog element */
-    @ViewChild('zoomDialog') public dialogRef?: ElementRef<HTMLDialogElement>;
+    /** Signal reference to native HTML dialog element */
+    public readonly dialogRef = viewChild<ElementRef<HTMLDialogElement>>('zoomDialog');
 
     /**
      * Mouse move handler over main image to calculate focal origin.
@@ -50,10 +50,11 @@ export class ImageZoomComponent {
      * Opens native top-layer full-screen dialog modal.
      */
     public openModal(): void {
-        if (this.dialogRef?.nativeElement) {
+        const dialog = this.dialogRef()?.nativeElement;
+        if (dialog) {
             this.modalZoom.set(1.2);
-            if (!this.dialogRef.nativeElement.open) {
-                this.dialogRef.nativeElement.showModal();
+            if (!dialog.open) {
+                dialog.showModal();
             }
         }
     }
@@ -62,9 +63,15 @@ export class ImageZoomComponent {
      * Closes native top-layer full-screen dialog modal.
      */
     public closeModal(): void {
-        if (this.dialogRef?.nativeElement?.open) {
-            this.dialogRef.nativeElement.close();
+        const dialog = this.dialogRef()?.nativeElement;
+        if (dialog?.open) {
+            dialog.close();
         }
+    }
+
+    @HostListener('window:keydown.escape')
+    public onEscapeKey(): void {
+        this.closeModal();
     }
 
     public zoomIn(): void {
