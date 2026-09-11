@@ -1,6 +1,9 @@
-import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, output, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorComponent } from '../error/error.component';
 
 export type SortOption = 'default' | 'price-asc' | 'price-desc';
@@ -14,6 +17,8 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFilterComponent {
+    private readonly destroyRef = inject(DestroyRef);
+    private readonly searchSubject$ = new Subject<string>();
     /** List of category options */
     public readonly categories = input<string[]>(['All']);
 
@@ -44,8 +49,18 @@ export class ItemFilterComponent {
     public readonly sortOrderChange = output<SortOption>();
     public readonly reset = output<void>();
 
+    constructor() {
+        this.searchSubject$.pipe(
+            debounceTime(20),
+            distinctUntilChanged(),
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe((term: string) => {
+            this.searchTermChange.emit(term);
+        });
+    }
+
     public onSearchInput(val: string): void {
-        this.searchTermChange.emit(val);
+        this.searchSubject$.next(val);
     }
 
     public onCategorySelect(val: string): void {
@@ -69,6 +84,7 @@ export class ItemFilterComponent {
     }
 
     public onResetClick(): void {
+        this.searchSubject$.next('');
         this.reset.emit();
     }
 }
