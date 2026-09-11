@@ -1,9 +1,9 @@
 @if (features() && features().length > 0) {
-    <div class="detail-features">
-        <h3>Product Details</h3>
-        <ul>
+    <div class="item-features">
+        <h3 class="item-features__title">Product Details</h3>
+        <ul class="item-features__list">
             @for (feature of features(); track feature) {
-                <li>{{ feature }}</li>
+                <li class="item-features__item">{{ feature }}</li>
             }
         </ul>
     </div>

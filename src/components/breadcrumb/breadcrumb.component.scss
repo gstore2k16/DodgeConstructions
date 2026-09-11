@@ -12,7 +12,7 @@
   font-size: rem-calc($font-md);
   color: $color-text-secondary;
 
-  a {
+  &__link {
     color: $color-text-secondary;
     text-decoration: none;
     transition: color 0.2s;
@@ -22,7 +22,7 @@
     }
   }
 
-  .separator {
+  &__separator {
     color: $color-text-placeholder;
     font-size: rem-calc($font-md);
   }

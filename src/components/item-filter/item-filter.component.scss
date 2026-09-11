@@ -5,26 +5,27 @@
   width: 100%;
 }
 
-.filter-header-row {
-  display: flex;
-  justify-content: flex-end;
-  margin-bottom: rem-calc(16);
-}
-
-/* ---------- Search box ---------- */
-.search-box {
-  position: relative;
-  width: 100%;
-
-  @include break-to-tablet {
-    width: rem-calc(260);
+.item-filter {
+  &__header-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: rem-calc(16);
   }
 
-  @include break-to-desktop {
-    width: rem-calc(300);
+  &__search-box {
+    position: relative;
+    width: 100%;
+
+    @include break-to-tablet {
+      width: rem-calc(260);
+    }
+
+    @include break-to-desktop {
+      width: rem-calc(300);
+    }
   }
 
-  .search-icon {
+  &__search-icon {
     position: absolute;
     left: rem-calc(12);
     top: 50%;
@@ -32,7 +33,7 @@
     pointer-events: none;
   }
 
-  input {
+  &__search-input {
     width: 100%;
     padding: rem-calc(10) rem-calc(14) rem-calc(10) rem-calc(40);
     font-size: rem-calc($font-md);
@@ -53,180 +54,190 @@
       box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
     }
   }
-}
 
-/* ---------- Filter & Sort Bar ---------- */
-.filter-bar {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: flex-end;
-  gap: rem-calc(16);
-  padding: rem-calc(16);
-  background: $color-bg-alt;
-  border: 1px solid $color-border-light;
-  border-radius: rem-calc($radius-xl);
-  margin-bottom: rem-calc(28);
+  &__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: rem-calc(16);
+    padding: rem-calc(16);
+    background: $color-bg-alt;
+    border: 1px solid $color-border-light;
+    border-radius: rem-calc($radius-xl);
+    margin-bottom: rem-calc(28);
 
-  @include break-to-tablet {
-    gap: rem-calc(20);
-    padding: rem-calc(18) rem-calc(20);
-  }
-}
-
-.filter-group {
-  display: flex;
-  flex-direction: column;
-  gap: rem-calc(6);
-
-  &.stock-group {
-    justify-content: flex-end;
-    padding-bottom: rem-calc(8);
+    @include break-to-tablet {
+      gap: rem-calc(20);
+      padding: rem-calc(18) rem-calc(20);
+    }
   }
 
-  &.reset-group {
-    margin-left: auto;
-  }
-}
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(6);
 
-.filter-label {
-  font-size: rem-calc($font-xs);
-  font-weight: 600;
-  color: $color-text-subtle;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
+    &--stock {
+      justify-content: flex-end;
+      padding-bottom: rem-calc(8);
+    }
 
-.filter-select {
-  padding: rem-calc(8) rem-calc(12);
-  font-size: rem-calc($font-md);
-  font-family: $primary-font;
-  color: $color-text-primary;
-  background: $color-white;
-  border: 1px solid $color-border-medium;
-  border-radius: rem-calc($radius-md);
-  outline: none;
-  cursor: pointer;
-  min-width: rem-calc(150);
-  transition: border-color 0.2s, box-shadow 0.2s;
-
-  &:focus {
-    border-color: $color-primary;
-    box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
-  }
-}
-
-.price-inputs {
-  display: flex;
-  align-items: center;
-  gap: rem-calc(8);
-}
-
-.price-input {
-  width: rem-calc(85);
-  padding: rem-calc(8) rem-calc(10);
-  font-size: rem-calc($font-md);
-  font-family: $primary-font;
-  color: $color-text-primary;
-  background: $color-white;
-  border: 1px solid $color-border-medium;
-  border-radius: rem-calc($radius-md);
-  outline: none;
-  box-sizing: border-box;
-  transition: border-color 0.2s;
-
-  &:focus {
-    border-color: $color-primary;
+    &--reset {
+      margin-left: auto;
+    }
   }
 
-  /* Remove number input spinners */
-  &::-webkit-inner-spin-button,
-  &::-webkit-outer-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
+  &__label {
+    font-size: rem-calc($font-xs);
+    font-weight: 600;
+    color: $color-text-subtle;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
   }
-  -moz-appearance: textfield;
-}
 
-.price-separator {
-  color: $color-text-disabled;
-  font-weight: 500;
-}
+  &__select {
+    padding: rem-calc(8) rem-calc(12);
+    font-size: rem-calc($font-md);
+    font-family: $primary-font;
+    color: $color-text-primary;
+    background: $color-white;
+    border: 1px solid $color-border-medium;
+    border-radius: rem-calc($radius-md);
+    outline: none;
+    cursor: pointer;
+    min-width: rem-calc(150);
+    transition: border-color 0.2s, box-shadow 0.2s;
 
-.stock-label {
-  display: flex;
-  align-items: center;
-  gap: rem-calc(8);
-  font-size: rem-calc($font-md);
-  font-weight: 500;
-  color: $color-text-slate;
-  cursor: pointer;
-  user-select: none;
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
+    }
+  }
 
-  input[type="checkbox"] {
+  &__price-inputs {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+  }
+
+  &__price-input {
+    width: rem-calc(85);
+    padding: rem-calc(8) rem-calc(10);
+    font-size: rem-calc($font-md);
+    font-family: $primary-font;
+    color: $color-text-primary;
+    background: $color-white;
+    border: 1px solid $color-border-medium;
+    border-radius: rem-calc($radius-md);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+
+    /* Remove number input spinners */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    -moz-appearance: textfield;
+  }
+
+  &__price-separator {
+    color: $color-text-disabled;
+    font-weight: 500;
+  }
+
+  &__stock-label {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+    font-size: rem-calc($font-md);
+    font-weight: 500;
+    color: $color-text-slate;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__checkbox {
     width: rem-calc(18);
     height: rem-calc(18);
     accent-color: $color-primary;
     cursor: pointer;
   }
-}
 
-.btn-reset {
-  display: inline-flex;
-  align-items: center;
-  gap: rem-calc(6);
-  padding: rem-calc(8) rem-calc(14);
-  font-size: rem-calc($font-sm);
-  font-weight: 600;
-  font-family: $primary-font;
-  color: $color-text-subtle;
-  background: $color-white;
-  border: 1px solid $color-border-medium;
-  border-radius: rem-calc($radius-md);
-  cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  &__reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(6);
+    padding: rem-calc(8) rem-calc(14);
+    font-size: rem-calc($font-sm);
+    font-weight: 600;
+    font-family: $primary-font;
+    color: $color-text-subtle;
+    background: $color-white;
+    border: 1px solid $color-border-medium;
+    border-radius: rem-calc($radius-md);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 
-  &:hover {
-    color: $color-text-heading;
-    border-color: $color-text-disabled;
-    background: $color-bg-slate-light;
+    &:hover {
+      color: $color-text-heading;
+      border-color: $color-text-disabled;
+      background: $color-bg-slate-light;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
   }
 
-  svg {
-    flex-shrink: 0;
+  &__skeleton-container {
+    width: 100%;
   }
-}
 
-/* ============================================
-   Skeleton Loading Placeholders for Item Filter
-   ============================================ */
+  &__skeleton-search {
+    height: rem-calc(40);
+    width: 100%;
+    max-width: rem-calc(300);
+    margin-left: auto;
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: rem-calc($radius-md);
+  }
 
-.filter-skeleton-container {
-  width: 100%;
-}
+  &__skeleton-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: rem-calc(16);
+    padding: rem-calc(16);
+    background: $color-bg-alt;
+    border: 1px solid $color-border-light;
+    border-radius: rem-calc($radius-xl);
+    margin-bottom: rem-calc(28);
 
-.skeleton-search {
-  height: rem-calc(40);
-  width: 100%;
-  max-width: rem-calc(300);
-  margin-left: auto;
-  background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-  background-size: 200% 100%;
-  animation: shimmer 1.5s infinite;
-  border-radius: rem-calc($radius-md);
-}
+    @include break-to-tablet {
+      gap: rem-calc(20);
+      padding: rem-calc(18) rem-calc(20);
+    }
+  }
 
-.skeleton-filter-bar {
-  .skeleton-group {
+  &__skeleton-group {
     display: flex;
     flex-direction: column;
     gap: rem-calc(6);
 
-    &.stock-skeleton {
+    &--stock {
       justify-content: flex-end;
     }
   }
 
-  .skeleton-label {
+  &__skeleton-label {
     height: rem-calc(12);
     width: rem-calc(60);
     background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
@@ -235,7 +246,7 @@
     border-radius: rem-calc($radius-xs);
   }
 
-  .skeleton-input {
+  &__skeleton-input {
     height: rem-calc(36);
     width: rem-calc(150);
     background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
@@ -243,11 +254,11 @@
     animation: shimmer 1.5s infinite;
     border-radius: rem-calc($radius-md);
 
-    &.wide {
+    &--wide {
       width: rem-calc(180);
     }
 
-    &.pill {
+    &--pill {
       width: rem-calc(110);
     }
   }

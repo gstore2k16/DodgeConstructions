@@ -1,14 +1,14 @@
-<div class="items-grid">
+<div class="item-grid">
     @for (item of items(); track item.id) {
         @defer (on viewport) {
             <app-item-card [item]="item"></app-item-card>
-        } @placeholder{
-            <div class="item-card skeleton">
-                <div class="skeleton-image"></div>
-                <div class="skeleton-info">
-                    <div class="skeleton-line wide"></div>
-                    <div class="skeleton-line medium"></div>
-                    <div class="skeleton-line narrow"></div>
+        } @placeholder {
+            <div class="item-grid__skeleton-card">
+                <div class="item-grid__skeleton-image"></div>
+                <div class="item-grid__skeleton-info">
+                    <div class="item-grid__skeleton-line item-grid__skeleton-line--wide"></div>
+                    <div class="item-grid__skeleton-line item-grid__skeleton-line--medium"></div>
+                    <div class="item-grid__skeleton-line item-grid__skeleton-line--narrow"></div>
                 </div>
             </div>
         }

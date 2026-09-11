@@ -5,17 +5,17 @@
   width: 100%;
 }
 
-.error-container {
+.error-state {
   text-align: center;
   padding: rem-calc(40) 0;
 
-  .error-message {
+  &__message {
     font-size: rem-calc($font-base);
     color: $color-danger-text;
     margin: 0 0 rem-calc(16) 0;
   }
 
-  .back-link {
+  &__back-link {
     font-size: rem-calc($font-md);
     color: $color-primary;
     text-decoration: none;

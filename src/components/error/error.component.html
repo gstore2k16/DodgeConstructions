@@ -1,6 +1,6 @@
-<div class="error-container">
-    <p class="error-message">{{ message() }}</p>
+<div class="error-state">
+    <p class="error-state__message">{{ message() }}</p>
     @if (showBackLink()) {
-        <a [routerLink]="backLinkRoute()" class="back-link">{{ backLinkText() }}</a>
+        <a [routerLink]="backLinkRoute()" class="error-state__back-link">{{ backLinkText() }}</a>
     }
 </div>

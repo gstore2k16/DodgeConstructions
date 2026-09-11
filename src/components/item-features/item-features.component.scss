@@ -4,23 +4,23 @@
   display: block;
 }
 
-.detail-features {
+.item-features {
   margin-top: rem-calc(8);
 
-  h3 {
+  &__title {
     font-size: rem-calc($font-xl);
     font-weight: 700;
     color: $color-text-dark;
     margin: 0 0 rem-calc(12) 0;
   }
 
-  ul {
+  &__list {
     list-style: none;
     padding: 0;
     margin: 0;
   }
 
-  li {
+  &__item {
     font-size: rem-calc($font-md);
     color: $color-text-medium;
     line-height: 1.8;

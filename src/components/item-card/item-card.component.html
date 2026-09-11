@@ -1,13 +1,14 @@
 <article class="item-card">
-    <div class="item-image-wrapper">
+    <div class="item-card__image-wrapper">
         <img
+            class="item-card__image"
             [src]="item().image"
             [alt]="item().name"
             loading="lazy"
         />
         <!-- In Stock badge: shown on the image -->
         @if (item().inStock) {
-            <span class="stock-badge in-stock">
+            <span class="item-card__stock-badge item-card__stock-badge--in-stock">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -18,14 +19,14 @@
         }
     </div>
 
-    <div class="item-info">
-        <h3 class="item-name">{{ item().name }}</h3>
-        <p class="item-category">{{ item().category }}</p>
-        <p class="item-price">{{ item().price | currency:'USD':'symbol':'1.2-2' }}</p>
+    <div class="item-card__info">
+        <h3 class="item-card__name">{{ item().name }}</h3>
+        <p class="item-card__category">{{ item().category }}</p>
+        <p class="item-card__price">{{ item().price | currency:'USD':'symbol':'1.2-2' }}</p>
 
         <!-- Out of Stock: shown in info section -->
         @if (!item().inStock) {
-            <span class="stock-status out-of-stock">
+            <span class="item-card__stock-status item-card__stock-status--out-of-stock">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
                      stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -37,12 +38,12 @@
         }
 
         @if (item().inStock) {
-            <p class="item-stock-count">
+            <p class="item-card__stock-count">
                 {{ item().stockCount }} left in stock
             </p>
         }
 
-        <a class="btn-details" [routerLink]="['/items', item().id]">
+        <a class="item-card__btn-details" [routerLink]="['/items', item().id]">
             View Details
         </a>
     </div>

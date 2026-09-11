@@ -1,5 +1,5 @@
 <section class="items-page">
-    <h2>Products</h2>
+    <h2 class="items-page__title">Products</h2>
 
     <!-- Reusable Filter & Sort Component -->
     <app-item-filter
@@ -32,9 +32,9 @@
     <!-- Product grid component -->
     @if (!loading() && !error()) {
         @if (filteredItems().length === 0) {
-            <div class="empty-state">
-                <p>No products match your search or filter criteria.</p>
-                <button class="btn-reset" (click)="resetFilters()">Clear Filters</button>
+            <div class="items-page__empty-state">
+                <p class="items-page__empty-message">No products match your search or filter criteria.</p>
+                <button class="items-page__reset-btn" (click)="resetFilters()">Clear Filters</button>
             </div>
         } @else {
             <app-item-grid [items]="filteredItems()"></app-item-grid>

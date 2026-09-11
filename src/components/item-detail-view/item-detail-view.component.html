@@ -3,23 +3,23 @@
     <app-breadcrumb [category]="item().category"></app-breadcrumb>
 
     @defer (on viewport) {
-        <div class="detail-layout">
+        <div class="item-detail-view__layout">
             <!-- Product image with zooming option -->
-            <div class="detail-image-wrapper">
+            <div class="item-detail-view__image-wrapper">
                 <app-image-zoom [src]="item().image" [alt]="item().name"></app-image-zoom>
             </div>
 
             <!-- Product info -->
-            <div class="detail-info">
-                <h1 class="detail-name">{{ item().name }}</h1>
-                <p class="detail-price">{{ item().price | currency:'USD':'symbol':'1.2-2' }}</p>
-                <p class="detail-description">{{ item().description }}</p>
+            <div class="item-detail-view__info">
+                <h1 class="item-detail-view__name">{{ item().name }}</h1>
+                <p class="item-detail-view__price">{{ item().price | currency:'USD':'symbol':'1.2-2' }}</p>
+                <p class="item-detail-view__description">{{ item().description }}</p>
 
                 <!-- Stock badge + count -->
-                <div class="detail-stock-row">
-                    <span class="stock-badge"
-                          [class.in-stock]="item().inStock"
-                          [class.out-of-stock]="!item().inStock">
+                <div class="item-detail-view__stock-row">
+                    <span class="item-detail-view__stock-badge"
+                          [class.item-detail-view__stock-badge--in-stock]="item().inStock"
+                          [class.item-detail-view__stock-badge--out-of-stock]="!item().inStock">
                         @if (item().inStock) {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -38,7 +38,7 @@
                         }
                     </span>
                     @if (item().inStock) {
-                        <span class="stock-count">{{ item().stockCount }} left in stock</span>
+                        <span class="item-detail-view__stock-count">{{ item().stockCount }} left in stock</span>
                     }
                 </div>
 
@@ -51,7 +51,7 @@
                     </app-quantity-selector>
 
                     <!-- Add to Cart button -->
-                    <button class="btn-add-to-cart">
+                    <button class="item-detail-view__btn-add">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
                              stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -67,26 +67,26 @@
             </div>
         </div>
     } @placeholder {
-        <div class="detail-layout skeleton-layout">
+        <div class="item-detail-view__layout item-detail-view__layout--skeleton">
             <!-- Image Skeleton -->
-            <div class="detail-image-wrapper skeleton-image"></div>
+            <div class="item-detail-view__image-wrapper item-detail-view__image-wrapper--skeleton"></div>
 
             <!-- Detail Info Skeleton -->
-            <div class="detail-info skeleton-info">
-                <div class="skeleton-line skeleton-title"></div>
-                <div class="skeleton-line skeleton-price"></div>
-                <div class="skeleton-line skeleton-description"></div>
-                <div class="skeleton-line skeleton-description short"></div>
-                <div class="skeleton-line skeleton-stock-badge"></div>
-                <div class="skeleton-box skeleton-qty-selector"></div>
-                <div class="skeleton-box skeleton-add-button"></div>
+            <div class="item-detail-view__info item-detail-view__info--skeleton">
+                <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--title"></div>
+                <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--price"></div>
+                <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--description"></div>
+                <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--description item-detail-view__skeleton-line--short"></div>
+                <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--stock-badge"></div>
+                <div class="item-detail-view__skeleton-box item-detail-view__skeleton-box--qty"></div>
+                <div class="item-detail-view__skeleton-box item-detail-view__skeleton-box--btn"></div>
 
                 <!-- Product Details / Features Skeleton -->
-                <div class="skeleton-features-container">
-                    <div class="skeleton-line skeleton-features-title"></div>
-                    <div class="skeleton-line skeleton-feature-bullet"></div>
-                    <div class="skeleton-line skeleton-feature-bullet"></div>
-                    <div class="skeleton-line skeleton-feature-bullet"></div>
+                <div class="item-detail-view__skeleton-features">
+                    <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-title"></div>
+                    <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"></div>
+                    <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"></div>
+                    <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"></div>
                 </div>
             </div>
         </div>
