@@ -12,6 +12,7 @@ export abstract class Item {
     abstract inStock: boolean;
     abstract stockCount: number;
     abstract image: string;
+    abstract features: string[];
 }
 
 /**
@@ -27,7 +28,8 @@ export class ProductItem extends Item {
         public description: string,
         public inStock: boolean,
         public stockCount: number,
-        public image: string
+        public image: string,
+        public features: string[]
     ) {
         super();
     }
@@ -44,7 +46,8 @@ export class ProductItem extends Item {
             json['description'] as string,
             json['inStock'] as boolean,
             json['stockCount'] as number,
-            json['image'] as string
+            json['image'] as string,
+            (json['features'] as string[]) ?? []
         );
     }
 }

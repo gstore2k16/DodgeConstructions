@@ -7,7 +7,13 @@
     "description": "Stylish UV-protection sunglasses for daily wear.",
     "inStock": true,
     "stockCount": 12,
-    "image": "assets/images/sunglasses.jpg"
+    "image": "assets/images/sunglasses.jpg",
+    "features": [
+      "UV400 protection lenses",
+      "Lightweight acetate frame",
+      "Scratch-resistant coating",
+      "Includes carrying case"
+    ]
   },
   {
     "id": 2,
@@ -17,17 +23,29 @@
     "description": "High-resolution digital camera with multiple lenses.",
     "inStock": false,
     "stockCount": 0,
-    "image": "assets/images/camera.jpg"
+    "image": "assets/images/camera.jpg",
+    "features": [
+      "24.2 MP APS-C sensor",
+      "4K video recording",
+      "Built-in Wi-Fi and Bluetooth",
+      "3-inch tilting LCD screen"
+    ]
   },
   {
     "id": 3,
-    "name": "Watch",
+    "name": "Elegant Analog Watch",
     "category": "Accessories",
     "price": 199.99,
-    "description": "Elegant analog watch with leather strap.",
+    "description": "Stylish analog watch with a genuine leather strap and a classic design.",
     "inStock": true,
     "stockCount": 7,
-    "image": "assets/images/watch.jpg"
+    "image": "assets/images/watch.jpg",
+    "features": [
+      "Water resistant up to 100m",
+      "Genuine leather strap",
+      "Japanese quartz movement",
+      "2-year warranty"
+    ]
   },
   {
     "id": 4,
@@ -37,6 +55,12 @@
     "description": "Comfortable and durable sneakers for everyday use.",
     "inStock": true,
     "stockCount": 19,
-    "image": "assets/images/shoes.jpg"
+    "image": "assets/images/shoes.jpg",
+    "features": [
+      "Breathable mesh upper",
+      "Cushioned EVA midsole",
+      "Rubber outsole for traction",
+      "Available in multiple sizes"
+    ]
   }
 ]
