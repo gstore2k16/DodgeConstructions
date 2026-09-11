@@ -1,6 +1,7 @@
 import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { Title } from '@angular/platform-browser';
 import { ItemStateService } from '../../services/item-state.service';
 import { SortOption } from '../../components/item-filter/item-filter.component';
 import { ItemGridComponent } from '../../components/item-grid/item-grid.component';
@@ -25,6 +26,11 @@ import { ErrorComponent } from '../../components/error/error.component';
 })
 export class ItemsComponent {
     private readonly stateService = inject(ItemStateService);
+    private readonly titleService = inject(Title);
+
+    constructor() {
+        this.titleService.setTitle('Products - DodgeConstructions');
+    }
 
     // Readonly signals exposed for template rendering
     public readonly loading = this.stateService.loading;

@@ -1,5 +1,6 @@
 import { Component, input, effect, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Title } from '@angular/platform-browser';
 import { ItemStateService } from '../../services/item-state.service';
 import { ItemDetailViewComponent } from '../../components/item-detail-view/item-detail-view.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
@@ -15,6 +16,7 @@ import { ErrorComponent } from '../../components/error/error.component';
 })
 export class ItemDetailComponent {
     private readonly stateService = inject(ItemStateService);
+    private readonly titleService = inject(Title);
 
     /** Route param :id bound reactively as a Signal input */
     public readonly id = input<string>();
@@ -33,6 +35,16 @@ export class ItemDetailComponent {
                 this.stateService.selectItemById(isNaN(numericId) ? null : numericId);
             } else {
                 this.stateService.selectItemById(null);
+            }
+        });
+
+        // Dynamic page title update for SEO & Product UX
+        effect(() => {
+            const currentItem = this.item();
+            if (currentItem) {
+                this.titleService.setTitle(`${currentItem.name} - DodgeConstructions`);
+            } else if (this.error()) {
+                this.titleService.setTitle('Product Not Found - DodgeConstructions');
             }
         });
     }
