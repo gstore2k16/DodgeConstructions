@@ -3,12 +3,6 @@
 :host {
   display: block;
   width: 100%;
-}
-
-/* ---------- Two-column layout ---------- */
-:host {
-  display: block;
-  width: 100%;
   box-sizing: border-box;
 
   @include break-to-tablet {
@@ -45,57 +39,5 @@
 
   @include break-to-wider-desktop {
     padding: rem-calc(48) rem-calc(56);
-  }
-}
-
-/* ============================================
-   Loading / Error States
-   ============================================ */
-
-.detail-loading {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: rem-calc(80) 0;
-
-  p {
-    margin-top: rem-calc(16);
-    font-size: rem-calc(15);
-    color: #667085;
-  }
-}
-
-.spinner {
-  width: rem-calc(36);
-  height: rem-calc(36);
-  border: 3px solid #e5e7eb;
-  border-top-color: #4a7cf6;
-  border-radius: 50%;
-  animation: spin 0.8s linear infinite;
-}
-
-@keyframes spin {
-  to { transform: rotate(360deg); }
-}
-
-.detail-error {
-  text-align: center;
-  padding: rem-calc(60) 0;
-
-  p {
-    font-size: rem-calc(16);
-    color: #dc2626;
-    margin-bottom: rem-calc(16);
-  }
-
-  .back-link {
-    font-size: rem-calc(14);
-    color: #4a7cf6;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
   }
 }

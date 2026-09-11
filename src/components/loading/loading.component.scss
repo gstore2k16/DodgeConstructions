@@ -1,0 +1,33 @@
+@import "mixins";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: rem-calc(60) 0;
+
+  p {
+    margin-top: rem-calc(16);
+    font-size: rem-calc(15);
+    color: #667085;
+  }
+}
+
+.spinner {
+  width: rem-calc(36);
+  height: rem-calc(36);
+  border: 3px solid #e5e7eb;
+  border-top-color: #4a7cf6;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}

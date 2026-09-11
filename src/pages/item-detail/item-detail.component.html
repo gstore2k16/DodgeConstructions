@@ -1,18 +1,12 @@
 <!-- Loading state -->
 <section class="detail-page">
     @if (loading()) {
-        <div class="detail-loading">
-            <div class="spinner"></div>
-            <p>Loading item details…</p>
-        </div>
+        <app-loading message="Loading item details…"></app-loading>
     }
 
     <!-- Error state -->
     @if (error()) {
-        <div class="detail-error">
-            <p>{{ error() }}</p>
-            <a routerLink="/items" class="back-link">← Back to items</a>
-        </div>
+        <app-error [message]="error()!" [showBackLink]="true"></app-error>
     }
 
     <!-- Item detail view component -->

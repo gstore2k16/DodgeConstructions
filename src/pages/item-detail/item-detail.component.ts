@@ -4,11 +4,13 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
 import { ItemDetailViewComponent } from '../../components/item-detail-view/item-detail-view.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { ErrorComponent } from '../../components/error/error.component';
 
 @Component({
     selector: 'app-item-detail',
     standalone: true,
-    imports: [CommonModule, RouterLink, ItemDetailViewComponent],
+    imports: [CommonModule, RouterLink, ItemDetailViewComponent, LoadingComponent, ErrorComponent],
     templateUrl: './item-detail.component.html',
     styleUrls: ['./item-detail.component.scss']
 })

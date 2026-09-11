@@ -6,6 +6,8 @@ import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
 import { ItemGridComponent } from '../../components/item-grid/item-grid.component';
 import { ItemFilterComponent, SortOption } from '../../components/item-filter/item-filter.component';
+import { LoadingComponent } from '../../components/loading/loading.component';
+import { ErrorComponent } from '../../components/error/error.component';
 
 @Component({
     selector: 'app-item-list',
@@ -15,7 +17,9 @@ import { ItemFilterComponent, SortOption } from '../../components/item-filter/it
         FormsModule,
         RouterLink,
         ItemGridComponent,
-        ItemFilterComponent
+        ItemFilterComponent,
+        LoadingComponent,
+        ErrorComponent
     ],
     templateUrl: './items.component.html',
     styleUrls: ['./items.component.scss']

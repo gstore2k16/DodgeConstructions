@@ -21,17 +21,12 @@
 
     <!-- Loading state -->
     @if (loading()) {
-        <div class="loading-state">
-            <div class="spinner"></div>
-            <p>Loading products…</p>
-        </div>
+        <app-loading message="Loading products…"></app-loading>
     }
 
     <!-- Error state -->
     @if (error()) {
-        <div class="error-state">
-            <p>{{ error() }}</p>
-        </div>
+        <app-error [message]="error()!"></app-error>
     }
 
     <!-- Product grid component -->
