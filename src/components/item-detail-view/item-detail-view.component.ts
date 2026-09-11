@@ -5,6 +5,7 @@ import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { QuantitySelectorComponent } from '../quantity-selector/quantity-selector.component';
 import { ItemFeaturesComponent } from '../item-features/item-features.component';
 import { ImageZoomComponent } from '../image-zoom/image-zoom.component';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
     selector: 'app-item-detail-view',
@@ -14,7 +15,8 @@ import { ImageZoomComponent } from '../image-zoom/image-zoom.component';
         BreadcrumbComponent,
         QuantitySelectorComponent,
         ItemFeaturesComponent,
-        ImageZoomComponent
+        ImageZoomComponent,
+        ErrorComponent
     ],
     templateUrl: './item-detail-view.component.html',
     styleUrls: ['./item-detail-view.component.scss']

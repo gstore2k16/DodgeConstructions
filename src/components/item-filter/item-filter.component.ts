@@ -1,13 +1,14 @@
 import { Component, input, output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { ErrorComponent } from '../error/error.component';
 
 export type SortOption = 'default' | 'price-asc' | 'price-desc';
 
 @Component({
     selector: 'app-item-filter',
     standalone: true,
-    imports: [CommonModule, FormsModule],
+    imports: [CommonModule, FormsModule, ErrorComponent],
     templateUrl: './item-filter.component.html',
     styleUrls: ['./item-filter.component.scss']
 })
