@@ -20,8 +20,8 @@
 }
 
 .detail-page {
-  background: #fff;
-  border-radius: rem-calc(16);
+  background: $color-white;
+  border-radius: rem-calc($radius-2xl);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
   padding: rem-calc(24);
   margin: 0 auto;

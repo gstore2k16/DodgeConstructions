@@ -7,8 +7,8 @@
 .quantity-selector {
   display: inline-flex;
   align-items: center;
-  border: 1px solid #d0d5dd;
-  border-radius: rem-calc(8);
+  border: 1px solid $color-border-default;
+  border-radius: rem-calc($radius-md);
   overflow: hidden;
   margin-bottom: rem-calc(24);
 }
@@ -19,20 +19,20 @@
   justify-content: center;
   width: rem-calc(40);
   height: rem-calc(40);
-  background: #fff;
+  background: $color-white;
   border: none;
-  font-size: rem-calc(18);
-  color: #444;
+  font-size: rem-calc($font-xl);
+  color: $color-text-body;
   cursor: pointer;
   transition: background-color 0.15s;
   font-family: $primary-font;
 
   &:hover:not(:disabled) {
-    background: #f3f4f6;
+    background: $color-bg-gray;
   }
 
   &:disabled {
-    color: #ccc;
+    color: $color-border-disabled;
     cursor: not-allowed;
   }
 }
@@ -43,10 +43,10 @@
   justify-content: center;
   min-width: rem-calc(48);
   height: rem-calc(40);
-  font-size: rem-calc(15);
+  font-size: rem-calc($font-base);
   font-weight: 600;
-  color: #1a1a1a;
-  border-left: 1px solid #d0d5dd;
-  border-right: 1px solid #d0d5dd;
+  color: $color-text-dark;
+  border-left: 1px solid $color-border-default;
+  border-right: 1px solid $color-border-default;
   font-family: $primary-font;
 }

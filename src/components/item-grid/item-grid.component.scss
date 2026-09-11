@@ -29,9 +29,9 @@
 .item-card.skeleton {
   display: flex;
   flex-direction: column;
-  background: #fff;
-  border: 1px solid #e5e7eb;
-  border-radius: rem-calc(12);
+  background: $color-white;
+  border: 1px solid $color-border-light;
+  border-radius: rem-calc($radius-xl);
   overflow: hidden;
 
   @include break-to-tablet {
@@ -40,7 +40,7 @@
 }
 
 .skeleton-image {
-  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   min-height: rem-calc(180);
@@ -66,8 +66,8 @@
 
 .skeleton-line {
   height: rem-calc(14);
-  border-radius: rem-calc(4);
-  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  border-radius: rem-calc($radius-xs);
+  background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 

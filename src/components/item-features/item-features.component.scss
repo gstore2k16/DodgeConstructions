@@ -8,9 +8,9 @@
   margin-top: rem-calc(8);
 
   h3 {
-    font-size: rem-calc(18);
+    font-size: rem-calc($font-xl);
     font-weight: 700;
-    color: #1a1a1a;
+    color: $color-text-dark;
     margin: 0 0 rem-calc(12) 0;
   }
 
@@ -21,22 +21,22 @@
   }
 
   li {
-    font-size: rem-calc(14);
-    color: #555;
+    font-size: rem-calc($font-md);
+    color: $color-text-medium;
     line-height: 1.8;
     position: relative;
     padding-left: rem-calc(18);
 
     @include break-to-tablet {
-      font-size: rem-calc(15);
+      font-size: rem-calc($font-base);
     }
 
     &::before {
       content: "•";
       position: absolute;
       left: 0;
-      color: #667085;
-      font-size: rem-calc(16);
+      color: $color-text-secondary;
+      font-size: rem-calc($font-lg);
     }
   }
 }

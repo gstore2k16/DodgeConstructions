@@ -27,8 +27,8 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f4f5f7;
-  border-radius: rem-calc(16);
+  background: $color-bg-light;
+  border-radius: rem-calc($radius-2xl);
   overflow: hidden;
   width: 100%;
   min-height: rem-calc(280);
@@ -69,7 +69,7 @@
   }
 
   &.skeleton-image {
-    background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
   }
@@ -83,14 +83,14 @@
 }
 
 .detail-name {
-  font-size: rem-calc(24);
+  font-size: rem-calc($font-3xl);
   font-weight: 700;
-  color: #1a1a1a;
+  color: $color-text-dark;
   margin: 0 0 rem-calc(8) 0;
   line-height: 1.25;
 
   @include break-to-tablet {
-    font-size: rem-calc(28);
+    font-size: rem-calc($font-4xl);
   }
 
   @include break-to-desktop {
@@ -105,7 +105,7 @@
 .detail-price {
   font-size: rem-calc(22);
   font-weight: 700;
-  color: #1a1a1a;
+  color: $color-text-dark;
   margin: 0 0 rem-calc(16) 0;
 
   @include break-to-tablet {
@@ -122,18 +122,18 @@
 }
 
 .detail-description {
-  font-size: rem-calc(14);
-  color: #666666;
+  font-size: rem-calc($font-md);
+  color: $color-text-muted;
   line-height: 1.6;
   margin: 0 0 rem-calc(20) 0;
   max-width: rem-calc(520);
 
   @include break-to-tablet {
-    font-size: rem-calc(15);
+    font-size: rem-calc($font-base);
   }
 
   @include break-to-desktop {
-    font-size: rem-calc(16);
+    font-size: rem-calc($font-lg);
   }
 }
 
@@ -150,26 +150,26 @@
   align-items: center;
   gap: rem-calc(6);
   padding: rem-calc(4) rem-calc(12);
-  font-size: rem-calc(13);
+  font-size: rem-calc($font-sm);
   font-weight: 600;
-  border-radius: rem-calc(20);
+  border-radius: rem-calc($radius-pill);
 
   &.in-stock {
-    background: #e6f9ee;
-    color: #16a34a;
-    border: 1px solid #bbf7d0;
+    background: $color-success-bg;
+    color: $color-success-text;
+    border: 1px solid $color-success-border;
   }
 
   &.out-of-stock {
-    background: #fef2f2;
-    color: #dc2626;
-    border: 1px solid #fecaca;
+    background: $color-danger-bg;
+    color: $color-danger-text;
+    border: 1px solid $color-danger-border;
   }
 }
 
 .stock-count {
-  font-size: rem-calc(14);
-  color: #667085;
+  font-size: rem-calc($font-md);
+  color: $color-text-secondary;
 }
 
 /* ---------- Add to Cart button ---------- */
@@ -181,24 +181,24 @@
   width: 100%;
   max-width: rem-calc(360);
   padding: rem-calc(14) rem-calc(28);
-  background: #4a7cf6;
-  color: #fff;
-  font-size: rem-calc(15);
+  background: $color-primary;
+  color: $color-white;
+  font-size: rem-calc($font-base);
   font-weight: 600;
   font-family: $primary-font;
   border: none;
-  border-radius: rem-calc(10);
+  border-radius: rem-calc($radius-lg);
   cursor: pointer;
   transition: background-color 0.2s, box-shadow 0.2s;
   margin-bottom: rem-calc(32);
 
   &:hover {
-    background: #3b6cdb;
+    background: $color-primary-hover;
     box-shadow: 0 4px 14px rgba(74, 124, 246, 0.3);
   }
 
   &:active {
-    background: #2a5abf;
+    background: $color-primary-active;
   }
 
   svg {
@@ -216,10 +216,10 @@
 
 .skeleton-line,
 .skeleton-box {
-  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-  border-radius: rem-calc(4);
+  border-radius: rem-calc($radius-xs);
 }
 
 .skeleton-title {
@@ -245,20 +245,20 @@
 .skeleton-stock-badge {
   height: rem-calc(28);
   width: rem-calc(140);
-  border-radius: rem-calc(20);
+  border-radius: rem-calc($radius-pill);
 }
 
 .skeleton-qty-selector {
   height: rem-calc(40);
   width: rem-calc(130);
-  border-radius: rem-calc(8);
+  border-radius: rem-calc($radius-md);
 }
 
 .skeleton-add-button {
   height: rem-calc(48);
   width: rem-calc(360);
   max-width: 100%;
-  border-radius: rem-calc(10);
+  border-radius: rem-calc($radius-lg);
 }
 
 .skeleton-features-container {

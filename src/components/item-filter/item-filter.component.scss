@@ -35,21 +35,21 @@
   input {
     width: 100%;
     padding: rem-calc(10) rem-calc(14) rem-calc(10) rem-calc(40);
-    font-size: rem-calc(14);
+    font-size: rem-calc($font-md);
     font-family: $primary-font;
-    border: 1px solid #d0d5dd;
-    border-radius: rem-calc(8);
-    background: #fff;
+    border: 1px solid $color-border-default;
+    border-radius: rem-calc($radius-md);
+    background: $color-white;
     outline: none;
     transition: border-color 0.2s, box-shadow 0.2s;
     box-sizing: border-box;
 
     &::placeholder {
-      color: #98a2b3;
+      color: $color-text-placeholder;
     }
 
     &:focus {
-      border-color: #4a7cf6;
+      border-color: $color-primary;
       box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
     }
   }
@@ -62,9 +62,9 @@
   align-items: flex-end;
   gap: rem-calc(16);
   padding: rem-calc(16);
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: rem-calc(12);
+  background: $color-bg-alt;
+  border: 1px solid $color-border-light;
+  border-radius: rem-calc($radius-xl);
   margin-bottom: rem-calc(28);
 
   @include break-to-tablet {
@@ -89,28 +89,28 @@
 }
 
 .filter-label {
-  font-size: rem-calc(12);
+  font-size: rem-calc($font-xs);
   font-weight: 600;
-  color: #64748b;
+  color: $color-text-subtle;
   text-transform: uppercase;
   letter-spacing: 0.04em;
 }
 
 .filter-select {
   padding: rem-calc(8) rem-calc(12);
-  font-size: rem-calc(14);
+  font-size: rem-calc($font-md);
   font-family: $primary-font;
-  color: #1e293b;
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: rem-calc(8);
+  color: $color-text-primary;
+  background: $color-white;
+  border: 1px solid $color-border-medium;
+  border-radius: rem-calc($radius-md);
   outline: none;
   cursor: pointer;
   min-width: rem-calc(150);
   transition: border-color 0.2s, box-shadow 0.2s;
 
   &:focus {
-    border-color: #4a7cf6;
+    border-color: $color-primary;
     box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
   }
 }
@@ -124,18 +124,18 @@
 .price-input {
   width: rem-calc(85);
   padding: rem-calc(8) rem-calc(10);
-  font-size: rem-calc(14);
+  font-size: rem-calc($font-md);
   font-family: $primary-font;
-  color: #1e293b;
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: rem-calc(8);
+  color: $color-text-primary;
+  background: $color-white;
+  border: 1px solid $color-border-medium;
+  border-radius: rem-calc($radius-md);
   outline: none;
   box-sizing: border-box;
   transition: border-color 0.2s;
 
   &:focus {
-    border-color: #4a7cf6;
+    border-color: $color-primary;
   }
 
   /* Remove number input spinners */
@@ -148,7 +148,7 @@
 }
 
 .price-separator {
-  color: #94a3b8;
+  color: $color-text-disabled;
   font-weight: 500;
 }
 
@@ -156,16 +156,16 @@
   display: flex;
   align-items: center;
   gap: rem-calc(8);
-  font-size: rem-calc(14);
+  font-size: rem-calc($font-md);
   font-weight: 500;
-  color: #334155;
+  color: $color-text-slate;
   cursor: pointer;
   user-select: none;
 
   input[type="checkbox"] {
     width: rem-calc(18);
     height: rem-calc(18);
-    accent-color: #4a7cf6;
+    accent-color: $color-primary;
     cursor: pointer;
   }
 }
@@ -175,20 +175,20 @@
   align-items: center;
   gap: rem-calc(6);
   padding: rem-calc(8) rem-calc(14);
-  font-size: rem-calc(13);
+  font-size: rem-calc($font-sm);
   font-weight: 600;
   font-family: $primary-font;
-  color: #64748b;
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: rem-calc(8);
+  color: $color-text-subtle;
+  background: $color-white;
+  border: 1px solid $color-border-medium;
+  border-radius: rem-calc($radius-md);
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 
   &:hover {
-    color: #0f172a;
-    border-color: #94a3b8;
-    background: #f1f5f9;
+    color: $color-text-heading;
+    border-color: $color-text-disabled;
+    background: $color-bg-slate-light;
   }
 
   svg {
@@ -209,10 +209,10 @@
   width: 100%;
   max-width: rem-calc(300);
   margin-left: auto;
-  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
-  border-radius: rem-calc(8);
+  border-radius: rem-calc($radius-md);
 }
 
 .skeleton-filter-bar {
@@ -229,19 +229,19 @@
   .skeleton-label {
     height: rem-calc(12);
     width: rem-calc(60);
-    background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
-    border-radius: rem-calc(4);
+    border-radius: rem-calc($radius-xs);
   }
 
   .skeleton-input {
     height: rem-calc(36);
     width: rem-calc(150);
-    background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
     background-size: 200% 100%;
     animation: shimmer 1.5s infinite;
-    border-radius: rem-calc(8);
+    border-radius: rem-calc($radius-md);
 
     &.wide {
       width: rem-calc(180);

@@ -9,21 +9,21 @@
   align-items: center;
   gap: rem-calc(8);
   margin-bottom: rem-calc(24);
-  font-size: rem-calc(14);
-  color: #667085;
+  font-size: rem-calc($font-md);
+  color: $color-text-secondary;
 
   a {
-    color: #667085;
+    color: $color-text-secondary;
     text-decoration: none;
     transition: color 0.2s;
 
     &:hover {
-      color: #4a7cf6;
+      color: $color-primary;
     }
   }
 
   .separator {
-    color: #98a2b3;
-    font-size: rem-calc(14);
+    color: $color-text-placeholder;
+    font-size: rem-calc($font-md);
   }
 }

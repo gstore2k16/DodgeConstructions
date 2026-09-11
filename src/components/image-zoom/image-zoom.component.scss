@@ -16,7 +16,7 @@
   overflow: hidden;
   cursor: zoom-in;
   user-select: none;
-  border-radius: rem-calc(12);
+  border-radius: rem-calc($radius-xl);
 }
 
 .zoom-image {
@@ -41,13 +41,13 @@
   align-items: center;
   gap: rem-calc(6);
   padding: rem-calc(6) rem-calc(14);
-  font-size: rem-calc(12);
+  font-size: rem-calc($font-xs);
   font-weight: 500;
-  color: #334155;
+  color: $color-text-slate;
   background: rgba(255, 255, 255, 0.9);
   backdrop-filter: blur(4px);
   border: 1px solid rgba(226, 232, 240, 0.8);
-  border-radius: rem-calc(20);
+  border-radius: rem-calc($radius-pill);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
   pointer-events: none;
   transition: opacity 0.2s;
@@ -57,7 +57,7 @@
   }
 
   svg {
-    color: #4a7cf6;
+    color: $color-primary;
   }
 }
 
@@ -122,13 +122,13 @@ dialog.zoom-modal {
   width: rem-calc(32);
   height: rem-calc(32);
   padding: 0;
-  font-size: rem-calc(13);
+  font-size: rem-calc($font-sm);
   font-weight: 600;
   font-family: $primary-font;
-  color: #fff;
+  color: $color-white;
   background: rgba(255, 255, 255, 0.15);
   border: none;
-  border-radius: 50%;
+  border-radius: $radius-full;
   cursor: pointer;
   transition: background-color 0.15s, transform 0.1s;
 
@@ -151,14 +151,14 @@ dialog.zoom-modal {
   }
 
   svg {
-    stroke: #fff;
+    stroke: $color-white;
   }
 }
 
 .zoom-level-text {
-  font-size: rem-calc(13);
+  font-size: rem-calc($font-sm);
   font-weight: 600;
-  color: #f1f5f9;
+  color: $color-bg-slate-light;
   min-width: rem-calc(42);
   text-align: center;
   user-select: none;
@@ -179,6 +179,6 @@ dialog.zoom-modal {
   max-height: 80vh;
   object-fit: contain;
   transition: transform 0.2s ease-out;
-  border-radius: rem-calc(8);
+  border-radius: rem-calc($radius-md);
   user-select: none;
 }

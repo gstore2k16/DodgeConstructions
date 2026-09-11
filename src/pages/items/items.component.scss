@@ -24,8 +24,8 @@
 }
 
 .items-page {
-  background: #fff;
-  border-radius: rem-calc(16);
+  background: $color-white;
+  border-radius: rem-calc($radius-2xl);
   box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
   padding: rem-calc(24);
   margin: 0 auto;
@@ -46,13 +46,13 @@
   }
 
   h2 {
-    font-size: rem-calc(24);
+    font-size: rem-calc($font-3xl);
     font-weight: 700;
-    color: #1a1a1a;
+    color: $color-text-dark;
     margin: 0 0 rem-calc(16) 0;
 
     @include break-to-tablet {
-      font-size: rem-calc(28);
+      font-size: rem-calc($font-4xl);
     }
 
     @include break-to-desktop {
@@ -66,20 +66,20 @@
   align-items: center;
   gap: rem-calc(6);
   padding: rem-calc(8) rem-calc(14);
-  font-size: rem-calc(13);
+  font-size: rem-calc($font-sm);
   font-weight: 600;
   font-family: $primary-font;
-  color: #64748b;
-  background: #fff;
-  border: 1px solid #cbd5e1;
-  border-radius: rem-calc(8);
+  color: $color-text-subtle;
+  background: $color-white;
+  border: 1px solid $color-border-medium;
+  border-radius: rem-calc($radius-md);
   cursor: pointer;
   transition: color 0.2s, border-color 0.2s, background-color 0.2s;
 
   &:hover {
-    color: #0f172a;
-    border-color: #94a3b8;
-    background: #f1f5f9;
+    color: $color-text-heading;
+    border-color: $color-text-disabled;
+    background: $color-bg-slate-light;
   }
 }
 
@@ -96,10 +96,8 @@
   gap: rem-calc(16);
 
   p {
-    font-size: rem-calc(15);
-    color: #98a2b3;
+    font-size: rem-calc($font-base);
+    color: $color-text-placeholder;
     margin: 0;
   }
 }
-
-
