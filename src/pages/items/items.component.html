@@ -62,17 +62,27 @@
                                     [alt]="item.name"
                                     loading="lazy"
                                 />
-                                <span class="stock-badge"
-                                      [class.in-stock]="item.inStock"
-                                      [class.out-of-stock]="!item.inStock">
-                                    @if (item.inStock) {
+                                <!-- In Stock badge: shown on the image -->
+                                @if (item.inStock) {
+                                    <span class="stock-badge in-stock">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                              stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
                                             <polyline points="20 6 9 17 4 12"/>
                                         </svg>
                                         In Stock
-                                    } @else {
+                                    </span>
+                                }
+                            </div>
+
+                            <div class="item-info">
+                                <h3 class="item-name">{{ item.name }}</h3>
+                                <p class="item-category">{{ item.category }}</p>
+                                <p class="item-price">{{ item.price | currency:'USD':'symbol':'1.2-2' }}</p>
+
+                                <!-- Out of Stock: shown in info section -->
+                                @if (!item.inStock) {
+                                    <span class="stock-status out-of-stock">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
                                              stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
@@ -80,14 +90,8 @@
                                             <line x1="6" y1="6" x2="18" y2="18"/>
                                         </svg>
                                         Out of Stock
-                                    }
-                                </span>
-                            </div>
-
-                            <div class="item-info">
-                                <h3 class="item-name">{{ item.name }}</h3>
-                                <p class="item-category">{{ item.category }}</p>
-                                <p class="item-price">{{ item.price | currency:'USD':'symbol':'1.2-2' }}</p>
+                                    </span>
+                                }
 
                                 @if (item.inStock) {
                                     <p class="item-stock-count">

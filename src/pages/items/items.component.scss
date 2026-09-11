@@ -4,18 +4,54 @@
    Items Page – Product Listing
    ============================================ */
 
+:host {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include break-to-tablet {
+    position: relative;
+    left: calc(50vw - 2rem);
+    transform: translateX(-50%);
+  }
+
+  @include break-to-desktop {
+    max-width: rem-calc(1200);
+    position: relative;
+    left: calc(50vw - 2rem);
+    transform: translateX(-50%);
+  }
+}
+
 .items-page {
-  max-width: 100%;
+  background: #fff;
+  border-radius: rem-calc(16);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  padding: rem-calc(24);
   margin: 0 auto;
   font-family: $primary-font;
+  box-sizing: border-box;
+  width: 100%;
+
+  @include break-to-tablet {
+    padding: rem-calc(32) rem-calc(40);
+  }
+
+  @include break-to-desktop {
+    padding: rem-calc(40) rem-calc(48);
+  }
+
+  @include break-to-wider-desktop {
+    padding: rem-calc(48) rem-calc(56);
+  }
 }
 
 /* ---------- Header row ---------- */
 .items-header {
   display: flex;
   flex-direction: column;
-  gap: rem-calc(12);
-  margin-bottom: rem-calc(16);
+  gap: rem-calc(16);
+  margin-bottom: rem-calc(12);
 
   @include break-to-tablet {
     flex-direction: row;
@@ -24,10 +60,18 @@
   }
 
   h2 {
-    font-size: rem-calc(28);
+    font-size: rem-calc(24);
     font-weight: 700;
     color: #1a1a1a;
     margin: 0;
+
+    @include break-to-tablet {
+      font-size: rem-calc(28);
+    }
+
+    @include break-to-desktop {
+      font-size: rem-calc(32);
+    }
   }
 }
 
@@ -37,6 +81,10 @@
   width: 100%;
 
   @include break-to-tablet {
+    width: rem-calc(240);
+  }
+
+  @include break-to-desktop {
     width: rem-calc(280);
   }
 
@@ -104,10 +152,15 @@
 
   @include break-to-tablet {
     grid-template-columns: repeat(2, 1fr);
+    gap: rem-calc(24);
+  }
+
+  @include break-to-desktop {
+    gap: rem-calc(28);
   }
 
   @include break-to-wider-desktop {
-    grid-template-columns: repeat(2, 1fr);
+    gap: rem-calc(32);
   }
 }
 
@@ -137,14 +190,23 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;
-  padding: rem-calc(20);
+  background: #f4f5f7;
+  padding: rem-calc(16);
   min-height: rem-calc(180);
 
   @include break-to-tablet {
-    width: rem-calc(220);
-    min-width: rem-calc(220);
+    width: 45%;
+    min-width: 45%;
     min-height: rem-calc(200);
+    padding: rem-calc(20);
+  }
+
+  @include break-to-desktop {
+    min-height: rem-calc(220);
+  }
+
+  @include break-to-wider-desktop {
+    min-height: rem-calc(240);
   }
 
   img {
@@ -152,6 +214,14 @@
     max-height: rem-calc(160);
     object-fit: contain;
     transition: transform 0.3s ease;
+
+    @include break-to-desktop {
+      max-height: rem-calc(180);
+    }
+
+    @include break-to-wider-desktop {
+      max-height: rem-calc(200);
+    }
   }
 
   &:hover img {
@@ -176,9 +246,17 @@
     background: #e6f9ee;
     color: #15803d;
   }
+}
+
+.stock-status {
+  display: inline-flex;
+  align-items: center;
+  gap: rem-calc(4);
+  font-size: rem-calc(13);
+  font-weight: 600;
+  margin-bottom: rem-calc(12);
 
   &.out-of-stock {
-    background: #fff;
     color: #dc2626;
   }
 }
@@ -187,34 +265,70 @@
 .item-info {
   display: flex;
   flex-direction: column;
-  padding: rem-calc(20);
+  padding: rem-calc(16);
   flex: 1;
+
+  @include break-to-tablet {
+    padding: rem-calc(20);
+  }
+
+  @include break-to-desktop {
+    padding: rem-calc(24);
+  }
+
+  @include break-to-wider-desktop {
+    padding: rem-calc(28);
+  }
 }
 
 .item-name {
-  font-size: rem-calc(18);
+  font-size: rem-calc(16);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 rem-calc(4) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(18);
+  }
+
+  @include break-to-desktop {
+    font-size: rem-calc(20);
+  }
 }
 
 .item-category {
-  font-size: rem-calc(14);
+  font-size: rem-calc(13);
   color: #667085;
   margin: 0 0 rem-calc(8) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(14);
+  }
 }
 
 .item-price {
-  font-size: rem-calc(22);
+  font-size: rem-calc(20);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 rem-calc(6) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(22);
+  }
+
+  @include break-to-desktop {
+    font-size: rem-calc(24);
+  }
 }
 
 .item-stock-count {
-  font-size: rem-calc(13);
+  font-size: rem-calc(12);
   color: #98a2b3;
   margin: 0 0 rem-calc(14) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(13);
+  }
 }
 
 /* ---------- View Details button ---------- */
@@ -234,6 +348,10 @@
   transition: background-color 0.2s, box-shadow 0.2s;
   margin-top: auto;
   align-self: flex-start;
+
+  @include break-to-desktop {
+    padding: rem-calc(12) rem-calc(28);
+  }
 
   &:hover {
     background: #2b4acb;
@@ -322,9 +440,13 @@
   min-height: rem-calc(180);
 
   @include break-to-tablet {
-    width: rem-calc(220);
-    min-width: rem-calc(220);
+    width: 45%;
+    min-width: 45%;
     min-height: rem-calc(200);
+  }
+
+  @include break-to-desktop {
+    min-height: rem-calc(220);
   }
 }
 

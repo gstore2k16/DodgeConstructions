@@ -4,6 +4,48 @@
    Item Detail Page
    ============================================ */
 
+:host {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include break-to-tablet {
+    position: relative;
+    left: calc(50vw - 2rem);
+    transform: translateX(-50%);
+  }
+
+  @include break-to-desktop {
+    max-width: rem-calc(1200);
+    position: relative;
+    left: calc(50vw - 2rem);
+    transform: translateX(-50%);
+  }
+}
+
+.detail-page {
+  background: #fff;
+  border-radius: rem-calc(16);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  padding: rem-calc(24);
+  margin: 0 auto;
+  font-family: $primary-font;
+  box-sizing: border-box;
+  width: 100%;
+
+  @include break-to-tablet {
+    padding: rem-calc(32) rem-calc(40);
+  }
+
+  @include break-to-desktop {
+    padding: rem-calc(40) rem-calc(48);
+  }
+
+  @include break-to-wider-desktop {
+    padding: rem-calc(48) rem-calc(56);
+  }
+}
+
 /* ---------- Breadcrumb ---------- */
 .breadcrumb {
   display: flex;
@@ -19,13 +61,13 @@
     transition: color 0.2s;
 
     &:hover {
-      color: #3b5bdb;
+      color: #4a7cf6;
     }
   }
 
   .separator {
     color: #98a2b3;
-    font-size: rem-calc(16);
+    font-size: rem-calc(14);
   }
 }
 
@@ -33,12 +75,20 @@
 .detail-layout {
   display: flex;
   flex-direction: column;
-  gap: rem-calc(32);
+  gap: rem-calc(24);
 
   @include break-to-tablet {
     flex-direction: row;
     align-items: flex-start;
+    gap: rem-calc(36);
+  }
+
+  @include break-to-desktop {
     gap: rem-calc(48);
+  }
+
+  @include break-to-wider-desktop {
+    gap: rem-calc(56);
   }
 }
 
@@ -48,30 +98,43 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: #f8f9fa;
-  border-radius: rem-calc(12);
+  background: #f4f5f7;
+  border-radius: rem-calc(16);
   overflow: hidden;
   width: 100%;
   min-height: rem-calc(280);
+  padding: rem-calc(24);
+  box-sizing: border-box;
 
   @include break-to-tablet {
-    width: rem-calc(400);
-    min-width: rem-calc(400);
-    min-height: rem-calc(400);
+    width: 48%;
+    min-width: rem-calc(340);
+    min-height: rem-calc(380);
+    padding: rem-calc(32);
   }
 
   @include break-to-desktop {
-    width: rem-calc(460);
-    min-width: rem-calc(460);
-    min-height: rem-calc(460);
+    width: 45%;
+    min-width: rem-calc(420);
+    min-height: rem-calc(440);
+    padding: rem-calc(40);
+  }
+
+  @include break-to-wider-desktop {
+    min-width: rem-calc(480);
+    min-height: rem-calc(480);
+    padding: rem-calc(48);
   }
 
   img {
-    width: 100%;
-    height: 100%;
+    max-width: 100%;
+    max-height: 100%;
     object-fit: contain;
-    padding: rem-calc(24);
-    box-sizing: border-box;
+    transition: transform 0.3s ease;
+  }
+
+  &:hover img {
+    transform: scale(1.03);
   }
 
   &.skeleton-image {
@@ -89,34 +152,58 @@
 }
 
 .detail-name {
-  font-size: rem-calc(28);
+  font-size: rem-calc(24);
   font-weight: 700;
   color: #1a1a1a;
-  margin: 0 0 rem-calc(4) 0;
-  line-height: 1.2;
+  margin: 0 0 rem-calc(8) 0;
+  line-height: 1.25;
 
   @include break-to-tablet {
+    font-size: rem-calc(28);
+  }
+
+  @include break-to-desktop {
     font-size: rem-calc(32);
+  }
+
+  @include break-to-wider-desktop {
+    font-size: rem-calc(36);
   }
 }
 
 .detail-price {
-  font-size: rem-calc(26);
+  font-size: rem-calc(22);
   font-weight: 700;
   color: #1a1a1a;
   margin: 0 0 rem-calc(16) 0;
 
   @include break-to-tablet {
+    font-size: rem-calc(26);
+  }
+
+  @include break-to-desktop {
     font-size: rem-calc(30);
+  }
+
+  @include break-to-wider-desktop {
+    font-size: rem-calc(32);
   }
 }
 
 .detail-description {
-  font-size: rem-calc(15);
-  color: #555;
+  font-size: rem-calc(14);
+  color: #666666;
   line-height: 1.6;
   margin: 0 0 rem-calc(20) 0;
-  max-width: rem-calc(480);
+  max-width: rem-calc(520);
+
+  @include break-to-tablet {
+    font-size: rem-calc(15);
+  }
+
+  @include break-to-desktop {
+    font-size: rem-calc(16);
+  }
 }
 
 /* ---------- Stock row ---------- */
@@ -131,15 +218,15 @@
   display: inline-flex;
   align-items: center;
   gap: rem-calc(6);
-  padding: rem-calc(5) rem-calc(14);
+  padding: rem-calc(4) rem-calc(12);
   font-size: rem-calc(13);
   font-weight: 600;
   border-radius: rem-calc(20);
 
   &.in-stock {
     background: #e6f9ee;
-    color: #15803d;
-    border: 1px solid #bbf0d0;
+    color: #16a34a;
+    border: 1px solid #bbf7d0;
   }
 
   &.out-of-stock {
@@ -161,19 +248,20 @@
   border: 1px solid #d0d5dd;
   border-radius: rem-calc(8);
   overflow: hidden;
-  margin-bottom: rem-calc(20);
+  margin-bottom: rem-calc(24);
+  align-self: flex-start;
 }
 
 .qty-btn {
   display: flex;
   align-items: center;
   justify-content: center;
-  width: rem-calc(44);
-  height: rem-calc(44);
+  width: rem-calc(40);
+  height: rem-calc(40);
   background: #fff;
   border: none;
-  font-size: rem-calc(20);
-  color: #333;
+  font-size: rem-calc(18);
+  color: #444;
   cursor: pointer;
   transition: background-color 0.15s;
   font-family: $primary-font;
@@ -193,8 +281,8 @@
   align-items: center;
   justify-content: center;
   min-width: rem-calc(48);
-  height: rem-calc(44);
-  font-size: rem-calc(16);
+  height: rem-calc(40);
+  font-size: rem-calc(15);
   font-weight: 600;
   color: #1a1a1a;
   border-left: 1px solid #d0d5dd;
@@ -209,11 +297,11 @@
   justify-content: center;
   gap: rem-calc(10);
   width: 100%;
-  max-width: rem-calc(380);
-  padding: rem-calc(14) rem-calc(32);
-  background: #5b7ee5;
+  max-width: rem-calc(360);
+  padding: rem-calc(14) rem-calc(28);
+  background: #4a7cf6;
   color: #fff;
-  font-size: rem-calc(16);
+  font-size: rem-calc(15);
   font-weight: 600;
   font-family: $primary-font;
   border: none;
@@ -223,12 +311,12 @@
   margin-bottom: rem-calc(32);
 
   &:hover {
-    background: #4a6bd4;
-    box-shadow: 0 4px 16px rgba(91, 126, 229, 0.3);
+    background: #3b6cdb;
+    box-shadow: 0 4px 14px rgba(74, 124, 246, 0.3);
   }
 
   &:active {
-    background: #3b5bdb;
+    background: #2a5abf;
   }
 
   svg {
@@ -238,6 +326,8 @@
 
 /* ---------- Product Details / Features ---------- */
 .detail-features {
+  margin-top: rem-calc(8);
+
   h3 {
     font-size: rem-calc(18);
     font-weight: 700;
@@ -246,15 +336,29 @@
   }
 
   ul {
-    list-style: disc;
-    padding-left: rem-calc(20);
+    list-style: none;
+    padding: 0;
     margin: 0;
   }
 
   li {
-    font-size: rem-calc(15);
-    color: #444;
+    font-size: rem-calc(14);
+    color: #555;
     line-height: 1.8;
+    position: relative;
+    padding-left: rem-calc(18);
+
+    @include break-to-tablet {
+      font-size: rem-calc(15);
+    }
+
+    &::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #667085;
+      font-size: rem-calc(16);
+    }
   }
 }
 
@@ -280,7 +384,7 @@
   width: rem-calc(36);
   height: rem-calc(36);
   border: 3px solid #e5e7eb;
-  border-top-color: #3b5bdb;
+  border-top-color: #4a7cf6;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -301,7 +405,7 @@
 
   .back-link {
     font-size: rem-calc(14);
-    color: #3b5bdb;
+    color: #4a7cf6;
     text-decoration: none;
 
     &:hover {
