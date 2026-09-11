@@ -1,7 +1,9 @@
-import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ItemStateService } from '../../services/item-state.service';
 import { SortOption } from '../../components/item-filter/item-filter.component';
 import { ItemGridComponent } from '../../components/item-grid/item-grid.component';
@@ -29,9 +31,19 @@ import { ProductCompareComponent } from '../../components/product-compare/produc
 export class ItemsComponent {
     private readonly stateService = inject(ItemStateService);
     private readonly titleService = inject(Title);
+    private readonly route = inject(ActivatedRoute);
+    private readonly destroyRef = inject(DestroyRef);
 
     constructor() {
         this.titleService.setTitle('Products - DodgeConstructions');
+        this.route.queryParamMap.pipe(
+            takeUntilDestroyed(this.destroyRef)
+        ).subscribe(params => {
+            const cat = params.get('category');
+            if (cat) {
+                this.stateService.setCategoryFilter(cat);
+            }
+        });
     }
 
     // Readonly signals exposed for template rendering

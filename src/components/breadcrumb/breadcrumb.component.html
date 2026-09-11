@@ -1,7 +1,9 @@
 <nav class="breadcrumb" aria-label="Breadcrumb navigation">
     <a routerLink="/" class="breadcrumb__link">Home</a>
     <span class="breadcrumb__separator" aria-hidden="true">›</span>
+    <a routerLink="/items" (click)="onItemsClick()" class="breadcrumb__link">Items</a>
     @if (category()) {
-        <a routerLink="/items" class="breadcrumb__link" aria-current="page">{{ category() }}</a>
+        <span class="breadcrumb__separator" aria-hidden="true">›</span>
+        <a routerLink="/items" [queryParams]="{ category: category() }" (click)="onCategoryClick(category())" class="breadcrumb__link" aria-current="page">{{ category() }}</a>
     }
 </nav>
