@@ -181,7 +181,7 @@
 .btn-details {
   display: inline-block;
   padding: rem-calc(10) rem-calc(24);
-  background: #3b5bdb;
+  background: #4a7cf6;
   color: #fff;
   font-size: rem-calc(14);
   font-weight: 600;
@@ -200,12 +200,12 @@
   }
 
   &:hover {
-    background: #2b4acb;
+    background: #3b6cdb;
     box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
     color: #fff;
   }
 
   &:active {
-    background: #1e3a8a;
+    background: #2a5abf;
   }
 }
