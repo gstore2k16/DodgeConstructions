@@ -1,4 +1,4 @@
-@import "mixins";
+@use "mixins" as *;
 
 :host {
   display: block;
@@ -170,16 +170,33 @@
   &__stock-count {
     font-size: rem-calc($font-xs);
     color: $color-text-placeholder;
-    margin: 0 0 rem-calc(14) 0;
+    margin: 0 0 rem-calc(6) 0;
 
     @include break-to-tablet {
       font-size: rem-calc($font-sm);
     }
   }
 
+  &__description {
+    font-size: rem-calc($font-sm);
+    color: $color-text-secondary;
+    line-height: 1.4;
+    margin: 0 0 rem-calc(14) 0;
+  }
+
+  &__actions {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: rem-calc(10);
+    margin-top: auto;
+    width: 100%;
+  }
+
   &__btn-details {
-    display: inline-block;
-    padding: rem-calc(10) rem-calc(24);
+    display: block;
+    width: 100%;
+    padding: rem-calc(10) rem-calc(20);
     background: $color-primary;
     color: $color-white;
     font-size: rem-calc($font-md);
@@ -190,12 +207,11 @@
     text-align: center;
     text-decoration: none;
     cursor: pointer;
+    box-sizing: border-box;
     transition: background-color 0.2s, box-shadow 0.2s;
-    margin-top: auto;
-    align-self: flex-start;
 
     @include break-to-desktop {
-      padding: rem-calc(12) rem-calc(28);
+      padding: rem-calc(10) rem-calc(24);
     }
 
     &:hover {
@@ -207,5 +223,38 @@
     &:active {
       background: $color-primary-active;
     }
+  }
+
+  &__compare-label {
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(6);
+    font-size: rem-calc($font-sm);
+    font-weight: 500;
+    color: $color-text-slate;
+    cursor: pointer;
+    user-select: none;
+    padding-top: rem-calc(2);
+
+    &:hover {
+      color: $color-primary;
+    }
+  }
+
+  &__compare-checkbox {
+    width: rem-calc(16);
+    height: rem-calc(16);
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  &__limit-notice {
+    font-size: rem-calc($font-xs);
+    font-weight: 600;
+    color: $color-danger-text;
+    background: $color-danger-bg;
+    padding: rem-calc(4) rem-calc(8);
+    border-radius: rem-calc($radius-xs);
+    margin: rem-calc(8) 0 0 0;
   }
 }

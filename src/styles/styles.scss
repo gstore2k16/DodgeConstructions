@@ -1,6 +1,7 @@
-@import "normalize.scss/normalize";
-@import 'fonts';
-@import "mixins";
+@use "normalize.scss/normalize";
+@use 'fonts';
+@use "mixins" as *;
+
 
 /* Global CSS reset / base styles */
 body {

@@ -1,4 +1,4 @@
-@import "mixins";
+@use "mixins" as *;
 
 .home {
   margin: 0 auto;

@@ -1,0 +1,322 @@
+@use "mixins" as *;
+
+:host {
+  display: block;
+}
+
+/* ============================================
+   Compare Bar (Below Filter Component)
+   ============================================ */
+.compare-bar {
+  display: block;
+  width: 100%;
+  margin-top: rem-calc(16);
+  margin-bottom: rem-calc(24);
+  background: $color-text-heading;
+  color: $color-white;
+  padding: rem-calc(14) rem-calc(22);
+  border-radius: rem-calc($radius-xl);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  font-family: $primary-font;
+  box-sizing: border-box;
+  animation: slideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: rem-calc(12);
+  }
+
+  &__info {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(16);
+    flex-wrap: wrap;
+  }
+
+  &__title {
+    font-size: rem-calc($font-sm);
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #94a3b8;
+    text-transform: uppercase;
+  }
+
+  &__items {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+    flex-wrap: wrap;
+  }
+
+  &__chip {
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(8);
+    background: rgba(255, 255, 255, 0.12);
+    padding: rem-calc(6) rem-calc(12);
+    border-radius: rem-calc($radius-pill);
+    font-size: rem-calc($font-sm);
+    font-weight: 500;
+  }
+
+  &__chip-name {
+    max-width: rem-calc(160);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__chip-remove {
+    background: transparent;
+    border: none;
+    color: #cbd5e1;
+    font-size: rem-calc(16);
+    line-height: 1;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-white;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+  }
+
+  &__btn {
+    padding: rem-calc(8) rem-calc(16);
+    font-size: rem-calc($font-sm);
+    font-weight: 600;
+    font-family: $primary-font;
+    border-radius: rem-calc($radius-md);
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s, opacity 0.2s;
+
+    &--primary {
+      background: $color-primary;
+      color: $color-white;
+
+      &:hover:not([disabled]) {
+        background: $color-primary-hover;
+      }
+
+      &[disabled] {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+    }
+
+    &--secondary {
+      background: transparent;
+      color: #cbd5e1;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.08);
+        color: $color-white;
+      }
+    }
+  }
+}
+
+/* ============================================
+   Comparison Modal Dialog
+   ============================================ */
+.compare-modal {
+  padding: 0;
+  border: none;
+  background: transparent;
+  max-width: rem-calc(960);
+  width: 90vw;
+  box-sizing: border-box;
+
+  &::backdrop {
+    background: rgba(15, 23, 42, 0.65);
+    backdrop-filter: blur(4px);
+  }
+
+  &__wrapper {
+    background: $color-white;
+    border-radius: rem-calc($radius-2xl);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    max-height: 90vh;
+    font-family: $primary-font;
+  }
+
+  &__header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: rem-calc(20) rem-calc(28);
+    background: $color-bg-alt;
+    border-bottom: 1px solid $color-border-light;
+  }
+
+  &__title {
+    font-size: rem-calc($font-xl);
+    font-weight: 700;
+    color: $color-text-heading;
+    margin: 0;
+  }
+
+  &__close-btn {
+    background: transparent;
+    border: none;
+    font-size: rem-calc(28);
+    line-height: 1;
+    color: $color-text-subtle;
+    cursor: pointer;
+    transition: color 0.2s;
+
+    &:hover {
+      color: $color-text-heading;
+    }
+  }
+
+  &__body {
+    padding: rem-calc(24) rem-calc(28);
+    overflow-y: auto;
+  }
+
+  &__summary-banner {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(10);
+    padding: rem-calc(12) rem-calc(16);
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: rem-calc($radius-md);
+    color: #1e40af;
+    font-size: rem-calc($font-sm);
+    margin-bottom: rem-calc(20);
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__table-wrapper {
+    overflow-x: auto;
+  }
+}
+
+/* ============================================
+   Comparison Table Matrix
+   ============================================ */
+.compare-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+
+  th, td {
+    padding: rem-calc(14) rem-calc(16);
+    border-bottom: 1px solid $color-border-light;
+    vertical-align: top;
+  }
+
+  &__feature-col {
+    width: 20%;
+    font-size: rem-calc($font-sm);
+    font-weight: 700;
+    color: $color-text-subtle;
+    text-transform: uppercase;
+    background: $color-bg-alt;
+  }
+
+  &__product-col {
+    width: 40%;
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: rem-calc(8);
+  }
+
+  &__img {
+    height: rem-calc(100);
+    object-fit: contain;
+  }
+
+  &__item-title {
+    font-size: rem-calc($font-base);
+    font-weight: 700;
+    color: $color-text-heading;
+    margin: 0;
+  }
+
+  &__link {
+    font-size: rem-calc($font-xs);
+    font-weight: 600;
+    color: $color-primary;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  &__label {
+    font-weight: 600;
+    color: $color-text-subtle;
+    font-size: rem-calc($font-sm);
+    background: $color-bg-alt;
+  }
+
+  &__highlight-val {
+    font-size: rem-calc($font-lg);
+    font-weight: 700;
+    color: $color-text-heading;
+  }
+
+  &__stock--in {
+    color: $color-success-text;
+    font-weight: 600;
+  }
+
+  &__stock--out {
+    color: $color-danger-text;
+    font-weight: 600;
+  }
+
+  &__desc {
+    font-size: rem-calc($font-sm);
+    color: $color-text-medium;
+    line-height: 1.5;
+  }
+
+  &__feature-list {
+    margin: 0;
+    padding-left: rem-calc(16);
+    font-size: rem-calc($font-sm);
+    color: $color-text-body;
+
+    li {
+      margin-bottom: rem-calc(4);
+    }
+  }
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

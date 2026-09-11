@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [CommonModule],
     templateUrl: './item-features.component.html',
-    styleUrls: ['./item-features.component.scss']
+    styleUrls: ['./item-features.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFeaturesComponent {
     /** Array of feature bullet points to render under Product Details */

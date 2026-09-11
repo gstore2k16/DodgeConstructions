@@ -1,8 +1,7 @@
-import { Component, OnInit, signal, inject } from '@angular/core';
+import { Component, input, effect, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { ItemService } from '../../services/item.service';
-import { Item } from '../../models/item.model';
+import { Title } from '@angular/platform-browser';
+import { ItemStateService } from '../../services/item-state.service';
 import { ItemDetailViewComponent } from '../../components/item-detail-view/item-detail-view.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { ErrorComponent } from '../../components/error/error.component';
@@ -12,53 +11,42 @@ import { ErrorComponent } from '../../components/error/error.component';
     standalone: true,
     imports: [CommonModule, ItemDetailViewComponent, LoadingComponent, ErrorComponent],
     templateUrl: './item-detail.component.html',
-    styleUrls: ['./item-detail.component.scss']
+    styleUrls: ['./item-detail.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ItemDetailComponent implements OnInit {
-    private readonly route = inject(ActivatedRoute);
-    private readonly itemService = inject(ItemService);
+export class ItemDetailComponent {
+    private readonly stateService = inject(ItemStateService);
+    private readonly titleService = inject(Title);
 
-    /** The loaded item */
-    public readonly item = signal<Item | undefined>(undefined);
+    /** Route param :id bound reactively as a Signal input */
+    public readonly id = input<string>();
 
-    /** Whether data is currently loading */
-    public readonly loading = signal<boolean>(true);
+    // Readonly signals exposed to template
+    public readonly item = this.stateService.selectedItem;
+    public readonly loading = this.stateService.loading;
+    public readonly error = this.stateService.error;
 
-    /** Error message if fetch fails */
-    public readonly error = signal<string | null>(null);
+    constructor() {
+        // Declarative reactive signal effect
+        effect(() => {
+            const rawId = this.id();
+            if (rawId) {
+                const numericId = Number(rawId);
+                this.stateService.selectItemById(isNaN(numericId) ? null : numericId);
+            } else {
+                this.stateService.selectItemById(null);
+            }
+        });
 
-    ngOnInit(): void {
-        const idParam: string | null = this.route.snapshot.paramMap.get('id');
-        if (idParam) {
-            const id: number = Number(idParam);
-            this.loadItem(id);
-        } else {
-            this.error.set('No item ID provided.');
-            this.loading.set(false);
-        }
-    }
-
-    /**
-     * Fetches the item by ID from the service.
-     */
-    private loadItem(id: number): void {
-        this.loading.set(true);
-        this.error.set(null);
-
-        this.itemService.getItemById(id).subscribe({
-            next: (data: Item | undefined) => {
-                if (data) {
-                    this.item.set(data);
-                } else {
-                    this.error.set('Item not found.');
-                }
-                this.loading.set(false);
-            },
-            error: (err: Error) => {
-                this.error.set('Failed to load item details. Please try again.');
-                this.loading.set(false);
-                console.error('ItemService error:', err);
+        // Dynamic page title update for SEO & Product UX
+        effect(() => {
+            const currentItem = this.item();
+            if (currentItem) {
+                this.titleService.setTitle(`${currentItem.name} - DodgeConstructions`);
+            } else if (this.error()) {
+                this.titleService.setTitle('Product Not Found - DodgeConstructions');
             }
         });
     }
 }
+

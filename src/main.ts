@@ -1,5 +1,5 @@
 import { bootstrapApplication } from '@angular/platform-browser';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import { ErrorHandler } from '@angular/core';
 
@@ -10,7 +10,7 @@ import { GlobalErrorHandlerService } from './services/global-error-handler.servi
 
 bootstrapApplication(AppComponent, {
     providers: [
-        provideRouter(routes),
+        provideRouter(routes, withComponentInputBinding()),
         provideHttpClient(withInterceptors([apiInterceptor])),
         { provide: ErrorHandler, useClass: GlobalErrorHandlerService }
     ]

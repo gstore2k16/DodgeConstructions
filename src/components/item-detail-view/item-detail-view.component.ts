@@ -1,4 +1,4 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, input, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item } from '../../models/item.model';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
@@ -19,7 +19,8 @@ import { ErrorComponent } from '../error/error.component';
         ErrorComponent
     ],
     templateUrl: './item-detail-view.component.html',
-    styleUrls: ['./item-detail-view.component.scss']
+    styleUrls: ['./item-detail-view.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDetailViewComponent {
     /** The item object to render */

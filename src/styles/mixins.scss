@@ -1,6 +1,8 @@
 @use 'sass:math';
+@forward 'variables';
+@use 'variables' as *;
 
-@import 'variables';
+
 
 @function rem-calc($values, $base-value: $rem-base) {
   $max: length($values);

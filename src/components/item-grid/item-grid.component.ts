@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Item } from '../../models/item.model';
 import { ItemCardComponent } from '../item-card/item-card.component';
@@ -9,7 +9,8 @@ import { ErrorComponent } from '../error/error.component';
     standalone: true,
     imports: [CommonModule, ItemCardComponent, ErrorComponent],
     templateUrl: './item-grid.component.html',
-    styleUrls: ['./item-grid.component.scss']
+    styleUrls: ['./item-grid.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemGridComponent {
     /** The list of product items to display in the grid */

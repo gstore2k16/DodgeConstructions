@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -7,7 +7,8 @@ import { RouterLink } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterLink],
     templateUrl: './error.component.html',
-    styleUrls: ['./error.component.scss']
+    styleUrls: ['./error.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ErrorComponent {
     /** Error message to display */
