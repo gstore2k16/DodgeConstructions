@@ -1,5 +1,16 @@
-<a routerLink="/items">← Back to items</a>
+<!-- Loading state -->
+<section class="detail-page" aria-label="Product details page">
+    @if (loading()) {
+        <app-loading message="Loading item details…"></app-loading>
+    }
 
-<!-- IMPLEMENT ITEM DETAIL -->
+    <!-- Error state -->
+    @if (error()) {
+        <app-error [message]="error()!" [showBackLink]="true"></app-error>
+    }
 
-<p>Loading item details…</p>
+    <!-- Item detail view component -->
+    @if (!loading() && !error() && item()) {
+        <app-item-detail-view [item]="item()!"></app-item-detail-view>
+    }
+</section>

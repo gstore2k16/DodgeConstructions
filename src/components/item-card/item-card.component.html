@@ -1,0 +1,64 @@
+<article class="item-card" [attr.aria-label]="item().name">
+    <div class="item-card__image-wrapper">
+        <img
+            class="item-card__image"
+            [src]="item().image"
+            [alt]="item().name"
+            loading="lazy"
+        />
+        <!-- In Stock badge: shown on the image -->
+        @if (item().inStock) {
+            <span class="item-card__stock-badge item-card__stock-badge--in-stock">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <polyline points="20 6 9 17 4 12"/>
+                </svg>
+                In Stock
+            </span>
+        }
+        @else{
+            <span class="item-card__stock-badge item-card__stock-badge--out-of-stock">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+                Out of Stock
+            </span>
+        }
+    </div>
+
+    <div class="item-card__info">
+        <h3 class="item-card__name">{{ item().name }}</h3>
+        <p class="item-card__category">{{ item().category }}</p>
+        <p class="item-card__price">{{ item().price | currency:'USD':'symbol':'1.2-2' }}</p>
+
+        <!-- Out of Stock: shown in info section -->
+        @if (!item().inStock) {
+            <span class="item-card__stock-status item-card__stock-status--out-of-stock">
+                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
+                     viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+                Out of Stock
+            </span>
+        }
+
+        @if (item().inStock) {
+            <p class="item-card__stock-count">
+                {{ item().stockCount }} left in stock
+            </p>
+        }
+
+        <a class="item-card__btn-details" [routerLink]="['/items', item().id]" [attr.aria-label]="'View details for ' + item().name">
+            View Details
+        </a>
+    </div>
+</article>

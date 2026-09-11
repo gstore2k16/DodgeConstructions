@@ -1,0 +1,80 @@
+@import "mixins";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.item-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: rem-calc(20);
+
+  @include break-to-tablet {
+    grid-template-columns: repeat(2, 1fr);
+    gap: rem-calc(24);
+  }
+
+  @include break-to-desktop {
+    gap: rem-calc(28);
+  }
+
+  @include break-to-wider-desktop {
+    gap: rem-calc(32);
+  }
+
+  &__skeleton-card {
+    display: flex;
+    flex-direction: column;
+    background: $color-white;
+    border: 1px solid $color-border-light;
+    border-radius: rem-calc($radius-xl);
+    overflow: hidden;
+
+    @include break-to-tablet {
+      flex-direction: row;
+    }
+  }
+
+  &__skeleton-image {
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    min-height: rem-calc(180);
+
+    @include break-to-tablet {
+      width: 45%;
+      min-width: 45%;
+      min-height: rem-calc(200);
+    }
+
+    @include break-to-desktop {
+      min-height: rem-calc(220);
+    }
+  }
+
+  &__skeleton-info {
+    padding: rem-calc(20);
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(12);
+    flex: 1;
+  }
+
+  &__skeleton-line {
+    height: rem-calc(14);
+    border-radius: rem-calc($radius-xs);
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+
+    &--wide { width: 70%; }
+    &--medium { width: 50%; }
+    &--narrow { width: 30%; }
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

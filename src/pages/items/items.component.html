@@ -1,9 +1,43 @@
-<h2>Items</h2>
+<section class="items-page" aria-labelledby="items-page-heading">
+    <h1 id="items-page-heading" class="items-page__title">Products</h1>
 
-<input
-        type="text"
-        placeholder="Filter by name"
-        [(ngModel)]="filter"
-/>
+    <!-- Reusable Filter & Sort Component -->
+    <app-item-filter
+        [categories]="categories()"
+        [searchTerm]="filter()"
+        [selectedCategory]="selectedCategory()"
+        [minPrice]="minPrice()"
+        [maxPrice]="maxPrice()"
+        [inStockOnly]="inStockOnly()"
+        [sortOrder]="sortOrder()"
+        (searchTermChange)="onSearchChange($event)"
+        (categoryChange)="onCategoryChange($event)"
+        (minPriceChange)="onMinPriceChange($event)"
+        (maxPriceChange)="onMaxPriceChange($event)"
+        (inStockChange)="onInStockToggle($event)"
+        (sortOrderChange)="onSortChange($event)"
+        (reset)="resetFilters()">
+    </app-item-filter>
 
-<!-- IMPLEMENT LIST OF ITEMS -->
+    <!-- Loading state -->
+    @if (loading()) {
+        <app-loading message="Loading products…"></app-loading>
+    }
+
+    <!-- Error state -->
+    @if (error()) {
+        <app-error [message]="error()!"></app-error>
+    }
+
+    <!-- Product grid component -->
+    @if (!loading() && !error()) {
+        @if (filteredItems().length === 0) {
+            <div class="items-page__empty-state" role="status" aria-live="polite">
+                <p class="items-page__empty-message">No products match your search or filter criteria.</p>
+                <button type="button" class="items-page__reset-btn" (click)="resetFilters()" aria-label="Clear all applied filters">Clear Filters</button>
+            </div>
+        } @else {
+            <app-item-grid [items]="filteredItems()"></app-item-grid>
+        }
+    }
+</section>

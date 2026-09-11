@@ -1,0 +1,274 @@
+@import "mixins";
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.item-filter {
+  &__header-row {
+    display: flex;
+    justify-content: flex-end;
+    margin-bottom: rem-calc(16);
+  }
+
+  &__search-box {
+    position: relative;
+    width: 100%;
+
+    @include break-to-tablet {
+      width: rem-calc(260);
+    }
+
+    @include break-to-desktop {
+      width: rem-calc(300);
+    }
+  }
+
+  &__search-icon {
+    position: absolute;
+    left: rem-calc(12);
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+  }
+
+  &__search-input {
+    width: 100%;
+    padding: rem-calc(10) rem-calc(14) rem-calc(10) rem-calc(40);
+    font-size: rem-calc($font-md);
+    font-family: $primary-font;
+    border: 1px solid $color-border-default;
+    border-radius: rem-calc($radius-md);
+    background: $color-white;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-sizing: border-box;
+
+    &::placeholder {
+      color: $color-text-placeholder;
+    }
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
+    }
+  }
+
+  &__bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: rem-calc(16);
+    padding: rem-calc(16);
+    background: $color-bg-alt;
+    border: 1px solid $color-border-light;
+    border-radius: rem-calc($radius-xl);
+    margin-bottom: rem-calc(28);
+
+    @include break-to-tablet {
+      gap: rem-calc(20);
+      padding: rem-calc(18) rem-calc(20);
+    }
+  }
+
+  &__group {
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(6);
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+
+    &--stock {
+      justify-content: flex-end;
+      padding-bottom: rem-calc(8);
+    }
+
+    &--reset {
+      margin-left: auto;
+    }
+  }
+
+  &__label {
+    font-size: rem-calc($font-xs);
+    font-weight: 600;
+    color: $color-text-subtle;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  &__select {
+    padding: rem-calc(8) rem-calc(12);
+    font-size: rem-calc($font-md);
+    font-family: $primary-font;
+    color: $color-text-primary;
+    background: $color-white;
+    border: 1px solid $color-border-medium;
+    border-radius: rem-calc($radius-md);
+    outline: none;
+    cursor: pointer;
+    min-width: rem-calc(150);
+    transition: border-color 0.2s, box-shadow 0.2s;
+
+    &:focus {
+      border-color: $color-primary;
+      box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
+    }
+  }
+
+  &__price-inputs {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+  }
+
+  &__price-input {
+    width: rem-calc(85);
+    padding: rem-calc(8) rem-calc(10);
+    font-size: rem-calc($font-md);
+    font-family: $primary-font;
+    color: $color-text-primary;
+    background: $color-white;
+    border: 1px solid $color-border-medium;
+    border-radius: rem-calc($radius-md);
+    outline: none;
+    box-sizing: border-box;
+    transition: border-color 0.2s;
+
+    &:focus {
+      border-color: $color-primary;
+    }
+
+    /* Remove number input spinners */
+    &::-webkit-inner-spin-button,
+    &::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    -moz-appearance: textfield;
+  }
+
+  &__price-separator {
+    color: $color-text-disabled;
+    font-weight: 500;
+  }
+
+  &__stock-label {
+    display: flex;
+    align-items: center;
+    gap: rem-calc(8);
+    font-size: rem-calc($font-md);
+    font-weight: 500;
+    color: $color-text-slate;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  &__checkbox {
+    width: rem-calc(18);
+    height: rem-calc(18);
+    accent-color: $color-primary;
+    cursor: pointer;
+  }
+
+  &__reset-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: rem-calc(6);
+    padding: rem-calc(8) rem-calc(14);
+    font-size: rem-calc($font-sm);
+    font-weight: 600;
+    font-family: $primary-font;
+    color: $color-text-subtle;
+    background: $color-white;
+    border: 1px solid $color-border-medium;
+    border-radius: rem-calc($radius-md);
+    cursor: pointer;
+    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+
+    &:hover {
+      color: $color-text-heading;
+      border-color: $color-text-disabled;
+      background: $color-bg-slate-light;
+    }
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
+
+  &__skeleton-container {
+    width: 100%;
+  }
+
+  &__skeleton-search {
+    height: rem-calc(40);
+    width: 100%;
+    max-width: rem-calc(300);
+    margin-left: auto;
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: rem-calc($radius-md);
+  }
+
+  &__skeleton-bar {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-end;
+    gap: rem-calc(16);
+    padding: rem-calc(16);
+    background: $color-bg-alt;
+    border: 1px solid $color-border-light;
+    border-radius: rem-calc($radius-xl);
+    margin-bottom: rem-calc(28);
+
+    @include break-to-tablet {
+      gap: rem-calc(20);
+      padding: rem-calc(18) rem-calc(20);
+    }
+  }
+
+  &__skeleton-group {
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(6);
+
+    &--stock {
+      justify-content: flex-end;
+    }
+  }
+
+  &__skeleton-label {
+    height: rem-calc(12);
+    width: rem-calc(60);
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: rem-calc($radius-xs);
+  }
+
+  &__skeleton-input {
+    height: rem-calc(36);
+    width: rem-calc(150);
+    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: rem-calc($radius-md);
+
+    &--wide {
+      width: rem-calc(180);
+    }
+
+    &--pill {
+      width: rem-calc(110);
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}

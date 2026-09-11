@@ -1,20 +1,35 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {Observable, map, of} from 'rxjs';
+import { Observable, map } from 'rxjs';
+import { Item, ProductItem } from '../models/item.model';
+import { environment } from '../environments/environment.development';
 
 @Injectable({ providedIn: 'root' })
 export class ItemService {
-    private readonly url = 'assets/items.json';
+    private readonly http = inject(HttpClient);
+    private readonly url = environment.apiUrl;
 
-    constructor(private http: HttpClient) {}
-
-    public getItems(): Observable<[]> {
-        // TODO: Implement and return data from JSON file
-        return of([]);
+    /**
+     * Fetches all items from the JSON asset and maps each raw object
+     * into a typed ProductItem instance.
+     */
+    public getItems(): Observable<Item[]> {
+        return this.http
+            .get<Record<string, unknown>[]>(this.url)
+            .pipe(
+                map((data: Record<string, unknown>[]) =>
+                    data.map((raw: Record<string, unknown>) => ProductItem.fromJson(raw))
+                )
+            );
     }
 
-    public getItemById(id: number): Observable<{}> {
-        // TODO: Implement and return specific Item data from JSON file
-        return of({});
+    /**
+     * Fetches a single item by its ID.
+     * Retrieves the full list and filters to find the matching item.
+     */
+    public getItemById(id: number): Observable<Item | undefined> {
+        return this.getItems().pipe(
+            map((items: Item[]) => items.find((item: Item) => item.id === id))
+        );
     }
 }

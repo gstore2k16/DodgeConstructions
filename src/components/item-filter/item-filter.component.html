@@ -1,0 +1,135 @@
+@defer (on viewport) {
+    <div class="item-filter__header-row" role="search">
+        <div class="item-filter__search-box">
+            <svg class="item-filter__search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                 viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"
+                 stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <circle cx="11" cy="11" r="8"/>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            </svg>
+            <input
+                id="search-input"
+                type="text"
+                class="item-filter__search-input"
+                placeholder="Search products…"
+                aria-label="Search products"
+                [ngModel]="searchTerm()"
+                (ngModelChange)="onSearchInput($event)"
+            />
+        </div>
+    </div>
+
+    <!-- Filter & Sort controls bar -->
+    <div class="item-filter__bar" role="region" aria-label="Product Filters">
+        <!-- Category Filter -->
+        <div class="item-filter__group">
+            <label for="category-select" class="item-filter__label">Category</label>
+            <select
+                id="category-select"
+                class="item-filter__select"
+                [ngModel]="selectedCategory()"
+                (ngModelChange)="onCategorySelect($event)">
+                @for (cat of categories(); track cat) {
+                    <option [value]="cat">{{ cat }}</option>
+                }
+            </select>
+        </div>
+
+        <!-- Price Range Filter -->
+        <fieldset class="item-filter__group item-filter__group--price">
+            <legend class="item-filter__label">Price Range</legend>
+            <div class="item-filter__price-inputs">
+                <input
+                    id="min-price-input"
+                    type="number"
+                    class="item-filter__price-input"
+                    placeholder="Min $"
+                    aria-label="Minimum price in dollars"
+                    min="0"
+                    [ngModel]="minPrice()"
+                    (ngModelChange)="onMinInput($event)"
+                />
+                <span class="item-filter__price-separator" aria-hidden="true">-</span>
+                <input
+                    id="max-price-input"
+                    type="number"
+                    class="item-filter__price-input"
+                    placeholder="Max $"
+                    aria-label="Maximum price in dollars"
+                    min="0"
+                    [ngModel]="maxPrice()"
+                    (ngModelChange)="onMaxInput($event)"
+                />
+            </div>
+        </fieldset>
+
+        <!-- Sort Control -->
+        <div class="item-filter__group">
+            <label for="sort-select" class="item-filter__label">Sort By</label>
+            <select
+                id="sort-select"
+                class="item-filter__select"
+                [ngModel]="sortOrder()"
+                (ngModelChange)="onSortSelect($event)">
+                <option value="default">Default</option>
+                <option value="price-asc">Price: Low to High</option>
+                <option value="price-desc">Price: High to Low</option>
+            </select>
+        </div>
+
+        <!-- In-Stock Checkbox -->
+        <div class="item-filter__group item-filter__group--stock">
+            <label for="stock-checkbox" class="item-filter__stock-label">
+                <input
+                    id="stock-checkbox"
+                    type="checkbox"
+                    class="item-filter__checkbox"
+                    [ngModel]="inStockOnly()"
+                    (ngModelChange)="onStockToggle($event)"
+                />
+                In-stock only
+            </label>
+        </div>
+
+        <!-- Reset Filters Button -->
+        <div class="item-filter__group item-filter__group--reset">
+            <button
+                type="button"
+                class="item-filter__reset-btn"
+                (click)="onResetClick()"
+                aria-label="Reset all filters"
+                title="Reset all filters">
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="23 4 23 10 17 10"/>
+                    <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+                </svg>
+                Reset
+            </button>
+        </div>
+    </div>
+} @placeholder {
+    <div class="item-filter__skeleton-container" aria-hidden="true">
+        <div class="item-filter__header-row">
+            <div class="item-filter__skeleton-search"></div>
+        </div>
+        <div class="item-filter__bar item-filter__skeleton-bar">
+            <div class="item-filter__skeleton-group">
+                <div class="item-filter__skeleton-label"></div>
+                <div class="item-filter__skeleton-input"></div>
+            </div>
+            <div class="item-filter__skeleton-group">
+                <div class="item-filter__skeleton-label"></div>
+                <div class="item-filter__skeleton-input item-filter__skeleton-input--wide"></div>
+            </div>
+            <div class="item-filter__skeleton-group">
+                <div class="item-filter__skeleton-label"></div>
+                <div class="item-filter__skeleton-input"></div>
+            </div>
+            <div class="item-filter__skeleton-group item-filter__skeleton-group--stock">
+                <div class="item-filter__skeleton-input item-filter__skeleton-input--pill"></div>
+            </div>
+        </div>
+    </div>
+} @error {
+    <app-error message="Failed to load filter controls."></app-error>
+}

@@ -1,0 +1,69 @@
+<!-- Main product image (with hover zoom lens) -->
+<div
+    class="image-zoom__container"
+    [class.image-zoom__container--hovered]="isHovered()"
+    (mousemove)="onMouseMove($event)"
+    (mouseleave)="onMouseLeave()"
+    (click)="openModal()"
+    (keydown.enter)="openModal()"
+    (keydown.space)="$event.preventDefault(); openModal()"
+    tabindex="0"
+    role="button"
+    aria-label="Click to expand product image full screen"
+    title="Click to expand full screen">
+    <img
+        [src]="src()"
+        [alt]="alt()"
+        class="image-zoom__image"
+        [style.transform-origin]="zoomPosition().x + '% ' + zoomPosition().y + '%'"
+        loading="lazy"
+    />
+
+    <!-- Hover hint badge -->
+    <div class="image-zoom__badge" aria-hidden="true">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+            <line x1="11" y1="8" x2="11" y2="14"/>
+            <line x1="8" y1="11" x2="14" y2="11"/>
+        </svg>
+        <span>Hover to zoom • Click to expand</span>
+    </div>
+</div>
+
+<!-- Fullscreen Native Top-Layer Dialog Lightbox Modal -->
+<dialog #zoomDialog class="image-zoom__modal" (click)="closeModal()" aria-modal="true" aria-label="Full screen image viewer">
+    <div class="image-zoom__modal-wrapper" (click)="$event.stopPropagation()">
+        <!-- Toolbar controls -->
+        <div class="image-zoom__modal-toolbar" role="toolbar" aria-label="Image viewer controls">
+            <button type="button" class="image-zoom__tool-btn" (click)="zoomIn()" aria-label="Zoom in image" title="Zoom In (+)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="12" y1="5" x2="12" y2="19"/>
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+            </button>
+            <span class="image-zoom__zoom-level" role="status" aria-live="polite" aria-label="Zoom percentage">{{ (modalZoom() * 100).toFixed(0) }}%</span>
+            <button type="button" class="image-zoom__tool-btn" (click)="zoomOut()" aria-label="Zoom out image" title="Zoom Out (−)" [disabled]="modalZoom() <= 1" [attr.aria-disabled]="modalZoom() <= 1">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="5" y1="12" x2="19" y2="12"/>
+                </svg>
+            </button>
+            <button type="button" class="image-zoom__tool-btn image-zoom__tool-btn--close" (click)="closeModal()" aria-label="Close full screen image viewer" title="Close (Esc)">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <line x1="18" y1="6" x2="6" y2="18"/>
+                    <line x1="6" y1="6" x2="18" y2="18"/>
+                </svg>
+            </button>
+        </div>
+
+        <!-- Fullscreen Image viewport -->
+        <div class="image-zoom__modal-image-container">
+            <img
+                [src]="src()"
+                [alt]="alt()"
+                class="image-zoom__modal-image"
+                [style.transform]="'scale(' + modalZoom() + ')'"
+            />
+        </div>
+    </div>
+</dialog>
