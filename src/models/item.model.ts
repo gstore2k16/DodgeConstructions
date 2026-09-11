@@ -38,16 +38,26 @@ export class ProductItem extends Item {
      * Factory method to create a ProductItem from a plain JSON object.
      */
     static fromJson(json: Record<string, unknown>): ProductItem {
+        let rawImage = String(json['image'] ?? '');
+        
+        // Security: Neutralize XSS protocol execution vectors (javascript: / data:text/html)
+        const lowerImg = rawImage.trim().toLowerCase();
+        if (lowerImg.startsWith('javascript:') || lowerImg.startsWith('data:text/html')) {
+            rawImage = '';
+        } else if (rawImage && !rawImage.startsWith('/') && !rawImage.startsWith('http')) {
+            rawImage = '/' + rawImage;
+        }
+
         return new ProductItem(
-            json['id'] as number,
-            json['name'] as string,
-            json['category'] as string,
-            json['price'] as number,
-            json['description'] as string,
-            json['inStock'] as boolean,
-            json['stockCount'] as number,
-            json['image'] as string,
-            (json['features'] as string[]) ?? []
+            Number(json['id'] ?? 0),
+            String(json['name'] ?? ''),
+            String(json['category'] ?? 'General'),
+            Number(json['price'] ?? 0),
+            String(json['description'] ?? ''),
+            Boolean(json['inStock']),
+            Number(json['stockCount'] ?? 0),
+            rawImage,
+            Array.isArray(json['features']) ? json['features'].map((f: unknown) => String(f)) : []
         );
     }
 }

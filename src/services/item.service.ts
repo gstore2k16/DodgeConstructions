@@ -2,7 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map, shareReplay } from 'rxjs';
 import { Item, ProductItem } from '../models/item.model';
-import { environment } from '../environments/environment.development';
+import { environment } from '../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ItemService {
