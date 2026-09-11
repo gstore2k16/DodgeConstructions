@@ -10,5 +10,5 @@ import { CommonModule } from '@angular/common';
 })
 export class LoadingComponent {
     /** Custom loading message string */
-    public message = input<string>('Loading…');
+    public readonly message = input<string>('Loading…');
 }

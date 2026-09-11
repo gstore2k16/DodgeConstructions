@@ -21,10 +21,10 @@ import { ImageZoomComponent } from '../image-zoom/image-zoom.component';
 })
 export class ItemDetailViewComponent {
     /** The item object to render */
-    public item = input.required<Item>();
+    public readonly item = input.required<Item>();
 
     /** Quantity selected by user */
-    public quantity = signal<number>(1);
+    public readonly quantity = signal<number>(1);
 
     public onQuantityChange(newQuantity: number): void {
         this.quantity.set(newQuantity);

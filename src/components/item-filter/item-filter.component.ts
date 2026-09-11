@@ -13,34 +13,34 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc';
 })
 export class ItemFilterComponent {
     /** List of category options */
-    public categories = input<string[]>(['All']);
+    public readonly categories = input<string[]>(['All']);
 
     /** Search text value */
-    public searchTerm = input<string>('');
+    public readonly searchTerm = input<string>('');
 
     /** Selected category filter */
-    public selectedCategory = input<string>('All');
+    public readonly selectedCategory = input<string>('All');
 
     /** Minimum price limit */
-    public minPrice = input<number | null>(null);
+    public readonly minPrice = input<number | null>(null);
 
     /** Maximum price limit */
-    public maxPrice = input<number | null>(null);
+    public readonly maxPrice = input<number | null>(null);
 
     /** In-stock filter checkbox toggle */
-    public inStockOnly = input<boolean>(false);
+    public readonly inStockOnly = input<boolean>(false);
 
     /** Current sort order option */
-    public sortOrder = input<SortOption>('default');
+    public readonly sortOrder = input<SortOption>('default');
 
     /** Outputs for filter state changes */
-    public searchTermChange = output<string>();
-    public categoryChange = output<string>();
-    public minPriceChange = output<number | null>();
-    public maxPriceChange = output<number | null>();
-    public inStockChange = output<boolean>();
-    public sortOrderChange = output<SortOption>();
-    public reset = output<void>();
+    public readonly searchTermChange = output<string>();
+    public readonly categoryChange = output<string>();
+    public readonly minPriceChange = output<number | null>();
+    public readonly maxPriceChange = output<number | null>();
+    public readonly inStockChange = output<boolean>();
+    public readonly sortOrderChange = output<SortOption>();
+    public readonly reset = output<void>();
 
     public onSearchInput(val: string): void {
         this.searchTermChange.emit(val);

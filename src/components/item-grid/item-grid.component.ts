@@ -12,5 +12,5 @@ import { ItemCardComponent } from '../item-card/item-card.component';
 })
 export class ItemGridComponent {
     /** The list of product items to display in the grid */
-    public items = input.required<Item[]>();
+    public readonly items = input.required<Item[]>();
 }

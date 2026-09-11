@@ -10,19 +10,19 @@ import { CommonModule } from '@angular/common';
 })
 export class ImageZoomComponent {
     /** Image source URL */
-    public src = input.required<string>();
+    public readonly src = input.required<string>();
 
     /** Image alt text */
-    public alt = input<string>('Product image');
+    public readonly alt = input<string>('Product image');
 
     /** Signal tracking whether hover zoom is active */
-    public isHovered = signal<boolean>(false);
+    public readonly isHovered = signal<boolean>(false);
 
     /** Signal tracking focal point percentage for hover zoom (0-100%) */
-    public zoomPosition = signal<{ x: number; y: number }>({ x: 50, y: 50 });
+    public readonly zoomPosition = signal<{ x: number; y: number }>({ x: 50, y: 50 });
 
     /** Signal tracking full-screen modal zoom level (1.0 to 3.5x) */
-    public modalZoom = signal<number>(1.2);
+    public readonly modalZoom = signal<number>(1.2);
 
     /** Reference to native HTML dialog element */
     @ViewChild('zoomDialog') public dialogRef?: ElementRef<HTMLDialogElement>;

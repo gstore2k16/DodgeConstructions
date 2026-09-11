@@ -11,14 +11,14 @@ import { RouterLink } from '@angular/router';
 })
 export class ErrorComponent {
     /** Error message to display */
-    public message = input.required<string>();
+    public readonly message = input.required<string>();
 
     /** Whether to show a back navigation link */
-    public showBackLink = input<boolean>(false);
+    public readonly showBackLink = input<boolean>(false);
 
     /** Back link text */
-    public backLinkText = input<string>('← Back to items');
+    public readonly backLinkText = input<string>('← Back to items');
 
     /** Back link route path */
-    public backLinkRoute = input<string>('/items');
+    public readonly backLinkRoute = input<string>('/items');
 }

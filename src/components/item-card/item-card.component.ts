@@ -12,5 +12,5 @@ import { Item } from '../../models/item.model';
 })
 export class ItemCardComponent {
     /** The product item to render */
-    public item = input.required<Item>();
+    public readonly item = input.required<Item>();
 }

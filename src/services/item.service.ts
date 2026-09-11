@@ -1,13 +1,12 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, map } from 'rxjs';
 import { Item, ProductItem } from '../models/item.model';
 
 @Injectable({ providedIn: 'root' })
 export class ItemService {
+    private readonly http = inject(HttpClient);
     private readonly url = 'assets/items.json';
-
-    constructor(private http: HttpClient) {}
 
     /**
      * Fetches all items from the JSON asset and maps each raw object

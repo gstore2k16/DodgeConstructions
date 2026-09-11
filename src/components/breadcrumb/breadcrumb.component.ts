@@ -11,5 +11,5 @@ import { RouterLink } from '@angular/router';
 })
 export class BreadcrumbComponent {
     /** The category name to display in the breadcrumb trail */
-    public category = input<string | undefined>();
+    public readonly category = input<string | undefined>();
 }

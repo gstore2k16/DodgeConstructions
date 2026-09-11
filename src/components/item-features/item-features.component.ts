@@ -10,5 +10,5 @@ import { CommonModule } from '@angular/common';
 })
 export class ItemFeaturesComponent {
     /** Array of feature bullet points to render under Product Details */
-    public features = input<string[]>([]);
+    public readonly features = input<string[]>([]);
 }

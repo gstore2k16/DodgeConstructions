@@ -1,6 +1,6 @@
-import { Component, OnInit, signal } from '@angular/core';
+import { Component, OnInit, signal, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
 import { ItemDetailViewComponent } from '../../components/item-detail-view/item-detail-view.component';
@@ -10,24 +10,22 @@ import { ErrorComponent } from '../../components/error/error.component';
 @Component({
     selector: 'app-item-detail',
     standalone: true,
-    imports: [CommonModule, RouterLink, ItemDetailViewComponent, LoadingComponent, ErrorComponent],
+    imports: [CommonModule, ItemDetailViewComponent, LoadingComponent, ErrorComponent],
     templateUrl: './item-detail.component.html',
     styleUrls: ['./item-detail.component.scss']
 })
 export class ItemDetailComponent implements OnInit {
+    private readonly route = inject(ActivatedRoute);
+    private readonly itemService = inject(ItemService);
+
     /** The loaded item */
-    public item = signal<Item | undefined>(undefined);
+    public readonly item = signal<Item | undefined>(undefined);
 
     /** Whether data is currently loading */
-    public loading = signal<boolean>(true);
+    public readonly loading = signal<boolean>(true);
 
     /** Error message if fetch fails */
-    public error = signal<string | null>(null);
-
-    constructor(
-        private route: ActivatedRoute,
-        private itemService: ItemService
-    ) {}
+    public readonly error = signal<string | null>(null);
 
     ngOnInit(): void {
         const idParam: string | null = this.route.snapshot.paramMap.get('id');

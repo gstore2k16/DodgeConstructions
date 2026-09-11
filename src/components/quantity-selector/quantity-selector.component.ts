@@ -10,16 +10,16 @@ import { CommonModule } from '@angular/common';
 })
 export class QuantitySelectorComponent {
     /** Current selected quantity value */
-    public quantity = input<number>(1);
+    public readonly quantity = input<number>(1);
 
     /** Minimum allowable quantity value (default 1) */
-    public min = input<number>(1);
+    public readonly min = input<number>(1);
 
     /** Maximum allowable quantity value (e.g. stock count) */
-    public max = input<number>(999);
+    public readonly max = input<number>(999);
 
     /** Event emitted when quantity changes */
-    public quantityChange = output<number>();
+    public readonly quantityChange = output<number>();
 
     public increment(): void {
         if (this.quantity() < this.max()) {

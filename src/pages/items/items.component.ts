@@ -1,7 +1,6 @@
-import { Component, OnInit, signal, computed } from '@angular/core';
+import { Component, OnInit, signal, computed, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { RouterLink } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
 import { ItemGridComponent } from '../../components/item-grid/item-grid.component';
@@ -15,7 +14,6 @@ import { ErrorComponent } from '../../components/error/error.component';
     imports: [
         CommonModule,
         FormsModule,
-        RouterLink,
         ItemGridComponent,
         ItemFilterComponent,
         LoadingComponent,
@@ -25,35 +23,37 @@ import { ErrorComponent } from '../../components/error/error.component';
     styleUrls: ['./items.component.scss']
 })
 export class ItemsComponent implements OnInit {
+    private readonly itemService = inject(ItemService);
+
     /** All items loaded from the service */
-    public items = signal<Item[]>([]);
+    public readonly items = signal<Item[]>([]);
 
     /** Whether data is currently loading */
-    public loading = signal<boolean>(true);
+    public readonly loading = signal<boolean>(true);
 
     /** Error message if the fetch fails */
-    public error = signal<string | null>(null);
+    public readonly error = signal<string | null>(null);
 
     /** Text filter bound to the search input */
-    public filter = signal<string>('');
+    public readonly filter = signal<string>('');
 
     /** Selected category filter ('All' means no category filter) */
-    public selectedCategory = signal<string>('All');
+    public readonly selectedCategory = signal<string>('All');
 
     /** Minimum price filter */
-    public minPrice = signal<number | null>(null);
+    public readonly minPrice = signal<number | null>(null);
 
     /** Maximum price filter */
-    public maxPrice = signal<number | null>(null);
+    public readonly maxPrice = signal<number | null>(null);
 
     /** Toggle: show only in-stock items */
-    public inStockOnly = signal<boolean>(false);
+    public readonly inStockOnly = signal<boolean>(false);
 
     /** Sort order option: 'default' | 'price-asc' | 'price-desc' */
-    public sortOrder = signal<SortOption>('default');
+    public readonly sortOrder = signal<SortOption>('default');
 
     /** Dynamically computed unique list of categories from loaded items */
-    public categories = computed<string[]>(() => {
+    public readonly categories = computed<string[]>(() => {
         const all = this.items();
         const set = new Set<string>();
         all.forEach((item: Item) => set.add(item.category));
@@ -61,7 +61,7 @@ export class ItemsComponent implements OnInit {
     });
 
     /** Computed list of items after applying category, search, stock, price, and sorting */
-    public filteredItems = computed<Item[]>(() => {
+    public readonly filteredItems = computed<Item[]>(() => {
         let result = [...this.items()];
         const term = this.filter().toLowerCase().trim();
         const category = this.selectedCategory();
@@ -102,8 +102,6 @@ export class ItemsComponent implements OnInit {
 
         return result;
     });
-
-    constructor(private itemService: ItemService) {}
 
     ngOnInit(): void {
         this.loadItems();
