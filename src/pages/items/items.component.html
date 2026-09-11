@@ -19,6 +19,9 @@
         (reset)="resetFilters()">
     </app-item-filter>
 
+    <!-- Product comparison bar (visible below filter when items selected) -->
+    <app-product-compare></app-product-compare>
+
     <!-- Loading state -->
     @if (loading()) {
         <app-loading message="Loading products…"></app-loading>

@@ -1,7 +1,8 @@
-import { Component, input, ChangeDetectionStrategy } from '@angular/core';
+import { Component, input, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Item } from '../../models/item.model';
+import { ItemStateService } from '../../services/item-state.service';
 
 @Component({
     selector: 'app-item-card',
@@ -12,6 +13,27 @@ import { Item } from '../../models/item.model';
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemCardComponent {
+    private readonly stateService = inject(ItemStateService);
+
     /** The product item to render */
     public readonly item = input.required<Item>();
+
+    /** Computed signal checking if this item is selected for comparison */
+    public readonly isCompared = computed(() => this.stateService.compareIds().includes(this.item().id));
+
+    /** Temporary alert if user tries to compare > 2 products */
+    public readonly limitNotice = signal<boolean>(false);
+
+    public onCompareToggle(event: Event): void {
+        event.stopPropagation();
+        const checkbox = event.target as HTMLInputElement;
+        const success = this.stateService.toggleCompare(this.item().id);
+        if (!success) {
+            if (checkbox) {
+                checkbox.checked = false;
+            }
+            this.limitNotice.set(true);
+            setTimeout(() => this.limitNotice.set(false), 3500);
+        }
+    }
 }

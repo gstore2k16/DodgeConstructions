@@ -8,6 +8,7 @@ import { ItemGridComponent } from '../../components/item-grid/item-grid.componen
 import { ItemFilterComponent } from '../../components/item-filter/item-filter.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
 import { ErrorComponent } from '../../components/error/error.component';
+import { ProductCompareComponent } from '../../components/product-compare/product-compare.component';
 
 @Component({
     selector: 'app-item-list',
@@ -18,7 +19,8 @@ import { ErrorComponent } from '../../components/error/error.component';
         ItemGridComponent,
         ItemFilterComponent,
         LoadingComponent,
-        ErrorComponent
+        ErrorComponent,
+        ProductCompareComponent
     ],
     templateUrl: './items.component.html',
     styleUrls: ['./items.component.scss'],

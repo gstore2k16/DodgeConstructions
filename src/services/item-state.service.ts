@@ -24,6 +24,7 @@ export class ItemStateService {
   private readonly _inStockOnly = signal<boolean>(false);
   private readonly _sortOrder = signal<SortOption>('default');
   private readonly _selectedItemId = signal<number | null>(null);
+  private readonly _compareIds = signal<number[]>([]);
 
   // Public Readonly Signals (Exposed to components to prevent direct state mutation)
   public readonly items = this._items.asReadonly();
@@ -36,8 +37,14 @@ export class ItemStateService {
   public readonly inStockOnly = this._inStockOnly.asReadonly();
   public readonly sortOrder = this._sortOrder.asReadonly();
   public readonly selectedItemId = this._selectedItemId.asReadonly();
+  public readonly compareIds = this._compareIds.asReadonly();
 
   // Derived Computed Signals (Encapsulated Business Logic)
+  public readonly comparedItems = computed<Item[]>(() => {
+    const ids = this._compareIds();
+    const all = this._items();
+    return ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item);
+  });
   public readonly categories = computed<string[]>(() => {
     const all = this._items();
     const set = new Set<string>();
@@ -152,6 +159,27 @@ export class ItemStateService {
 
   public selectItemById(id: number | null): void {
     this._selectedItemId.set(id);
+  }
+
+  public toggleCompare(id: number): boolean {
+    const current = this._compareIds();
+    if (current.includes(id)) {
+      this._compareIds.set(current.filter(i => i !== id));
+      return true;
+    }
+    if (current.length >= 2) {
+      return false; // Limit reached (Max 2 products allowed for comparison)
+    }
+    this._compareIds.set([...current, id]);
+    return true;
+  }
+
+  public removeCompare(id: number): void {
+    this._compareIds.set(this._compareIds().filter(i => i !== id));
+  }
+
+  public clearCompare(): void {
+    this._compareIds.set([]);
   }
 
   public resetFilters(): void {
