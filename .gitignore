@@ -8,6 +8,7 @@
 
 # dependencies
 /node_modules
+/npm-cache
 
 # Angular cache
 /.angular
