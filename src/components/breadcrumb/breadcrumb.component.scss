@@ -1,0 +1,29 @@
+@import "mixins";
+
+:host {
+  display: block;
+}
+
+.breadcrumb {
+  display: flex;
+  align-items: center;
+  gap: rem-calc(8);
+  margin-bottom: rem-calc(24);
+  font-size: rem-calc(14);
+  color: #667085;
+
+  a {
+    color: #667085;
+    text-decoration: none;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #4a7cf6;
+    }
+  }
+
+  .separator {
+    color: #98a2b3;
+    font-size: rem-calc(14);
+  }
+}

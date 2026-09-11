@@ -1,0 +1,42 @@
+@import "mixins";
+
+:host {
+  display: block;
+}
+
+.detail-features {
+  margin-top: rem-calc(8);
+
+  h3 {
+    font-size: rem-calc(18);
+    font-weight: 700;
+    color: #1a1a1a;
+    margin: 0 0 rem-calc(12) 0;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    font-size: rem-calc(14);
+    color: #555;
+    line-height: 1.8;
+    position: relative;
+    padding-left: rem-calc(18);
+
+    @include break-to-tablet {
+      font-size: rem-calc(15);
+    }
+
+    &::before {
+      content: "•";
+      position: absolute;
+      left: 0;
+      color: #667085;
+      font-size: rem-calc(16);
+    }
+  }
+}

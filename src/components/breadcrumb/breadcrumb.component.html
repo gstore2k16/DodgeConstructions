@@ -1,0 +1,8 @@
+<nav class="breadcrumb" aria-label="Breadcrumb">
+    <a routerLink="/">Home</a>
+    <span class="separator">›</span>
+    @if (category()) {
+        <a routerLink="/items">{{ category() }}</a>
+        <span class="separator">›</span>
+    }
+</nav>

@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
+import { ItemDetailViewComponent } from '../../components/item-detail-view/item-detail-view.component';
 
 @Component({
     selector: 'app-item-detail',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, ItemDetailViewComponent],
     templateUrl: './item-detail.component.html',
     styleUrls: ['./item-detail.component.scss']
 })
@@ -20,9 +21,6 @@ export class ItemDetailComponent implements OnInit {
 
     /** Error message if fetch fails */
     public error = signal<string | null>(null);
-
-    /** Quantity selected by the user */
-    public quantity = signal<number>(1);
 
     constructor(
         private route: ActivatedRoute,
@@ -51,7 +49,6 @@ export class ItemDetailComponent implements OnInit {
             next: (data: Item | undefined) => {
                 if (data) {
                     this.item.set(data);
-                    this.quantity.set(1);
                 } else {
                     this.error.set('Item not found.');
                 }
@@ -63,26 +60,5 @@ export class ItemDetailComponent implements OnInit {
                 console.error('ItemService error:', err);
             }
         });
-    }
-
-    /**
-     * Increases the quantity by 1, capped at the available stock count.
-     */
-    public incrementQuantity(): void {
-        const current: number = this.quantity();
-        const max: number = this.item()?.stockCount ?? 1;
-        if (current < max) {
-            this.quantity.set(current + 1);
-        }
-    }
-
-    /**
-     * Decreases the quantity by 1, minimum 1.
-     */
-    public decrementQuantity(): void {
-        const current: number = this.quantity();
-        if (current > 1) {
-            this.quantity.set(current - 1);
-        }
     }
 }

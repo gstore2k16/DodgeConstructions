@@ -1,0 +1,52 @@
+@import "mixins";
+
+:host {
+  display: inline-block;
+}
+
+.quantity-selector {
+  display: inline-flex;
+  align-items: center;
+  border: 1px solid #d0d5dd;
+  border-radius: rem-calc(8);
+  overflow: hidden;
+  margin-bottom: rem-calc(24);
+}
+
+.qty-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: rem-calc(40);
+  height: rem-calc(40);
+  background: #fff;
+  border: none;
+  font-size: rem-calc(18);
+  color: #444;
+  cursor: pointer;
+  transition: background-color 0.15s;
+  font-family: $primary-font;
+
+  &:hover:not(:disabled) {
+    background: #f3f4f6;
+  }
+
+  &:disabled {
+    color: #ccc;
+    cursor: not-allowed;
+  }
+}
+
+.qty-value {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: rem-calc(48);
+  height: rem-calc(40);
+  font-size: rem-calc(15);
+  font-weight: 600;
+  color: #1a1a1a;
+  border-left: 1px solid #d0d5dd;
+  border-right: 1px solid #d0d5dd;
+  font-family: $primary-font;
+}

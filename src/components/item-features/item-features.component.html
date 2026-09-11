@@ -1,0 +1,10 @@
+@if (features() && features().length > 0) {
+    <div class="detail-features">
+        <h3>Product Details</h3>
+        <ul>
+            @for (feature of features(); track feature) {
+                <li>{{ feature }}</li>
+            }
+        </ul>
+    </div>
+}
