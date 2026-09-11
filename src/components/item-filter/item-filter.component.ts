@@ -1,4 +1,4 @@
-import { Component, input, output } from '@angular/core';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ErrorComponent } from '../error/error.component';
@@ -10,7 +10,8 @@ export type SortOption = 'default' | 'price-asc' | 'price-desc';
     standalone: true,
     imports: [CommonModule, FormsModule, ErrorComponent],
     templateUrl: './item-filter.component.html',
-    styleUrls: ['./item-filter.component.scss']
+    styleUrls: ['./item-filter.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFilterComponent {
     /** List of category options */

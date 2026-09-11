@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ItemStateService } from '../../services/item-state.service';
@@ -20,7 +20,8 @@ import { ErrorComponent } from '../../components/error/error.component';
         ErrorComponent
     ],
     templateUrl: './items.component.html',
-    styleUrls: ['./items.component.scss']
+    styleUrls: ['./items.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemsComponent {
     private readonly stateService = inject(ItemStateService);

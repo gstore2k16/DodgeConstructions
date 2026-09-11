@@ -1,4 +1,4 @@
-import { Component, input, signal, viewChild, ElementRef, HostListener } from '@angular/core';
+import { Component, input, signal, viewChild, ElementRef, HostListener, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 @Component({
@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
     standalone: true,
     imports: [CommonModule],
     templateUrl: './image-zoom.component.html',
-    styleUrls: ['./image-zoom.component.scss']
+    styleUrls: ['./image-zoom.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ImageZoomComponent {
     /** Image source URL */

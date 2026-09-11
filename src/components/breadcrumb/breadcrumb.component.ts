@@ -1,4 +1,4 @@
-import { Component, input } from '@angular/core';
+import { Component, input, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
@@ -7,7 +7,8 @@ import { RouterLink } from '@angular/router';
     standalone: true,
     imports: [CommonModule, RouterLink],
     templateUrl: './breadcrumb.component.html',
-    styleUrls: ['./breadcrumb.component.scss']
+    styleUrls: ['./breadcrumb.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbComponent {
     /** The category name to display in the breadcrumb trail */
