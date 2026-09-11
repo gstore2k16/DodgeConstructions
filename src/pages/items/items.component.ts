@@ -4,11 +4,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { Item } from '../../models/item.model';
+import { ItemGridComponent } from '../../components/item-grid/item-grid.component';
 
 @Component({
     selector: 'app-item-list',
     standalone: true,
-    imports: [CommonModule, FormsModule, RouterLink],
+    imports: [CommonModule, FormsModule, RouterLink, ItemGridComponent],
     templateUrl: './items.component.html',
     styleUrls: ['./items.component.scss']
 })

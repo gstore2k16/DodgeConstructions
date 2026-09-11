@@ -1,0 +1,16 @@
+<div class="items-grid">
+    @for (item of items(); track item.id) {
+        @defer (on viewport) {
+            <app-item-card [item]="item"></app-item-card>
+        } @placeholder{
+            <div class="item-card skeleton">
+                <div class="skeleton-image"></div>
+                <div class="skeleton-info">
+                    <div class="skeleton-line wide"></div>
+                    <div class="skeleton-line medium"></div>
+                    <div class="skeleton-line narrow"></div>
+                </div>
+            </div>
+        }
+    }
+</div>

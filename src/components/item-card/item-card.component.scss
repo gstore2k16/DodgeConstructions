@@ -1,0 +1,211 @@
+@import "mixins";
+
+:host {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Product card ---------- */
+.item-card {
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border: 1px solid #e5e7eb;
+  border-radius: rem-calc(12);
+  overflow: hidden;
+  height: 100%;
+  box-sizing: border-box;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+
+  @include break-to-tablet {
+    flex-direction: row;
+  }
+
+  &:hover {
+    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    transform: translateY(-2px);
+  }
+}
+
+/* ---------- Image wrapper ---------- */
+.item-image-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f4f5f7;
+  padding: rem-calc(16);
+  min-height: rem-calc(180);
+  transition: background-color 0.3s ease;
+
+  @include break-to-tablet {
+    width: 45%;
+    min-width: 45%;
+    min-height: rem-calc(200);
+    padding: rem-calc(20);
+  }
+
+  @include break-to-desktop {
+    min-height: rem-calc(220);
+  }
+
+  @include break-to-wider-desktop {
+    min-height: rem-calc(240);
+  }
+
+  img {
+    max-width: 100%;
+    max-height: rem-calc(160);
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.3s ease;
+
+    @include break-to-desktop {
+      max-height: rem-calc(180);
+    }
+
+    @include break-to-wider-desktop {
+      max-height: rem-calc(200);
+    }
+  }
+
+  &:hover img {
+    transform: scale(1.05);
+  }
+}
+
+/* ---------- Stock badge ---------- */
+.stock-badge {
+  position: absolute;
+  bottom: rem-calc(10);
+  left: rem-calc(10);
+  display: inline-flex;
+  align-items: center;
+  gap: rem-calc(4);
+  padding: rem-calc(4) rem-calc(10);
+  font-size: rem-calc(12);
+  font-weight: 600;
+  border-radius: rem-calc(20);
+
+  &.in-stock {
+    background: #e6f9ee;
+    color: #15803d;
+  }
+}
+
+.stock-status {
+  display: inline-flex;
+  align-items: center;
+  gap: rem-calc(4);
+  font-size: rem-calc(13);
+  font-weight: 600;
+  margin-bottom: rem-calc(12);
+
+  &.out-of-stock {
+    color: #dc2626;
+  }
+}
+
+/* ---------- Item info ---------- */
+.item-info {
+  display: flex;
+  flex-direction: column;
+  padding: rem-calc(16);
+  flex: 1;
+
+  @include break-to-tablet {
+    padding: rem-calc(20);
+  }
+
+  @include break-to-desktop {
+    padding: rem-calc(24);
+  }
+
+  @include break-to-wider-desktop {
+    padding: rem-calc(28);
+  }
+}
+
+.item-name {
+  font-size: rem-calc(16);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 rem-calc(4) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(18);
+  }
+
+  @include break-to-desktop {
+    font-size: rem-calc(20);
+  }
+}
+
+.item-category {
+  font-size: rem-calc(13);
+  color: #667085;
+  margin: 0 0 rem-calc(8) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(14);
+  }
+}
+
+.item-price {
+  font-size: rem-calc(20);
+  font-weight: 700;
+  color: #1a1a1a;
+  margin: 0 0 rem-calc(6) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(22);
+  }
+
+  @include break-to-desktop {
+    font-size: rem-calc(24);
+  }
+}
+
+.item-stock-count {
+  font-size: rem-calc(12);
+  color: #98a2b3;
+  margin: 0 0 rem-calc(14) 0;
+
+  @include break-to-tablet {
+    font-size: rem-calc(13);
+  }
+}
+
+/* ---------- View Details button ---------- */
+.btn-details {
+  display: inline-block;
+  padding: rem-calc(10) rem-calc(24);
+  background: #3b5bdb;
+  color: #fff;
+  font-size: rem-calc(14);
+  font-weight: 600;
+  font-family: $primary-font;
+  border: none;
+  border-radius: rem-calc(8);
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.2s, box-shadow 0.2s;
+  margin-top: auto;
+  align-self: flex-start;
+
+  @include break-to-desktop {
+    padding: rem-calc(12) rem-calc(28);
+  }
+
+  &:hover {
+    background: #2b4acb;
+    box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
+    color: #fff;
+  }
+
+  &:active {
+    background: #1e3a8a;
+  }
+}
