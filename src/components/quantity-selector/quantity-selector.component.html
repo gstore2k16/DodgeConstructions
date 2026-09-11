@@ -1,16 +1,20 @@
-<div class="quantity-selector">
+<div class="quantity-selector" role="group" aria-label="Quantity selector">
     <button
+        type="button"
         class="quantity-selector__btn quantity-selector__btn--decrement"
         (click)="decrement()"
         [disabled]="quantity() <= min()"
+        [attr.aria-disabled]="quantity() <= min()"
         aria-label="Decrease quantity">
         −
     </button>
-    <span class="quantity-selector__value">{{ quantity() }}</span>
+    <span class="quantity-selector__value" role="status" aria-live="polite" aria-label="Selected quantity">{{ quantity() }}</span>
     <button
+        type="button"
         class="quantity-selector__btn quantity-selector__btn--increment"
         (click)="increment()"
         [disabled]="quantity() >= max()"
+        [attr.aria-disabled]="quantity() >= max()"
         aria-label="Increase quantity">
         +
     </button>

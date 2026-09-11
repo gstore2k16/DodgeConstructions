@@ -1,9 +1,9 @@
-<div class="item-grid">
+<div class="item-grid" role="region" aria-label="Product items grid">
     @for (item of items(); track item.id) {
         @defer (on viewport) {
             <app-item-card [item]="item"></app-item-card>
         } @placeholder {
-            <div class="item-grid__skeleton-card">
+            <div class="item-grid__skeleton-card" aria-hidden="true">
                 <div class="item-grid__skeleton-image"></div>
                 <div class="item-grid__skeleton-info">
                     <div class="item-grid__skeleton-line item-grid__skeleton-line--wide"></div>

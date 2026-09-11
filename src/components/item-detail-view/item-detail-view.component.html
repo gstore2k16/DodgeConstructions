@@ -3,7 +3,7 @@
     <app-breadcrumb [category]="item().category"></app-breadcrumb>
 
     @defer (on viewport) {
-        <div class="item-detail-view__layout">
+        <article class="item-detail-view__layout">
             <!-- Product image with zooming option -->
             <div class="item-detail-view__image-wrapper">
                 <app-image-zoom [src]="item().image" [alt]="item().name"></app-image-zoom>
@@ -23,14 +23,16 @@
                         @if (item().inStock) {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                                 aria-hidden="true">
                                 <polyline points="20 6 9 17 4 12"/>
                             </svg>
                             In Stock
                         } @else {
                             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
                                  viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                                 stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                                 aria-hidden="true">
                                 <line x1="18" y1="6" x2="6" y2="18"/>
                                 <line x1="6" y1="6" x2="18" y2="18"/>
                             </svg>
@@ -51,10 +53,11 @@
                     </app-quantity-selector>
 
                     <!-- Add to Cart button -->
-                    <button class="item-detail-view__btn-add">
+                    <button type="button" class="item-detail-view__btn-add" [attr.aria-label]="'Add ' + item().name + ' to cart'">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
                              viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                             stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                             aria-hidden="true">
                             <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                             <circle cx="12" cy="7" r="4"/>
                         </svg>
@@ -65,9 +68,9 @@
                 <!-- Product Details / Features component -->
                 <app-item-features [features]="item().features"></app-item-features>
             </div>
-        </div>
+        </article>
     } @placeholder {
-        <div class="item-detail-view__layout item-detail-view__layout--skeleton">
+        <div class="item-detail-view__layout item-detail-view__layout--skeleton" aria-hidden="true">
             <!-- Image Skeleton -->
             <div class="item-detail-view__image-wrapper item-detail-view__image-wrapper--skeleton"></div>
 

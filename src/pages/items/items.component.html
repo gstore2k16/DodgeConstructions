@@ -1,5 +1,5 @@
-<section class="items-page">
-    <h2 class="items-page__title">Products</h2>
+<section class="items-page" aria-labelledby="items-page-heading">
+    <h1 id="items-page-heading" class="items-page__title">Products</h1>
 
     <!-- Reusable Filter & Sort Component -->
     <app-item-filter
@@ -32,9 +32,9 @@
     <!-- Product grid component -->
     @if (!loading() && !error()) {
         @if (filteredItems().length === 0) {
-            <div class="items-page__empty-state">
+            <div class="items-page__empty-state" role="status" aria-live="polite">
                 <p class="items-page__empty-message">No products match your search or filter criteria.</p>
-                <button class="items-page__reset-btn" (click)="resetFilters()">Clear Filters</button>
+                <button type="button" class="items-page__reset-btn" (click)="resetFilters()" aria-label="Clear all applied filters">Clear Filters</button>
             </div>
         } @else {
             <app-item-grid [items]="filteredItems()"></app-item-grid>

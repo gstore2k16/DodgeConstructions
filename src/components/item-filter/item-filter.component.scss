@@ -76,6 +76,10 @@
     display: flex;
     flex-direction: column;
     gap: rem-calc(6);
+    border: none;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
 
     &--stock {
       justify-content: flex-end;

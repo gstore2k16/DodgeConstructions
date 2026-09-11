@@ -1,5 +1,5 @@
 <!-- Loading state -->
-<section class="detail-page">
+<section class="detail-page" aria-label="Product details page">
     @if (loading()) {
         <app-loading message="Loading item details…"></app-loading>
     }
@@ -12,5 +12,5 @@
     <!-- Item detail view component -->
     @if (!loading() && !error() && item()) {
         <app-item-detail-view [item]="item()!"></app-item-detail-view>
-}
+    }
 </section>

@@ -1,10 +1,10 @@
 @if (features() && features().length > 0) {
-    <div class="item-features">
-        <h3 class="item-features__title">Product Details</h3>
+    <section class="item-features" aria-labelledby="product-details-heading">
+        <h3 id="product-details-heading" class="item-features__title">Product Details</h3>
         <ul class="item-features__list">
             @for (feature of features(); track feature) {
                 <li class="item-features__item">{{ feature }}</li>
             }
         </ul>
-    </div>
+    </section>
 }

@@ -1,4 +1,4 @@
-<article class="item-card">
+<article class="item-card" [attr.aria-label]="item().name">
     <div class="item-card__image-wrapper">
         <img
             class="item-card__image"
@@ -11,7 +11,8 @@
             <span class="item-card__stock-badge item-card__stock-badge--in-stock">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
                     <polyline points="20 6 9 17 4 12"/>
                 </svg>
                 In Stock
@@ -29,7 +30,8 @@
             <span class="item-card__stock-status item-card__stock-status--out-of-stock">
                 <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12"
                      viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                     stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
+                     aria-hidden="true">
                     <line x1="18" y1="6" x2="6" y2="18"/>
                     <line x1="6" y1="6" x2="18" y2="18"/>
                 </svg>
@@ -43,7 +45,7 @@
             </p>
         }
 
-        <a class="item-card__btn-details" [routerLink]="['/items', item().id]">
+        <a class="item-card__btn-details" [routerLink]="['/items', item().id]" [attr.aria-label]="'View details for ' + item().name">
             View Details
         </a>
     </div>
