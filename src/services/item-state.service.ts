@@ -1,5 +1,6 @@
 import { Injectable, inject, signal, computed, DestroyRef } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Subscription } from 'rxjs';
 import { Item } from '../models/item.model';
 import { ItemService } from './item.service';
 import { SortOption } from '../components/item-filter/item-filter.component';
@@ -10,6 +11,7 @@ import { SortOption } from '../components/item-filter/item-filter.component';
 export class ItemStateService {
   private readonly itemService = inject(ItemService);
   private readonly destroyRef = inject(DestroyRef);
+  private loadSub?: Subscription;
 
   // Private writable signals (Controlled internal state)
   private readonly _items = signal<Item[]>([]);
@@ -104,10 +106,12 @@ export class ItemStateService {
       return;
     }
 
+    this.loadSub?.unsubscribe();
+
     this._loading.set(true);
     this._error.set(null);
 
-    this.itemService.getItems().pipe(
+    this.loadSub = this.itemService.getItems().pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe({
       next: (data: Item[]) => {

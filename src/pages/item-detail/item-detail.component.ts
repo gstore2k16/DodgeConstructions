@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, DestroyRef } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, ParamMap } from '@angular/router';
@@ -14,19 +14,18 @@ import { ErrorComponent } from '../../components/error/error.component';
     templateUrl: './item-detail.component.html',
     styleUrls: ['./item-detail.component.scss']
 })
-export class ItemDetailComponent implements OnInit {
+export class ItemDetailComponent {
     private readonly route = inject(ActivatedRoute);
     private readonly stateService = inject(ItemStateService);
-    private readonly destroyRef = inject(DestroyRef);
 
     // Readonly signals exposed to template
     public readonly item = this.stateService.selectedItem;
     public readonly loading = this.stateService.loading;
     public readonly error = this.stateService.error;
 
-    ngOnInit(): void {
+    constructor() {
         this.route.paramMap.pipe(
-            takeUntilDestroyed(this.destroyRef)
+            takeUntilDestroyed()
         ).subscribe((params: ParamMap) => {
             const idParam: string | null = params.get('id');
             if (idParam) {
@@ -38,3 +37,4 @@ export class ItemDetailComponent implements OnInit {
         });
     }
 }
+
