@@ -1,11 +1,20 @@
 import { Routes } from '@angular/router';
-import { ItemsComponent } from './pages/items/items.component';
-import { ItemDetailComponent } from './pages/item-detail/item-detail.component';
-import {HomeComponent} from "./pages/home/home.component";
 
 export const routes: Routes = [
-    { path: '', component: HomeComponent },
-    { path: 'items', component: ItemsComponent },
-    { path: 'items/:id', component: ItemDetailComponent },
-    { path: '**', redirectTo: 'items' }
+    {
+        path: '',
+        loadComponent: () => import('./pages/home/home.component').then(m => m.HomeComponent)
+    },
+    {
+        path: 'items',
+        loadComponent: () => import('./pages/items/items.component').then(m => m.ItemsComponent)
+    },
+    {
+        path: 'items/:id',
+        loadComponent: () => import('./pages/item-detail/item-detail.component').then(m => m.ItemDetailComponent)
+    },
+    {
+        path: '**',
+        redirectTo: 'items'
+    }
 ];

@@ -2,7 +2,7 @@
     <!-- Breadcrumb component -->
     <app-breadcrumb [category]="item().category"></app-breadcrumb>
 
-    @defer (on viewport) {
+    @defer (on immediate) {
         <article class="item-detail-view__layout">
             <!-- Product image with zooming option -->
             <div class="item-detail-view__image-wrapper">
