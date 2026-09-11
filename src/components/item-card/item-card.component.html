@@ -51,11 +51,14 @@
             </span>
         }
 
+        <!-- Stock Status Badge -->
         @if (item().inStock) {
             <p class="item-card__stock-count">
-                {{ item().stockCount }} left in stock
+                {{ item() | stockStatus }}
             </p>
         }
+
+        <p class="item-card__description">{{ item().description | truncate:70 }}</p>
 
         <div class="item-card__actions">
             <a class="item-card__btn-details" [routerLink]="['/items', item().id]" [attr.aria-label]="'View details for ' + item().name">

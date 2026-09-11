@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ItemStateService } from '../../services/item-state.service';
 import { Item } from '../../models/item.model';
+import { PriceDifferencePipe } from '../../pipes/price-difference.pipe';
+import { StockStatusPipe } from '../../pipes/stock-status.pipe';
 
 @Component({
     selector: 'app-product-compare',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, PriceDifferencePipe, StockStatusPipe],
     templateUrl: './product-compare.component.html',
     styleUrls: ['./product-compare.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

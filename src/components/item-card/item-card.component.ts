@@ -3,11 +3,13 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Item } from '../../models/item.model';
 import { ItemStateService } from '../../services/item-state.service';
+import { StockStatusPipe } from '../../pipes/stock-status.pipe';
+import { TruncatePipe } from '../../pipes/truncate.pipe';
 
 @Component({
     selector: 'app-item-card',
     standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [CommonModule, RouterLink, StockStatusPipe, TruncatePipe],
     templateUrl: './item-card.component.html',
     styleUrls: ['./item-card.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

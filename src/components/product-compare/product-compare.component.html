@@ -52,8 +52,7 @@
                             <line x1="12" y1="8" x2="12.01" y2="8"/>
                         </svg>
                         <span>
-                            <strong>{{ getCheaperItemName(comparedItems()[0], comparedItems()[1]) }}</strong> is 
-                            <strong>${{ getPriceDifference(comparedItems()[0], comparedItems()[1]).toFixed(2) }}</strong> lower in price.
+                            <strong>Price Summary:</strong> {{ comparedItems() | priceDifference }}
                         </span>
                     </div>
 
@@ -94,12 +93,12 @@
                                     <td class="compare-table__label">Availability</td>
                                     <td>
                                         <span [class.compare-table__stock--in]="comparedItems()[0].inStock" [class.compare-table__stock--out]="!comparedItems()[0].inStock">
-                                            {{ comparedItems()[0].inStock ? 'In Stock (' + comparedItems()[0].stockCount + ' left)' : 'Out of Stock' }}
+                                            {{ comparedItems()[0] | stockStatus }}
                                         </span>
                                     </td>
                                     <td>
                                         <span [class.compare-table__stock--in]="comparedItems()[1].inStock" [class.compare-table__stock--out]="!comparedItems()[1].inStock">
-                                            {{ comparedItems()[1].inStock ? 'In Stock (' + comparedItems()[1].stockCount + ' left)' : 'Out of Stock' }}
+                                            {{ comparedItems()[1] | stockStatus }}
                                         </span>
                                     </td>
                                 </tr>

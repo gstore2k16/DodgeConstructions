@@ -170,11 +170,18 @@
   &__stock-count {
     font-size: rem-calc($font-xs);
     color: $color-text-placeholder;
-    margin: 0 0 rem-calc(14) 0;
+    margin: 0 0 rem-calc(6) 0;
 
     @include break-to-tablet {
       font-size: rem-calc($font-sm);
     }
+  }
+
+  &__description {
+    font-size: rem-calc($font-sm);
+    color: $color-text-secondary;
+    line-height: 1.4;
+    margin: 0 0 rem-calc(14) 0;
   }
 
   &__actions {
