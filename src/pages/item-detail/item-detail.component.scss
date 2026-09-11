@@ -5,6 +5,49 @@
   width: 100%;
 }
 
+/* ---------- Two-column layout ---------- */
+:host {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+
+  @include break-to-tablet {
+    position: relative;
+    left: calc(50vw - 2rem);
+    transform: translateX(-50%);
+  }
+
+  @include break-to-desktop {
+    max-width: rem-calc(1200);
+    position: relative;
+    left: calc(50vw - 2rem);
+    transform: translateX(-50%);
+  }
+}
+
+.detail-page {
+  background: #fff;
+  border-radius: rem-calc(16);
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  padding: rem-calc(24);
+  margin: 0 auto;
+  font-family: $primary-font;
+  box-sizing: border-box;
+  width: 100%;
+
+  @include break-to-tablet {
+    padding: rem-calc(32) rem-calc(40);
+  }
+
+  @include break-to-desktop {
+    padding: rem-calc(40) rem-calc(48);
+  }
+
+  @include break-to-wider-desktop {
+    padding: rem-calc(48) rem-calc(56);
+  }
+}
+
 /* ============================================
    Loading / Error States
    ============================================ */

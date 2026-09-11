@@ -1,20 +1,22 @@
 <!-- Loading state -->
-@if (loading()) {
-    <div class="detail-loading">
-        <div class="spinner"></div>
-        <p>Loading item details…</p>
-    </div>
-}
+<section class="detail-page">
+    @if (loading()) {
+        <div class="detail-loading">
+            <div class="spinner"></div>
+            <p>Loading item details…</p>
+        </div>
+    }
 
-<!-- Error state -->
-@if (error()) {
-    <div class="detail-error">
-        <p>{{ error() }}</p>
-        <a routerLink="/items" class="back-link">← Back to items</a>
-    </div>
-}
+    <!-- Error state -->
+    @if (error()) {
+        <div class="detail-error">
+            <p>{{ error() }}</p>
+            <a routerLink="/items" class="back-link">← Back to items</a>
+        </div>
+    }
 
-<!-- Item detail view component -->
-@if (!loading() && !error() && item()) {
-    <app-item-detail-view [item]="item()!"></app-item-detail-view>
+    <!-- Item detail view component -->
+    @if (!loading() && !error() && item()) {
+        <app-item-detail-view [item]="item()!"></app-item-detail-view>
 }
+</section>
