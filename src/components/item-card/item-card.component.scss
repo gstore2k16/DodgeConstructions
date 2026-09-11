@@ -88,6 +88,11 @@
       background: $color-success-bg;
       color: $color-success-text;
     }
+
+    &--out-of-stock {
+      background: $color-danger-bg;
+      color: $color-danger-text;
+    }
   }
 
   &__stock-status {
