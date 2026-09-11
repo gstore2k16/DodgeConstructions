@@ -195,3 +195,65 @@
     flex-shrink: 0;
   }
 }
+
+/* ============================================
+   Skeleton Loading Placeholders for Item Filter
+   ============================================ */
+
+.filter-skeleton-container {
+  width: 100%;
+}
+
+.skeleton-search {
+  height: rem-calc(40);
+  width: 100%;
+  max-width: rem-calc(300);
+  margin-left: auto;
+  background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+  border-radius: rem-calc(8);
+}
+
+.skeleton-filter-bar {
+  .skeleton-group {
+    display: flex;
+    flex-direction: column;
+    gap: rem-calc(6);
+
+    &.stock-skeleton {
+      justify-content: flex-end;
+    }
+  }
+
+  .skeleton-label {
+    height: rem-calc(12);
+    width: rem-calc(60);
+    background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: rem-calc(4);
+  }
+
+  .skeleton-input {
+    height: rem-calc(36);
+    width: rem-calc(150);
+    background: linear-gradient(90deg, #eee 25%, #f5f5f5 50%, #eee 75%);
+    background-size: 200% 100%;
+    animation: shimmer 1.5s infinite;
+    border-radius: rem-calc(8);
+
+    &.wide {
+      width: rem-calc(180);
+    }
+
+    &.pill {
+      width: rem-calc(110);
+    }
+  }
+}
+
+@keyframes shimmer {
+  0% { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
