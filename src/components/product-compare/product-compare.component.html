@@ -64,14 +64,14 @@
                                     <th class="compare-table__feature-col">Feature</th>
                                     <th class="compare-table__product-col">
                                         <div class="compare-table__card">
-                                            <img [src]="comparedItems()[0].image" [alt]="comparedItems()[0].name" class="compare-table__img" />
+                                            <img [src]="comparedItems()[0].image" [alt]="comparedItems()[0].name" class="compare-table__img" loading="lazy" decoding="async" />
                                             <h3 class="compare-table__item-title">{{ comparedItems()[0].name }}</h3>
                                             <a [routerLink]="['/items', comparedItems()[0].id]" (click)="closeModal()" class="compare-table__link">View Details</a>
                                         </div>
                                     </th>
                                     <th class="compare-table__product-col">
                                         <div class="compare-table__card">
-                                            <img [src]="comparedItems()[1].image" [alt]="comparedItems()[1].name" class="compare-table__img" />
+                                            <img [src]="comparedItems()[1].image" [alt]="comparedItems()[1].name" class="compare-table__img" loading="lazy" decoding="async" />
                                             <h3 class="compare-table__item-title">{{ comparedItems()[1].name }}</h3>
                                             <a [routerLink]="['/items', comparedItems()[1].id]" (click)="closeModal()" class="compare-table__link">View Details</a>
                                         </div>

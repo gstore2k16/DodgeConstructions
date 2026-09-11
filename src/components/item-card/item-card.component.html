@@ -5,6 +5,7 @@
             [src]="item().image"
             [alt]="item().name"
             loading="lazy"
+            decoding="async"
         />
         <!-- In Stock badge: shown on the image -->
         @if (item().inStock) {

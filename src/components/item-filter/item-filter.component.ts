@@ -51,7 +51,7 @@ export class ItemFilterComponent {
 
     constructor() {
         this.searchSubject$.pipe(
-            debounceTime(20),
+            debounceTime(50),
             distinctUntilChanged(),
             takeUntilDestroyed(this.destroyRef)
         ).subscribe((term: string) => {
