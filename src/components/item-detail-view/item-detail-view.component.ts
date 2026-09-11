@@ -4,6 +4,7 @@ import { Item } from '../../models/item.model';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { QuantitySelectorComponent } from '../quantity-selector/quantity-selector.component';
 import { ItemFeaturesComponent } from '../item-features/item-features.component';
+import { ImageZoomComponent } from '../image-zoom/image-zoom.component';
 
 @Component({
     selector: 'app-item-detail-view',
@@ -12,7 +13,8 @@ import { ItemFeaturesComponent } from '../item-features/item-features.component'
         CommonModule,
         BreadcrumbComponent,
         QuantitySelectorComponent,
-        ItemFeaturesComponent
+        ItemFeaturesComponent,
+        ImageZoomComponent
     ],
     templateUrl: './item-detail-view.component.html',
     styleUrls: ['./item-detail-view.component.scss']

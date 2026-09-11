@@ -3,14 +3,10 @@
     <app-breadcrumb [category]="item().category"></app-breadcrumb>
 
     <div class="detail-layout">
-        <!-- Product image -->
+        <!-- Product image with zooming option -->
         @defer (on viewport) {
             <div class="detail-image-wrapper">
-                <img
-                    [src]="item().image"
-                    [alt]="item().name"
-                    loading="lazy"
-                />
+                <app-image-zoom [src]="item().image" [alt]="item().name"></app-image-zoom>
             </div>
         } @placeholder {
             <div class="detail-image-wrapper skeleton-image"></div>
