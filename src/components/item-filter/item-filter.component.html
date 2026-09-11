@@ -1,0 +1,94 @@
+<div class="filter-header-row">
+    <div class="search-box">
+        <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+             viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="2"
+             stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"/>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+        </svg>
+        <input
+            type="text"
+            placeholder="Search products…"
+            [ngModel]="searchTerm()"
+            (ngModelChange)="onSearchInput($event)"
+        />
+    </div>
+</div>
+
+<!-- Filter & Sort controls bar -->
+<div class="filter-bar">
+    <!-- Category Filter -->
+    <div class="filter-group">
+        <label for="category-select" class="filter-label">Category</label>
+        <select
+            id="category-select"
+            class="filter-select"
+            [ngModel]="selectedCategory()"
+            (ngModelChange)="onCategorySelect($event)">
+            @for (cat of categories(); track cat) {
+                <option [value]="cat">{{ cat }}</option>
+            }
+        </select>
+    </div>
+
+    <!-- Price Range Filter -->
+    <div class="filter-group price-range-group">
+        <label class="filter-label">Price Range</label>
+        <div class="price-inputs">
+            <input
+                type="number"
+                class="filter-input price-input"
+                placeholder="Min $"
+                min="0"
+                [ngModel]="minPrice()"
+                (ngModelChange)="onMinInput($event)"
+            />
+            <span class="price-separator">-</span>
+            <input
+                type="number"
+                class="filter-input price-input"
+                placeholder="Max $"
+                min="0"
+                [ngModel]="maxPrice()"
+                (ngModelChange)="onMaxInput($event)"
+            />
+        </div>
+    </div>
+
+    <!-- Sort Control -->
+    <div class="filter-group">
+        <label for="sort-select" class="filter-label">Sort By</label>
+        <select
+            id="sort-select"
+            class="filter-select"
+            [ngModel]="sortOrder()"
+            (ngModelChange)="onSortSelect($event)">
+            <option value="default">Default</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+        </select>
+    </div>
+
+    <!-- In-Stock Checkbox -->
+    <div class="filter-group stock-group">
+        <label class="stock-label">
+            <input
+                type="checkbox"
+                [ngModel]="inStockOnly()"
+                (ngModelChange)="onStockToggle($event)"
+            />
+            In-stock only
+        </label>
+    </div>
+
+    <!-- Reset Filters Button -->
+    <div class="filter-group reset-group">
+        <button class="btn-reset" (click)="onResetClick()" title="Reset all filters">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 4 23 10 17 10"/>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+            </svg>
+            Reset
+        </button>
+    </div>
+</div>
