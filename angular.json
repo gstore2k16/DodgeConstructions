@@ -50,6 +50,7 @@
             }
           },
           "options": {
+            "baseHref": "/",
             "assets": [
               "src/assets"
             ],
