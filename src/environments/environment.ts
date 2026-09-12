@@ -1,5 +1,6 @@
 import { Environment } from './environment.interface';
 
+// Default/production config — used unless a build configuration replaces this file (see angular.json).
 export const environment: Environment = {
   production: true,
   environmentName: 'production',

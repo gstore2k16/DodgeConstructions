@@ -6,8 +6,6 @@
     "start": "ng serve",
     "build": "ng build",
     "test": "npx --cache ./npm-cache tsx --import ./test-runner.mjs --test --test-concurrency=1 'src/**/*.spec.ts'"
-
-
   },
   "dependencies": {
     "@angular/animations": "^21.0.3",

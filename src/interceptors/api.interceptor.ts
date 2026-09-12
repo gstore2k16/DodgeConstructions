@@ -2,6 +2,15 @@ import { HttpInterceptorFn, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, throwError } from 'rxjs';
 import { environment } from '../environments/environment';
 
+/**
+ * Functional HTTP interceptor applied to every outgoing request.
+ * - Tags each request with an `X-Environment` header so the API/backend
+ *   can see which environment (local/uat/production) it came from.
+ * - When `environment.enableLogging` is on, logs request/response timing
+ *   and normalizes any error into a single readable message before
+ *   re-throwing it, so downstream subscribers get consistent errors
+ *   regardless of whether the failure was client-side or server-side.
+ */
 export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   const startTime = Date.now();
 

@@ -231,7 +231,6 @@ export class ItemStateService {
   }
 }
 
-
 const initialItemRequestState: ItemRequestState = {
   items: Object.freeze([]),
   loading: true,

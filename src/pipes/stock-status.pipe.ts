@@ -3,7 +3,6 @@ import { StockInfo } from '../interfaces/stock-info.interface';
 
 export type { StockInfo };
 
-
 @Pipe({
   name: 'stockStatus',
   pure: true
