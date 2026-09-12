@@ -4,15 +4,15 @@
  * and potential shared method logic in subclasses.
  */
 export abstract class Item {
-    abstract id: number;
-    abstract name: string;
-    abstract category: string;
-    abstract price: number;
-    abstract description: string;
-    abstract inStock: boolean;
-    abstract stockCount: number;
-    abstract image: string;
-    abstract features: string[];
+    abstract readonly id: number;
+    abstract readonly name: string;
+    abstract readonly category: string;
+    abstract readonly price: number;
+    abstract readonly description: string;
+    abstract readonly inStock: boolean;
+    abstract readonly stockCount: number;
+    abstract readonly image: string;
+    abstract readonly features: readonly string[];
 }
 
 /**
@@ -21,15 +21,15 @@ export abstract class Item {
  */
 export class ProductItem extends Item {
     constructor(
-        public id: number,
-        public name: string,
-        public category: string,
-        public price: number,
-        public description: string,
-        public inStock: boolean,
-        public stockCount: number,
-        public image: string,
-        public features: string[]
+        public readonly id: number,
+        public readonly name: string,
+        public readonly category: string,
+        public readonly price: number,
+        public readonly description: string,
+        public readonly inStock: boolean,
+        public readonly stockCount: number,
+        public readonly image: string,
+        public readonly features: readonly string[]
     ) {
         super();
     }
