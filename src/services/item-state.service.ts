@@ -1,6 +1,6 @@
-import { Injectable, inject, signal, computed, DestroyRef, Signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Subscription } from 'rxjs';
+import { Injectable, inject, signal, computed, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
+import { Subject, catchError, concat, map, of, startWith, switchMap } from 'rxjs';
 import { Item } from '../models/item.model';
 import { ItemService } from './item.service';
 import { SortOption } from '../models/item-filter.model';
@@ -10,13 +10,46 @@ import { SortOption } from '../models/item-filter.model';
 })
 export class ItemStateService {
   private readonly itemService = inject(ItemService);
-  private readonly destroyRef = inject(DestroyRef);
-  private loadSub?: Subscription;
+  private readonly reloadItems$ = new Subject<void>();
+
+  /**
+   * A single stream is the source of truth for remote item state. `toSignal`
+   * manages its subscription for this root-scoped service, avoiding manual
+   * subscription and teardown code.
+   */
+  private readonly itemRequest = toSignal(
+    this.reloadItems$.pipe(
+      startWith(undefined),
+      switchMap(() => concat(
+        of<ItemRequestState>({
+          items: Object.freeze([]),
+          loading: true,
+          error: null
+        }),
+        this.itemService.getItems().pipe(
+          map((items): ItemRequestState => ({
+            items: this.freezeArray(items),
+            loading: false,
+            error: null
+          })),
+          catchError(() => of<ItemRequestState>({
+            items: Object.freeze([]),
+            loading: false,
+            error: 'Failed to load products. Please try again later.'
+          }))
+        )
+      ))
+    ),
+    {
+      initialValue: {
+        items: Object.freeze([]),
+        loading: true,
+        error: null
+      } satisfies ItemRequestState
+    }
+  );
 
   // Private writable signals (Controlled internal state)
-  private readonly _items = signal<readonly Item[]>(Object.freeze([]));
-  private readonly _loading = signal<boolean>(true);
-  private readonly _error = signal<string | null>(null);
   private readonly _filter = signal<string>('');
   private readonly _selectedCategory = signal<string>('All');
   private readonly _minPrice = signal<number | null>(null);
@@ -27,9 +60,9 @@ export class ItemStateService {
   private readonly _compareIds = signal<readonly number[]>(Object.freeze([]));
 
   // Public Readonly Signals (Exposed to components to prevent direct state mutation)
-  public readonly items: Signal<readonly Item[]> = this._items.asReadonly();
-  public readonly loading = this._loading.asReadonly();
-  public readonly error = this._error.asReadonly();
+  public readonly items: Signal<readonly Item[]> = computed(() => this.itemRequest().items);
+  public readonly loading: Signal<boolean> = computed(() => this.itemRequest().loading);
+  public readonly error: Signal<string | null> = computed(() => this.itemRequest().error);
   public readonly filter = this._filter.asReadonly();
   public readonly selectedCategory = this._selectedCategory.asReadonly();
   public readonly minPrice = this._minPrice.asReadonly();
@@ -42,15 +75,15 @@ export class ItemStateService {
   // Derived Computed Signals (Encapsulated Business Logic)
   public readonly comparedItems: Signal<readonly Item[]> = computed(() => {
     const ids = this._compareIds();
-    const all = this._items();
+    const all = this.items();
     return this.freezeArray(ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item));
   });
   public readonly categories: Signal<readonly string[]> = computed(() => {
-    return this.freezeArray(['All', ...new Set(this._items().map(item => item.category))]);
+    return this.freezeArray(['All', ...new Set(this.items().map(item => item.category))]);
   });
 
   public readonly filteredItems: Signal<readonly Item[]> = computed(() => {
-    let result = [...this._items()];
+    let result = [...this.items()];
     const term = this._filter().toLowerCase().trim();
     const category = this._selectedCategory();
     const minP = this._minPrice();
@@ -94,39 +127,14 @@ export class ItemStateService {
   public readonly selectedItem = computed<Item | undefined>(() => {
     const id = this._selectedItemId();
     if (id === null) return undefined;
-    return this._items().find((item: Item) => item.id === id);
+    return this.items().find((item: Item) => item.id === id);
   });
-
-  constructor() {
-    this.loadItems();
-  }
 
   /**
    * Fetches products from ItemService and updates state signals.
    */
   public loadItems(): void {
-    if (this._items().length > 0 && !this._error()) {
-      this._loading.set(false);
-      return;
-    }
-
-    this.loadSub?.unsubscribe();
-
-    this._loading.set(true);
-    this._error.set(null);
-
-    this.loadSub = this.itemService.getItems().pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe({
-      next: (data: Item[]) => {
-        this._items.set(this.freezeArray(data));
-        this._loading.set(false);
-      },
-      error: () => {
-        this._error.set('Failed to load products. Please try again later.');
-        this._loading.set(false);
-      }
-    });
+    this.reloadItems$.next();
   }
 
   // Controlled State Mutators (Encapsulated Actions)
@@ -199,4 +207,10 @@ export class ItemStateService {
   private freezeArray<T>(values: readonly T[]): readonly T[] {
     return Object.freeze([...values]);
   }
+}
+
+interface ItemRequestState {
+  readonly items: readonly Item[];
+  readonly loading: boolean;
+  readonly error: string | null;
 }

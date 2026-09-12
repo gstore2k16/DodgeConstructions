@@ -1,9 +1,9 @@
-import { Component, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, inject, effect, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ItemStateService } from '../../services/item-state.service';
 import { SortOption } from '../../models/item-filter.model';
 import { ItemGridComponent } from '../../components/item-grid/item-grid.component';
@@ -35,16 +35,17 @@ export class ItemsComponent {
   private readonly stateService = inject(ItemStateService);
   private readonly titleService = inject(Title);
   private readonly route = inject(ActivatedRoute);
-  private readonly destroyRef = inject(DestroyRef);
+  private readonly queryParams = toSignal(this.route.queryParamMap);
 
   constructor() {
     this.titleService.setTitle('Products - DodgeConstructions');
 
-    // Automatically sync query parameters (e.g. ?category=Accessories) to state service
-    this.route.queryParamMap.pipe(
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe(params => {
-      this.stateService.setCategoryFilter(params.get('category') ?? 'All');
+    // Keep URL-driven category state synchronized without a manual subscription.
+    effect(() => {
+      const params = this.queryParams();
+      if (params) {
+        this.stateService.setCategoryFilter(params.get('category') ?? 'All');
+      }
     });
   }
 
