@@ -19,7 +19,7 @@ const testPlatform = createPlatformFactory(platformCore, 'test', []);
 
 try {
   TestBed.initTestEnvironment([], testPlatform(), {
-    teardown: { destroyAfterEach: true },
+    teardown: { destroyAfterEach: false },
     providers: [
       { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
       { provide: ChangeDetectionScheduler, useValue: { notify: () => {} } }

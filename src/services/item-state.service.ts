@@ -26,12 +26,12 @@ export class ItemStateService {
         of<ItemRequestState>(initialItemRequestState),
         this.itemService.getItems().pipe(
           map((items: Item[]): ItemRequestState => ({
-            items: Object.freeze([...items]),
+            items,
             loading: false,
             error: null
           })),
           catchError(() => of<ItemRequestState>({
-            items: Object.freeze([]),
+            items: [],
             loading: false,
             error: 'Failed to load products. Please try again later.'
           }))
@@ -51,8 +51,8 @@ export class ItemStateService {
   private readonly _inStockOnly = signal<boolean>(false);
   private readonly _sortOrder = signal<SortOption>('default');
   private readonly _selectedItemId = signal<number | null>(null);
-  private readonly _compareIds = signal<readonly number[]>(Object.freeze([]));
-  private readonly _cartItems = signal<readonly CartLine[]>(Object.freeze([]));
+  private readonly _compareIds = signal<readonly number[]>([]);
+  private readonly _cartItems = signal<readonly CartLine[]>([]);
 
   // Public Readonly Signals (Exposed to components to prevent direct state mutation)
   public readonly items: Signal<readonly Item[]> = computed(() => this.itemRequest().items);
@@ -72,10 +72,10 @@ export class ItemStateService {
   public readonly comparedItems: Signal<readonly Item[]> = computed(() => {
     const ids = this._compareIds();
     const all = this.items();
-    return Object.freeze(ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item));
+    return ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item);
   });
   public readonly categories: Signal<readonly string[]> = computed(() => {
-    return Object.freeze(['All', ...new Set(this.items().map(item => item.category))]);
+    return ['All', ...new Set(this.items().map(item => item.category))];
   });
 
   /** Total number of units across all cart lines (for a nav/cart badge). */
@@ -122,7 +122,7 @@ export class ItemStateService {
       result.sort((a: Item, b: Item) => b.price - a.price);
     }
 
-    return Object.freeze(result);
+    return result;
   });
 
   public readonly selectedItem = computed<Item | undefined>(() => {
@@ -170,22 +170,22 @@ export class ItemStateService {
   public toggleCompare(id: number): boolean {
     const current = this._compareIds();
     if (current.includes(id)) {
-      this._compareIds.set(Object.freeze(current.filter(i => i !== id)));
+      this._compareIds.set(current.filter(i => i !== id));
       return true;
     }
     if (current.length >= 2) {
       return false; // Limit reached (Max 2 products allowed for comparison)
     }
-    this._compareIds.set(Object.freeze([...current, id]));
+    this._compareIds.set([...current, id]);
     return true;
   }
 
   public removeCompare(id: number): void {
-    this._compareIds.set(Object.freeze(this._compareIds().filter(i => i !== id)));
+    this._compareIds.set(this._compareIds().filter(i => i !== id));
   }
 
   public clearCompare(): void {
-    this._compareIds.set(Object.freeze([]));
+    this._compareIds.set([]);
   }
 
   /**
@@ -200,10 +200,10 @@ export class ItemStateService {
     const existing = current.find(line => line.itemId === itemId);
     if (existing) {
       this._cartItems.set(
-        Object.freeze(current.map(line => line.itemId === itemId ? { itemId, quantity: line.quantity + quantity } : line))
+        current.map(line => line.itemId === itemId ? { itemId, quantity: line.quantity + quantity } : line)
       );
     } else {
-      this._cartItems.set(Object.freeze([...current, { itemId, quantity }]));
+      this._cartItems.set([...current, { itemId, quantity }]);
     }
   }
 
@@ -222,7 +222,7 @@ export class ItemStateService {
 }
 
 const initialItemRequestState: ItemRequestState = {
-  items: Object.freeze([]),
+  items: [],
   loading: true,
   error: null
 };

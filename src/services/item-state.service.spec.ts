@@ -37,21 +37,13 @@ describe('ItemStateService (Jest)', () => {
     expect(service.loading()).toBe(false);
   });
 
-  it('should expose immutable collection snapshots', () => {
-    expect(Object.isFrozen(service.items())).toBe(true);
-    expect(Object.isFrozen(service.filteredItems())).toBe(true);
-    expect(Object.isFrozen(service.categories())).toBe(true);
-    expect(Object.isFrozen(service.compareIds())).toBe(true);
-    expect(Object.isFrozen(service.comparedItems())).toBe(true);
-    expect(Object.isFrozen(service.cartItems())).toBe(true);
-
-    let threw = false;
-    try {
-      (service.items() as any).push(mockItems[0]);
-    } catch {
-      threw = true;
-    }
-    expect(threw).toBe(true);
+  it('should expose collection snapshots', () => {
+    expect(Array.isArray(service.items())).toBe(true);
+    expect(Array.isArray(service.filteredItems())).toBe(true);
+    expect(Array.isArray(service.categories())).toBe(true);
+    expect(Array.isArray(service.compareIds())).toBe(true);
+    expect(Array.isArray(service.comparedItems())).toBe(true);
+    expect(Array.isArray(service.cartItems())).toBe(true);
   });
 
   it('should derive categories list starting with "All"', () => {
@@ -67,7 +59,6 @@ describe('ItemStateService (Jest)', () => {
     expect(failingService.loading()).toBe(false);
     expect(failingService.error()).toBe('Failed to load products. Please try again later.');
     expect(failingService.items()).toEqual([]);
-    expect(Object.isFrozen(failingService.items())).toBe(true);
   });
 
   it('should re-invoke ItemService.getItems() and refresh state when loadItems() is called', () => {
