@@ -1,12 +1,19 @@
 import { Injector, signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { ErrorComponent } from './error.component';
 
 describe('ErrorComponent (Jest)', () => {
   let component: ErrorComponent;
 
   beforeEach(() => {
-    const injector = Injector.create({ providers: [ErrorComponent] });
+    const injector = Injector.create({
+      providers: [
+        provideRouter([]),
+        ErrorComponent
+      ]
+    });
     component = injector.get(ErrorComponent);
+    (component as any).message = signal('Initial error message');
   });
 
   it('should create error component instance', () => {

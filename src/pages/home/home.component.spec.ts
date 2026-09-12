@@ -1,10 +1,18 @@
+import { Injector } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { HomeComponent } from './home.component';
 
 describe('HomeComponent (Jest)', () => {
   let component: HomeComponent;
 
   beforeEach(() => {
-    component = new HomeComponent();
+    const injector = Injector.create({
+      providers: [
+        provideRouter([]),
+        HomeComponent
+      ]
+    });
+    component = injector.get(HomeComponent);
   });
 
   it('should create home component instance', () => {
@@ -24,6 +32,7 @@ describe('HomeComponent (Jest)', () => {
   it('should reset fullSizeImage to null on closeFullSize', () => {
     component.openFullSize('assets/test.png');
     expect(component.fullSizeImage).toBe('assets/test.png');
+
     component.closeFullSize();
     expect(component.fullSizeImage).toBeNull();
   });

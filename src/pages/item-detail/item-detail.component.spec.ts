@@ -1,6 +1,7 @@
-import { Injector, WritableSignal, ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
+import { Injector, signal, WritableSignal, ɵChangeDetectionScheduler as ChangeDetectionScheduler, ɵEffectScheduler as EffectScheduler } from '@angular/core';
+import { provideRouter, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
-import { signal } from '@angular/core';
+import { of } from 'rxjs';
 import { ItemDetailComponent } from './item-detail.component';
 import { ItemStateService } from '../../services/item-state.service';
 import { ProductItem } from '../../models/product-item.model';
@@ -46,12 +47,13 @@ describe('ItemDetailComponent (Jest)', () => {
       providers: [
         { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
         { provide: ChangeDetectionScheduler, useValue: { notify: () => {} } },
+        provideRouter([]),
         { provide: ItemStateService, useValue: mockStateService },
         { provide: Title, useValue: mockTitleService },
+        { provide: ActivatedRoute, useValue: { paramMap: of({ get: () => '1' }) } },
         ItemDetailComponent
       ]
     });
-
     component = injector.get(ItemDetailComponent);
   });
 

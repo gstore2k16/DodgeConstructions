@@ -1,11 +1,17 @@
 import { Injector } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { AppComponent } from './app.component';
 
 describe('AppComponent (Jest)', () => {
   let component: AppComponent;
 
   beforeEach(() => {
-    const injector = Injector.create({ providers: [AppComponent] });
+    const injector = Injector.create({
+      providers: [
+        provideRouter([]),
+        AppComponent
+      ]
+    });
     component = injector.get(AppComponent);
   });
 

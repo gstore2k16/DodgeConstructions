@@ -3,11 +3,10 @@ import { BreadcrumbComponent } from './breadcrumb.component';
 
 describe('BreadcrumbComponent (Jest)', () => {
   let component: BreadcrumbComponent;
+
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [
-        BreadcrumbComponent
-      ]
+      providers: [BreadcrumbComponent]
     });
 
     component = injector.get(BreadcrumbComponent);

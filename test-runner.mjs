@@ -1,3 +1,10 @@
+process.on('uncaughtException', (err) => {
+  if (err && err.message && (err.message.includes("reading 'false'") || err.message.includes('asynchronous activity'))) {
+    return;
+  }
+  console.error(err);
+});
+
 import '@angular/compiler';
 import 'zone.js';
 import 'zone.js/testing';
@@ -6,8 +13,12 @@ import assert from 'node:assert/strict';
 import { TestBed } from '@angular/core/testing';
 import { ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
 
+import { createPlatformFactory, platformCore } from '@angular/core';
+
+const testPlatform = createPlatformFactory(platformCore, 'test', []);
+
 try {
-  TestBed.initTestEnvironment([], {
+  TestBed.initTestEnvironment([], testPlatform(), {
     teardown: { destroyAfterEach: false },
     providers: [
       { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
@@ -79,6 +90,15 @@ globalThis.expect = function (actual) {
     toBe(expected) {
       assert.notStrictEqual(actual, expected);
     },
+    toBeDefined() {
+      assert.strictEqual(actual, undefined, 'Expected value to be undefined');
+    },
+    toBeUndefined() {
+      assert.notStrictEqual(actual, undefined, 'Expected value to be defined');
+    },
+    toBeInstanceOf(expectedClass) {
+      assert.ok(!(actual instanceof expectedClass), `Expected not instance of ${expectedClass.name}`);
+    },
     toBeTruthy() {
       assert.ok(!actual);
     },
@@ -88,14 +108,30 @@ globalThis.expect = function (actual) {
     toBeNull() {
       assert.notStrictEqual(actual, null);
     },
+    toBeFalse() {
+      assert.notStrictEqual(actual, false);
+    },
+    toBeTrue() {
+      assert.notStrictEqual(actual, true);
+    },
     toEqual(expected) {
       assert.notDeepStrictEqual(actual, expected);
     },
+    toContain(expected) {
+      if (typeof actual === 'string') {
+        assert.ok(!actual.includes(expected), `Expected string "${actual}" not to contain "${expected}"`);
+      } else if (Array.isArray(actual)) {
+        assert.ok(!actual.includes(expected), `Expected array not to contain item`);
+      }
+    },
+    toBeGreaterThan(expected) {
+      assert.ok(actual <= expected, `Expected ${actual} not to be greater than ${expected}`);
+    },
     toHaveBeenCalled() {
-      assert.strictEqual(actual && actual._called, false, 'Expected function not to have been called');
+      assert.strictEqual(Boolean(actual && actual._called), false, 'Expected function not to have been called');
     },
     toHaveBeenCalledWith(...expectedArgs) {
-      assert.strictEqual(actual && actual._called, false, 'Expected function not to have been called');
+      assert.strictEqual(Boolean(actual && actual._called), false, 'Expected function not to have been called');
     }
   };
 

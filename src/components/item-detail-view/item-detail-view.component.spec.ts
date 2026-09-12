@@ -1,4 +1,5 @@
-import { Injector, signal } from '@angular/core';
+import { Injector, DestroyRef, signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { ItemDetailViewComponent } from './item-detail-view.component';
 import { ItemStateService } from '../../services/item-state.service';
 import { ProductItem } from '../../models/product-item.model';
@@ -6,6 +7,7 @@ import { ProductItem } from '../../models/product-item.model';
 describe('ItemDetailViewComponent (Jest)', () => {
   let component: ItemDetailViewComponent;
   let mockStateService: any;
+  let mockDestroyRef: any;
 
   const mockItem = new ProductItem(
     1,
@@ -19,22 +21,29 @@ describe('ItemDetailViewComponent (Jest)', () => {
     ['20V MAX']
   );
 
+  function createComponent() {
+    const injector = Injector.create({
+      providers: [
+        { provide: DestroyRef, useValue: mockDestroyRef },
+        { provide: ItemStateService, useValue: mockStateService },
+        provideRouter([]),
+        ItemDetailViewComponent
+      ]
+    });
+    const comp = injector.get(ItemDetailViewComponent);
+    (comp as any).item = signal(mockItem);
+    return comp;
+  }
+
   beforeEach(() => {
     jest.useFakeTimers();
 
+    mockDestroyRef = { onDestroy: jest.fn() };
     mockStateService = {
       addToCart: jest.fn()
     };
 
-    const injector = Injector.create({
-      providers: [
-        { provide: ItemStateService, useValue: mockStateService },
-        ItemDetailViewComponent
-      ]
-    });
-
-    component = injector.get(ItemDetailViewComponent);
-    (component as any).item = signal(mockItem);
+    component = createComponent();
   });
 
   afterEach(() => {

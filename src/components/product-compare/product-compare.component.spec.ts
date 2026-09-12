@@ -1,4 +1,5 @@
 import { Injector, signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { ProductCompareComponent } from './product-compare.component';
 import { ItemStateService } from '../../services/item-state.service';
 import { ProductItem } from '../../models/product-item.model';
@@ -20,10 +21,10 @@ describe('ProductCompareComponent (Jest)', () => {
     const injector = Injector.create({
       providers: [
         { provide: ItemStateService, useValue: mockStateService },
+        provideRouter([]),
         ProductCompareComponent
       ]
     });
-
     component = injector.get(ProductCompareComponent);
   });
 

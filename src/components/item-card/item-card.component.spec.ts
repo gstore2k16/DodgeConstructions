@@ -1,4 +1,5 @@
 import { Injector, DestroyRef, signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { ItemCardComponent } from './item-card.component';
 import { ItemStateService } from '../../services/item-state.service';
 import { ProductItem } from '../../models/product-item.model';
@@ -26,6 +27,7 @@ describe('ItemCardComponent (Jest)', () => {
       providers: [
         { provide: DestroyRef, useValue: mockDestroyRef },
         { provide: ItemStateService, useValue: mockStateService },
+        provideRouter([]),
         ItemCardComponent
       ]
     });
