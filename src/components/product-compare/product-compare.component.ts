@@ -2,7 +2,6 @@ import { Component, inject, viewChild, ElementRef, ChangeDetectionStrategy } fro
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ItemStateService } from '../../services/item-state.service';
-import { Item } from '../../models/item.model';
 import { PriceDifferencePipe } from '../../pipes/price-difference.pipe';
 import { StockStatusPipe } from '../../pipes/stock-status.pipe';
 
@@ -63,21 +62,5 @@ export class ProductCompareComponent {
     if (dialog?.open) {
       dialog.close();
     }
-  }
-
-  /**
-   * Calculates absolute price difference between 2 items.
-   */
-  public getPriceDifference(item1: Item, item2: Item): number {
-    return Math.abs(item1.price - item2.price);
-  }
-
-  /**
-   * Returns name of the cheaper item.
-   */
-  public getCheaperItemName(item1: Item, item2: Item): string {
-    if (item1.price < item2.price) return item1.name;
-    if (item2.price < item1.price) return item2.name;
-    return 'Both have equal price';
   }
 }

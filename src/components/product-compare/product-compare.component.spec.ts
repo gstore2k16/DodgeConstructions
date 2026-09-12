@@ -41,9 +41,4 @@ describe('ProductCompareComponent (Jest)', () => {
     component.clearAll();
     expect(mockStateService.clearCompare).toHaveBeenCalled();
   });
-
-  it('should calculate price difference and cheaper item name', () => {
-    expect(component.getPriceDifference(mockItem1, mockItem2)).toBe(50);
-    expect(component.getCheaperItemName(mockItem1, mockItem2)).toBe('Drill A');
-  });
 });
