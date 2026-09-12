@@ -1,8 +1,7 @@
-import { Injector, DestroyRef, ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Injector, signal, DestroyRef, ɵChangeDetectionScheduler as ChangeDetectionScheduler, ɵEffectScheduler as EffectScheduler } from '@angular/core';
+import { provideRouter, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { of } from 'rxjs';
-import { signal } from '@angular/core';
 import { ItemsComponent } from './items.component';
 import { ItemStateService } from '../../services/item-state.service';
 import { ProductItem } from '../../models/product-item.model';
@@ -25,26 +24,8 @@ describe('ItemsComponent (Jest)', () => {
     ['20V MAX']
   );
 
-  function createComponent(): ItemsComponent {
-    const injector = Injector.create({
-      providers: [
-        { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
-        { provide: ChangeDetectionScheduler, useValue: { notify: () => {} } },
-        { provide: DestroyRef, useValue: mockDestroyRef },
-        { provide: ItemStateService, useValue: mockStateService },
-        { provide: Title, useValue: mockTitleService },
-        {
-          provide: ActivatedRoute,
-          useValue: { queryParamMap: of(new Map([['category', 'Power Tools']])) }
-        },
-        ItemsComponent
-      ]
-    });
-
-    return injector.get(ItemsComponent);
-  }
-
   beforeEach(() => {
+    mockDestroyRef = { onDestroy: jest.fn() };
     mockStateService = {
       items: signal([mockItem]).asReadonly(),
       filteredItems: signal([mockItem]).asReadonly(),
@@ -73,11 +54,22 @@ describe('ItemsComponent (Jest)', () => {
       getTitle: jest.fn()
     };
 
-    mockDestroyRef = {
-      onDestroy: jest.fn()
-    };
-
-    component = createComponent();
+    const injector = Injector.create({
+      providers: [
+        { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
+        { provide: ChangeDetectionScheduler, useValue: { notify: () => {} } },
+        { provide: DestroyRef, useValue: mockDestroyRef },
+        { provide: ItemStateService, useValue: mockStateService },
+        { provide: Title, useValue: mockTitleService },
+        provideRouter([]),
+        {
+          provide: ActivatedRoute,
+          useValue: { queryParamMap: of(new Map([['category', 'Power Tools']])) }
+        },
+        ItemsComponent
+      ]
+    });
+    component = injector.get(ItemsComponent);
   });
 
   it('should create items component instance', () => {

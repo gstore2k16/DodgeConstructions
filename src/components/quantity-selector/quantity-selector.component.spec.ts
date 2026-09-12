@@ -5,7 +5,9 @@ describe('QuantitySelectorComponent (Jest)', () => {
   let component: QuantitySelectorComponent;
 
   beforeEach(() => {
-    const injector = Injector.create({ providers: [QuantitySelectorComponent] });
+    const injector = Injector.create({
+      providers: [QuantitySelectorComponent]
+    });
     component = injector.get(QuantitySelectorComponent);
   });
 

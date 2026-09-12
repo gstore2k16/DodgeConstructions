@@ -16,8 +16,11 @@ describe('ImageZoomComponent (Jest)', () => {
   let component: ImageZoomComponent;
 
   beforeEach(() => {
-    const injector = Injector.create({ providers: [ImageZoomComponent] });
+    const injector = Injector.create({
+      providers: [ImageZoomComponent]
+    });
     component = injector.get(ImageZoomComponent);
+    (component as any).src = signal('/assets/test.jpg');
   });
 
   it('should create image zoom component instance', () => {

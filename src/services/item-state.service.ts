@@ -1,5 +1,5 @@
-import { Injectable, inject, signal, computed, Signal, DestroyRef } from '@angular/core';
-import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Injectable, inject, signal, computed, Signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Subject, catchError, concat, map, of, startWith, switchMap } from 'rxjs';
 import { Item } from '../models/item.model';
 import { ItemService } from './item.service';
@@ -12,7 +12,6 @@ import { ItemRequestState } from '../interfaces/item-request-state.interface';
 })
 export class ItemStateService {
   private readonly itemService = inject(ItemService);
-  private readonly destroyRef = inject(DestroyRef, { optional: true });
   private readonly reloadItems$ = new Subject<void>();
 
   /**
@@ -26,9 +25,8 @@ export class ItemStateService {
       switchMap(() => concat(
         of<ItemRequestState>(initialItemRequestState),
         this.itemService.getItems().pipe(
-          takeUntilDestroyed(this.destroyRef ?? undefined),
           map((items: Item[]): ItemRequestState => ({
-            items: this.freezeArray(items),
+            items: Object.freeze([...items]),
             loading: false,
             error: null
           })),
@@ -74,10 +72,10 @@ export class ItemStateService {
   public readonly comparedItems: Signal<readonly Item[]> = computed(() => {
     const ids = this._compareIds();
     const all = this.items();
-    return this.freezeArray(ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item));
+    return Object.freeze(ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item));
   });
   public readonly categories: Signal<readonly string[]> = computed(() => {
-    return this.freezeArray(['All', ...new Set(this.items().map(item => item.category))]);
+    return Object.freeze(['All', ...new Set(this.items().map(item => item.category))]);
   });
 
   /** Total number of units across all cart lines (for a nav/cart badge). */
@@ -124,7 +122,7 @@ export class ItemStateService {
       result.sort((a: Item, b: Item) => b.price - a.price);
     }
 
-    return this.freezeArray(result);
+    return Object.freeze(result);
   });
 
   public readonly selectedItem = computed<Item | undefined>(() => {
@@ -172,18 +170,18 @@ export class ItemStateService {
   public toggleCompare(id: number): boolean {
     const current = this._compareIds();
     if (current.includes(id)) {
-      this._compareIds.set(this.freezeArray(current.filter(i => i !== id)));
+      this._compareIds.set(Object.freeze(current.filter(i => i !== id)));
       return true;
     }
     if (current.length >= 2) {
       return false; // Limit reached (Max 2 products allowed for comparison)
     }
-    this._compareIds.set(this.freezeArray([...current, id]));
+    this._compareIds.set(Object.freeze([...current, id]));
     return true;
   }
 
   public removeCompare(id: number): void {
-    this._compareIds.set(this.freezeArray(this._compareIds().filter(i => i !== id)));
+    this._compareIds.set(Object.freeze(this._compareIds().filter(i => i !== id)));
   }
 
   public clearCompare(): void {
@@ -201,11 +199,11 @@ export class ItemStateService {
     const current = this._cartItems();
     const existing = current.find(line => line.itemId === itemId);
     if (existing) {
-      this._cartItems.set(this.freezeArray(
-        current.map(line => line.itemId === itemId ? { itemId, quantity: line.quantity + quantity } : line)
-      ));
+      this._cartItems.set(
+        Object.freeze(current.map(line => line.itemId === itemId ? { itemId, quantity: line.quantity + quantity } : line))
+      );
     } else {
-      this._cartItems.set(this.freezeArray([...current, { itemId, quantity }]));
+      this._cartItems.set(Object.freeze([...current, { itemId, quantity }]));
     }
   }
 
@@ -220,14 +218,6 @@ export class ItemStateService {
 
   private normalizePrice(value: number | null): number | null {
     return value !== null && Number.isFinite(value) && value >= 0 ? value : null;
-  }
-
-  /**
-   * ReadonlySignal prevents .set/.update access, while a frozen snapshot also
-   * prevents mutation through a collection returned by a signal invocation.
-   */
-  private freezeArray<T>(values: readonly T[]): readonly T[] {
-    return Object.freeze([...values]);
   }
 }
 

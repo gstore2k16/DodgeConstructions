@@ -1,4 +1,4 @@
-import { Injector, DestroyRef } from '@angular/core';
+import { Injector } from '@angular/core';
 import { ItemFilterComponent } from './item-filter.component';
 
 function wait(ms: number): Promise<void> {
@@ -7,20 +7,11 @@ function wait(ms: number): Promise<void> {
 
 describe('ItemFilterComponent (Jest)', () => {
   let component: ItemFilterComponent;
-  let mockDestroyRef: any;
 
   beforeEach(() => {
-    mockDestroyRef = {
-      onDestroy: jest.fn()
-    };
-
     const injector = Injector.create({
-      providers: [
-        { provide: DestroyRef, useValue: mockDestroyRef },
-        ItemFilterComponent
-      ]
+      providers: [ItemFilterComponent]
     });
-
     component = injector.get(ItemFilterComponent);
   });
 

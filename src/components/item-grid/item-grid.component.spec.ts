@@ -1,4 +1,5 @@
 import { Injector, signal } from '@angular/core';
+import { provideRouter } from '@angular/router';
 import { ItemGridComponent } from './item-grid.component';
 import { ProductItem } from '../../models/product-item.model';
 
@@ -11,8 +12,14 @@ describe('ItemGridComponent (Jest)', () => {
   ];
 
   beforeEach(() => {
-    const injector = Injector.create({ providers: [ItemGridComponent] });
+    const injector = Injector.create({
+      providers: [
+        provideRouter([]),
+        ItemGridComponent
+      ]
+    });
     component = injector.get(ItemGridComponent);
+    (component as any).items = signal([]);
   });
 
   it('should create item grid component instance', () => {
