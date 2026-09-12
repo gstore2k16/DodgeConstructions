@@ -3,6 +3,6 @@ import { Environment } from './environment.model';
 export const environment: Environment = {
   production: true,
   environmentName: 'production',
-  apiUrl: 'https://timely-florentine-2f5598.netlify.app/assets/items',
+  apiUrl: 'https://timely-florentine-2f5598.netlify.app/assets/items.json',
   enableLogging: false
 };
