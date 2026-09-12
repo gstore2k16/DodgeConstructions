@@ -3,7 +3,7 @@ import { Title } from '@angular/platform-browser';
 import { signal } from '@angular/core';
 import { ItemDetailComponent } from './item-detail.component';
 import { ItemStateService } from '../../services/item-state.service';
-import { ProductItem } from '../../models/item.model';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ItemDetailComponent (Jest)', () => {
   let component: ItemDetailComponent;

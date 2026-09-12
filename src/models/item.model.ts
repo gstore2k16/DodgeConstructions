@@ -14,5 +14,3 @@ export abstract class Item {
     abstract readonly image: string;
     abstract readonly features: readonly string[];
 }
-
-export { ProductItem } from './product-item.model';

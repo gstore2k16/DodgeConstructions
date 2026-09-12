@@ -1,7 +1,7 @@
 import { Injector, signal } from '@angular/core';
 import { ProductCompareComponent } from './product-compare.component';
 import { ItemStateService } from '../../services/item-state.service';
-import { ProductItem } from '../../models/item.model';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ProductCompareComponent (Jest)', () => {
   let component: ProductCompareComponent;

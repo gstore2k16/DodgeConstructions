@@ -1,7 +1,7 @@
 import { Injector, signal } from '@angular/core';
 import { ItemDetailViewComponent } from './item-detail-view.component';
 import { ItemStateService } from '../../services/item-state.service';
-import { ProductItem } from '../../models/item.model';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ItemDetailViewComponent (Jest)', () => {
   let component: ItemDetailViewComponent;
@@ -38,6 +38,7 @@ describe('ItemDetailViewComponent (Jest)', () => {
   });
 
   afterEach(() => {
+    jest.clearAllTimers();
     jest.useRealTimers();
   });
 

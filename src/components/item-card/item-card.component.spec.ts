@@ -1,7 +1,7 @@
 import { Injector, DestroyRef, signal } from '@angular/core';
 import { ItemCardComponent } from './item-card.component';
 import { ItemStateService } from '../../services/item-state.service';
-import { ProductItem } from '../../models/item.model';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ItemCardComponent (Jest)', () => {
   let component: ItemCardComponent;
@@ -48,6 +48,7 @@ describe('ItemCardComponent (Jest)', () => {
   });
 
   afterEach(() => {
+    jest.clearAllTimers();
     jest.useRealTimers();
   });
 

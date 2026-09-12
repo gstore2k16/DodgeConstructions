@@ -2,7 +2,7 @@ import { Injector } from '@angular/core';
 import { of, throwError } from 'rxjs';
 import { ItemStateService } from './item-state.service';
 import { ItemService } from './item.service';
-import { ProductItem } from '../models/item.model';
+import { ProductItem } from '../models/product-item.model';
 
 describe('ItemStateService (Jest)', () => {
   let service: ItemStateService;

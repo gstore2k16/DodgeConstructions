@@ -1,5 +1,5 @@
 import { PriceDifferencePipe } from './price-difference.pipe';
-import { ProductItem } from '../models/item.model';
+import { ProductItem } from '../models/product-item.model';
 
 describe('PriceDifferencePipe (Jest)', () => {
   let pipe: PriceDifferencePipe;

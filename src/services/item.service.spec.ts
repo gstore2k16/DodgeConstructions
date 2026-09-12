@@ -2,7 +2,7 @@ import { Injector } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { of, firstValueFrom } from 'rxjs';
 import { ItemService } from './item.service';
-import { ProductItem } from '../models/item.model';
+import { ProductItem } from '../models/product-item.model';
 
 describe('ItemService (Jest)', () => {
   let service: ItemService;

@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { signal } from '@angular/core';
 import { ItemsComponent } from './items.component';
 import { ItemStateService } from '../../services/item-state.service';
-import { ProductItem } from '../../models/item.model';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ItemsComponent (Jest)', () => {
   let component: ItemsComponent;

@@ -1,6 +1,6 @@
 import { Injector, signal } from '@angular/core';
 import { ItemGridComponent } from './item-grid.component';
-import { ProductItem } from '../../models/item.model';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ItemGridComponent (Jest)', () => {
   let component: ItemGridComponent;
