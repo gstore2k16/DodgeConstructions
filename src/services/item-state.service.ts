@@ -4,6 +4,8 @@ import { Subject, catchError, concat, map, of, startWith, switchMap } from 'rxjs
 import { Item } from '../models/item.model';
 import { ItemService } from './item.service';
 import { SortOption } from '../models/item-filter.model';
+import { CartLine } from '../interfaces/cart-line.interface';
+import { ItemRequestState } from '../interfaces/item-request-state.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -229,16 +231,6 @@ export class ItemStateService {
   }
 }
 
-interface CartLine {
-  readonly itemId: number;
-  readonly quantity: number;
-}
-
-interface ItemRequestState {
-  readonly items: readonly Item[];
-  readonly loading: boolean;
-  readonly error: string | null;
-}
 
 const initialItemRequestState: ItemRequestState = {
   items: Object.freeze([]),

@@ -1,9 +1,8 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { StockInfo } from '../interfaces/stock-info.interface';
 
-export interface StockInfo {
-  inStock: boolean;
-  stockCount: number;
-}
+export { StockInfo };
+
 
 @Pipe({
   name: 'stockStatus',
