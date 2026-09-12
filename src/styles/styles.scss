@@ -5,10 +5,10 @@
 
 /* Global CSS reset / base styles */
 body {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  background-color: #f9f9f9;
-  color: #222;
+  font-family: $primary-font;
+  font-size: rem-calc($font-lg);
+  background-color: $color-bg-page;
+  color: $color-text-darker;
   line-height: 1.2;
 }
 
@@ -17,7 +17,7 @@ a {
   color: inherit;
 
   &:hover {
-    color: #007bff;
+    color: $color-blue-accent;
   }
 }
 

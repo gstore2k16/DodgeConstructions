@@ -39,9 +39,10 @@ export class ItemDetailComponent {
         // Dynamic page title update for SEO & Product UX
         effect(() => {
             const currentItem = this.item();
+            const isDoneLoading = !this.loading();
             if (currentItem) {
                 this.titleService.setTitle(`${currentItem.name} - DodgeConstructions`);
-            } else if (this.error()) {
+            } else if (isDoneLoading) {
                 this.titleService.setTitle('Product Not Found - DodgeConstructions');
             }
         });

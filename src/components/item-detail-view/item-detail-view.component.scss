@@ -68,9 +68,7 @@
     }
 
     &--skeleton {
-      background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
+      @include skeleton-shimmer;
     }
   }
 
@@ -96,30 +94,30 @@
     }
 
     @include break-to-desktop {
-      font-size: rem-calc(32);
+      font-size: rem-calc($font-5xl);
     }
 
     @include break-to-wider-desktop {
-      font-size: rem-calc(36);
+      font-size: rem-calc($font-6xl);
     }
   }
 
   &__price {
-    font-size: rem-calc(22);
+    font-size: rem-calc($font-price-sm);
     font-weight: 700;
     color: $color-text-dark;
     margin: 0 0 rem-calc(16) 0;
 
     @include break-to-tablet {
-      font-size: rem-calc(26);
+      font-size: rem-calc($font-price-md);
     }
 
     @include break-to-desktop {
-      font-size: rem-calc(30);
+      font-size: rem-calc($font-price-lg);
     }
 
     @include break-to-wider-desktop {
-      font-size: rem-calc(32);
+      font-size: rem-calc($font-5xl);
     }
   }
 
@@ -208,9 +206,7 @@
 
   &__skeleton-line,
   &__skeleton-box {
-    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    @include skeleton-shimmer;
     border-radius: rem-calc($radius-xs);
   }
 
@@ -275,7 +271,4 @@
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+@include skeleton-shimmer-keyframes;

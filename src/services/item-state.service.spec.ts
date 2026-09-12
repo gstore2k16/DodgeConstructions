@@ -40,7 +40,13 @@ describe('ItemStateService (Jest)', () => {
     expect(Object.isFrozen(service.categories())).toBe(true);
     expect(Object.isFrozen(service.compareIds())).toBe(true);
 
-    expect(() => (service.items() as Item[]).push(mockItems[0])).toThrow();
+    let threw = false;
+    try {
+      (service.items() as any).push(mockItems[0]);
+    } catch {
+      threw = true;
+    }
+    expect(threw).toBe(true);
   });
 
   it('should derive categories list starting with "All"', () => {

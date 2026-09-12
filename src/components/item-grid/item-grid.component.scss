@@ -37,9 +37,7 @@
   }
 
   &__skeleton-image {
-    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    @include skeleton-shimmer;
     min-height: rem-calc(180);
 
     @include break-to-tablet {
@@ -64,9 +62,7 @@
   &__skeleton-line {
     height: rem-calc(14);
     border-radius: rem-calc($radius-xs);
-    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    @include skeleton-shimmer;
 
     &--wide { width: 70%; }
     &--medium { width: 50%; }
@@ -74,7 +70,4 @@
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+@include skeleton-shimmer-keyframes;

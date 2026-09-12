@@ -1,5 +1,5 @@
-import { Injectable, inject, signal, computed, Signal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { Injectable, inject, signal, computed, Signal, DestroyRef } from '@angular/core';
+import { toSignal, takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subject, catchError, concat, map, of, startWith, switchMap } from 'rxjs';
 import { Item } from '../models/item.model';
 import { ItemService } from './item.service';
@@ -10,6 +10,7 @@ import { SortOption } from '../models/item-filter.model';
 })
 export class ItemStateService {
   private readonly itemService = inject(ItemService);
+  private readonly destroyRef = inject(DestroyRef, { optional: true });
   private readonly reloadItems$ = new Subject<void>();
 
   /**
@@ -17,17 +18,14 @@ export class ItemStateService {
    * manages its subscription for this root-scoped service, avoiding manual
    * subscription and teardown code.
    */
-  private readonly itemRequest = toSignal(
+  private readonly itemRequest = toSignal<ItemRequestState, ItemRequestState>(
     this.reloadItems$.pipe(
       startWith(undefined),
       switchMap(() => concat(
-        of<ItemRequestState>({
-          items: Object.freeze([]),
-          loading: true,
-          error: null
-        }),
+        of<ItemRequestState>(initialItemRequestState),
         this.itemService.getItems().pipe(
-          map((items): ItemRequestState => ({
+          takeUntilDestroyed(this.destroyRef ?? undefined),
+          map((items: Item[]): ItemRequestState => ({
             items: this.freezeArray(items),
             loading: false,
             error: null
@@ -41,11 +39,7 @@ export class ItemStateService {
       ))
     ),
     {
-      initialValue: {
-        items: Object.freeze([]),
-        loading: true,
-        error: null
-      } satisfies ItemRequestState
+      initialValue: initialItemRequestState
     }
   );
 
@@ -214,3 +208,9 @@ interface ItemRequestState {
   readonly loading: boolean;
   readonly error: string | null;
 }
+
+const initialItemRequestState: ItemRequestState = {
+  items: Object.freeze([]),
+  loading: true,
+  error: null
+};

@@ -40,7 +40,7 @@
     font-size: rem-calc($font-sm);
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: #94a3b8;
+    color: $color-text-disabled;
     text-transform: uppercase;
   }
 
@@ -72,8 +72,8 @@
   &__chip-remove {
     background: transparent;
     border: none;
-    color: #cbd5e1;
-    font-size: rem-calc(16);
+    color: $color-border-medium;
+    font-size: rem-calc($font-lg);
     line-height: 1;
     cursor: pointer;
     padding: 0;
@@ -116,7 +116,7 @@
 
     &--secondary {
       background: transparent;
-      color: #cbd5e1;
+      color: $color-border-medium;
       border: 1px solid rgba(255, 255, 255, 0.2);
 
       &:hover {
@@ -173,7 +173,7 @@
   &__close-btn {
     background: transparent;
     border: none;
-    font-size: rem-calc(28);
+    font-size: rem-calc($font-4xl);
     line-height: 1;
     color: $color-text-subtle;
     cursor: pointer;
@@ -194,10 +194,10 @@
     align-items: center;
     gap: rem-calc(10);
     padding: rem-calc(12) rem-calc(16);
-    background: #eff6ff;
-    border: 1px solid #bfdbfe;
+    background: $color-info-bg;
+    border: 1px solid $color-info-border;
     border-radius: rem-calc($radius-md);
-    color: #1e40af;
+    color: $color-info-text;
     font-size: rem-calc($font-sm);
     margin-bottom: rem-calc(20);
 

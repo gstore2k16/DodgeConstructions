@@ -1,4 +1,4 @@
-import { Injector, ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
+import { Injector, WritableSignal, ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { signal } from '@angular/core';
 import { ItemDetailComponent } from './item-detail.component';
@@ -9,6 +9,7 @@ describe('ItemDetailComponent (Jest)', () => {
   let component: ItemDetailComponent;
   let mockStateService: any;
   let mockTitleService: any;
+  let selectedItemSignal: WritableSignal<ProductItem | undefined>;
 
   const mockItem = new ProductItem(
     1,
@@ -23,8 +24,9 @@ describe('ItemDetailComponent (Jest)', () => {
   );
 
   beforeEach(() => {
+    selectedItemSignal = signal<ProductItem | undefined>(mockItem);
     mockStateService = {
-      selectedItem: signal(mockItem).asReadonly(),
+      selectedItem: selectedItemSignal.asReadonly(),
       loading: signal(false).asReadonly(),
       error: signal<string | null>(null).asReadonly(),
       selectItemById: jest.fn()
@@ -56,5 +58,11 @@ describe('ItemDetailComponent (Jest)', () => {
     expect(component.item()).toBe(mockItem);
     expect(component.loading()).toBe(false);
     expect(component.error()).toBeNull();
+  });
+
+  it('should handle missing item gracefully when selectedItem is undefined', () => {
+    selectedItemSignal.set(undefined);
+    expect(component.item()).toBeUndefined();
+    expect(component.loading()).toBe(false);
   });
 });

@@ -159,7 +159,7 @@
     margin: 0 0 rem-calc(6) 0;
 
     @include break-to-tablet {
-      font-size: rem-calc(22);
+      font-size: rem-calc($font-price-sm);
     }
 
     @include break-to-desktop {

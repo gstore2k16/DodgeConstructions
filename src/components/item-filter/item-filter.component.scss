@@ -30,6 +30,7 @@
     left: rem-calc(12);
     top: 50%;
     transform: translateY(-50%);
+    color: $color-text-placeholder;
     pointer-events: none;
   }
 
@@ -80,6 +81,10 @@
     margin: 0;
     padding: 0;
     min-width: 0;
+
+    &--price {
+      min-width: rem-calc(180);
+    }
 
     &--stock {
       justify-content: flex-end;
@@ -208,9 +213,7 @@
     width: 100%;
     max-width: rem-calc(300);
     margin-left: auto;
-    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    @include skeleton-shimmer;
     border-radius: rem-calc($radius-md);
   }
 
@@ -244,18 +247,14 @@
   &__skeleton-label {
     height: rem-calc(12);
     width: rem-calc(60);
-    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    @include skeleton-shimmer;
     border-radius: rem-calc($radius-xs);
   }
 
   &__skeleton-input {
     height: rem-calc(36);
     width: rem-calc(150);
-    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    @include skeleton-shimmer;
     border-radius: rem-calc($radius-md);
 
     &--wide {
@@ -268,7 +267,4 @@
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+@include skeleton-shimmer-keyframes;

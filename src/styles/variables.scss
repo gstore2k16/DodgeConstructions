@@ -17,6 +17,13 @@ $font-xl: 18px;
 $font-2xl: 20px;
 $font-3xl: 24px;
 $font-4xl: 28px;
+$font-5xl: 32px;
+$font-6xl: 36px;
+
+/* PRICE DISPLAY FONT SIZES (responsive step-up used by item-card / item-detail-view price) */
+$font-price-sm: 22px;
+$font-price-md: 26px;
+$font-price-lg: 30px;
 
 /* BORDER RADII */
 $radius-xs: 4px;
@@ -53,6 +60,7 @@ $color-text-slate: #334155;
 $color-white: #ffffff;
 
 /* BACKGROUND COLORS */
+$color-bg-page: #f9f9f9;
 $color-bg-alt: #f8fafc;
 $color-bg-light: #f4f5f7;
 $color-bg-gray: #f3f4f6;
@@ -65,13 +73,16 @@ $color-border-medium: #cbd5e1;
 $color-border-gray: #dddddd;
 $color-border-disabled: #cccccc;
 
-/* STATUS COLORS (IN STOCK / OUT OF STOCK / ERROR) */
+/* STATUS COLORS (IN STOCK / OUT OF STOCK / ERROR / INFO) */
 $color-success-bg: #e6f9ee;
 $color-success-text: #16a34a;
 $color-success-border: #bbf7d0;
 $color-danger-bg: #fef2f2;
 $color-danger-text: #dc2626;
 $color-danger-border: #fecaca;
+$color-info-bg: #eff6ff;
+$color-info-text: #1e40af;
+$color-info-border: #bfdbfe;
 
 /* SKELETON SHIMMER COLORS */
 $color-skeleton-base: #eeeeee;
