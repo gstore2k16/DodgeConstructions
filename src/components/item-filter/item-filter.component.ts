@@ -27,7 +27,7 @@ export class ItemFilterComponent {
   private readonly searchSubject$ = new Subject<string>();
 
   /** List of category options */
-  public readonly categories = input<string[]>(['All']);
+  public readonly categories = input<readonly string[]>(['All']);
 
   /** Search text value */
   public readonly searchTerm = input<string>('');

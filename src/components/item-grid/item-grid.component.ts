@@ -14,5 +14,5 @@ import { ErrorComponent } from '../error/error.component';
 })
 export class ItemGridComponent {
     /** The list of product items to display in the grid */
-    public readonly items = input.required<Item[]>();
+    public readonly items = input.required<readonly Item[]>();
 }

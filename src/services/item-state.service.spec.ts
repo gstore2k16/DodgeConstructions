@@ -34,6 +34,15 @@ describe('ItemStateService (Jest)', () => {
     expect(service.loading()).toBe(false);
   });
 
+  it('should expose immutable collection snapshots', () => {
+    expect(Object.isFrozen(service.items())).toBe(true);
+    expect(Object.isFrozen(service.filteredItems())).toBe(true);
+    expect(Object.isFrozen(service.categories())).toBe(true);
+    expect(Object.isFrozen(service.compareIds())).toBe(true);
+
+    expect(() => (service.items() as Item[]).push(mockItems[0])).toThrow();
+  });
+
   it('should derive categories list starting with "All"', () => {
     expect(service.categories()).toEqual(['All', 'Power Tools', 'Safety']);
   });
