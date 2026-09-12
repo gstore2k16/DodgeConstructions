@@ -1,5 +1,4 @@
 import { Component, input, effect, inject, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { Title } from '@angular/platform-browser';
 import { ItemStateService } from '../../services/item-state.service';
 import { ItemDetailViewComponent } from '../../components/item-detail-view/item-detail-view.component';
@@ -8,10 +7,9 @@ import { ErrorComponent } from '../../components/error/error.component';
 
 @Component({
     selector: 'app-item-detail',
-    standalone: true,
-    imports: [CommonModule, ItemDetailViewComponent, LoadingComponent, ErrorComponent],
+    imports: [ItemDetailViewComponent, LoadingComponent, ErrorComponent],
     templateUrl: './item-detail.component.html',
-    styleUrls: ['./item-detail.component.scss'],
+    styleUrl: './item-detail.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDetailComponent {

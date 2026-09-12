@@ -1,5 +1,5 @@
 import { Component, input, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Item } from '../../models/item.model';
 import { ItemStateService } from '../../services/item-state.service';
@@ -9,13 +9,12 @@ import { ItemStateService } from '../../services/item-state.service';
  */
 @Component({
   selector: 'app-item-card',
-  standalone: true,
   imports: [
-    CommonModule,
+    CurrencyPipe,
     RouterLink
   ],
   templateUrl: './item-card.component.html',
-  styleUrls: ['./item-card.component.scss'],
+  styleUrl: './item-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemCardComponent {

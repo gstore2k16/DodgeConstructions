@@ -1,5 +1,5 @@
 import { Component, input, signal, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CurrencyPipe } from '@angular/common';
 import { Item } from '../../models/item.model';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { QuantitySelectorComponent } from '../quantity-selector/quantity-selector.component';
@@ -9,9 +9,8 @@ import { ErrorComponent } from '../error/error.component';
 
 @Component({
     selector: 'app-item-detail-view',
-    standalone: true,
     imports: [
-        CommonModule,
+        CurrencyPipe,
         BreadcrumbComponent,
         QuantitySelectorComponent,
         ItemFeaturesComponent,
@@ -19,7 +18,7 @@ import { ErrorComponent } from '../error/error.component';
         ErrorComponent
     ],
     templateUrl: './item-detail-view.component.html',
-    styleUrls: ['./item-detail-view.component.scss'],
+    styleUrl: './item-detail-view.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemDetailViewComponent {

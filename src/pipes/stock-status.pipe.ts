@@ -7,7 +7,6 @@ export interface StockInfo {
 
 @Pipe({
   name: 'stockStatus',
-  standalone: true,
   pure: true
 })
 export class StockStatusPipe implements PipeTransform {

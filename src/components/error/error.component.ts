@@ -1,13 +1,11 @@
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 
 @Component({
     selector: 'app-error',
-    standalone: true,
-    imports: [CommonModule, RouterLink],
+    imports: [RouterLink],
     templateUrl: './error.component.html',
-    styleUrls: ['./error.component.scss'],
+    styleUrl: './error.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ErrorComponent {

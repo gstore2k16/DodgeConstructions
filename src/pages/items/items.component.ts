@@ -1,6 +1,4 @@
 import { Component, inject, effect, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
@@ -17,10 +15,7 @@ import { ProductCompareComponent } from '../../components/product-compare/produc
  */
 @Component({
   selector: 'app-item-list',
-  standalone: true,
   imports: [
-    CommonModule,
-    FormsModule,
     ItemGridComponent,
     ItemFilterComponent,
     LoadingComponent,
@@ -28,7 +23,7 @@ import { ProductCompareComponent } from '../../components/product-compare/produc
     ProductCompareComponent
   ],
   templateUrl: './items.component.html',
-  styleUrls: ['./items.component.scss'],
+  styleUrl: './items.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemsComponent {

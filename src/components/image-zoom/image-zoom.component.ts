@@ -1,13 +1,13 @@
-import { Component, input, signal, viewChild, ElementRef, HostListener, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, signal, viewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
     selector: 'app-image-zoom',
-    standalone: true,
-    imports: [CommonModule],
     templateUrl: './image-zoom.component.html',
-    styleUrls: ['./image-zoom.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+    styleUrl: './image-zoom.component.scss',
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    host: {
+        '(window:keydown.escape)': 'onEscapeKey()'
+    }
 })
 export class ImageZoomComponent {
     /** Image source URL */
@@ -70,7 +70,6 @@ export class ImageZoomComponent {
         }
     }
 
-    @HostListener('window:keydown.escape')
     public onEscapeKey(): void {
         this.closeModal();
     }

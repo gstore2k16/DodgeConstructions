@@ -1,12 +1,9 @@
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-item-features',
-    standalone: true,
-    imports: [CommonModule],
     templateUrl: './item-features.component.html',
-    styleUrls: ['./item-features.component.scss'],
+    styleUrl: './item-features.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFeaturesComponent {

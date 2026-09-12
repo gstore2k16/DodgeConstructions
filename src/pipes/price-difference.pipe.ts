@@ -3,7 +3,6 @@ import { Item } from '../models/item.model';
 
 @Pipe({
   name: 'priceDifference',
-  standalone: true,
   pure: true
 })
 export class PriceDifferencePipe implements PipeTransform {
@@ -11,7 +10,7 @@ export class PriceDifferencePipe implements PipeTransform {
    * Calculates and formats the price comparison summary between two products.
    * @param items Pair of items to compare
    */
-  transform(items: Item[] | null | undefined): string {
+  transform(items: readonly Item[] | null | undefined): string {
     if (!items || items.length !== 2) return '';
     const [itemA, itemB] = items;
     if (itemA.price === itemB.price) {

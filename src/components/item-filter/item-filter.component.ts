@@ -1,5 +1,4 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
@@ -12,14 +11,12 @@ import { SortOption } from '../../models/item-filter.model';
  */
 @Component({
   selector: 'app-item-filter',
-  standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ErrorComponent
   ],
   templateUrl: './item-filter.component.html',
-  styleUrls: ['./item-filter.component.scss'],
+  styleUrl: './item-filter.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFilterComponent {

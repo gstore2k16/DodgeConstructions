@@ -1,12 +1,9 @@
 import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-quantity-selector',
-    standalone: true,
-    imports: [CommonModule],
     templateUrl: './quantity-selector.component.html',
-    styleUrls: ['./quantity-selector.component.scss'],
+    styleUrl: './quantity-selector.component.scss',
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class QuantitySelectorComponent {
