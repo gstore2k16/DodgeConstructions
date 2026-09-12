@@ -1,7 +1,7 @@
 import { Pipe, PipeTransform } from '@angular/core';
 import { StockInfo } from '../interfaces/stock-info.interface';
 
-export { StockInfo };
+export type { StockInfo };
 
 
 @Pipe({

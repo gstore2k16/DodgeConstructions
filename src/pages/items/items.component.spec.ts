@@ -25,26 +25,7 @@ describe('ItemsComponent (Jest)', () => {
     ['20V MAX']
   );
 
-  beforeEach(() => {
-    mockStateService = {
-      items: signal([mockItem]).asReadonly(),
-      filteredItems: signal([mockItem]).asReadonly(),
-      comparedItems: signal<ProductItem[]>([]).asReadonly(),
-      loading: signal(false).asReadonly(),
-      error: signal<string | null>(null).asReadonly(),
-      setCategoryFilter: jest.fn(),
-      loadItems: jest.fn()
-    };
-
-    mockTitleService = {
-      setTitle: jest.fn(),
-      getTitle: jest.fn()
-    };
-
-    mockDestroyRef = {
-      onDestroy: jest.fn()
-    };
-
+  function createComponent(): ItemsComponent {
     const injector = Injector.create({
       providers: [
         { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
@@ -60,11 +41,51 @@ describe('ItemsComponent (Jest)', () => {
       ]
     });
 
-    component = injector.get(ItemsComponent);
+    return injector.get(ItemsComponent);
+  }
+
+  beforeEach(() => {
+    mockStateService = {
+      items: signal([mockItem]).asReadonly(),
+      filteredItems: signal([mockItem]).asReadonly(),
+      comparedItems: signal<ProductItem[]>([]).asReadonly(),
+      loading: signal(false).asReadonly(),
+      error: signal<string | null>(null).asReadonly(),
+      filter: signal('').asReadonly(),
+      selectedCategory: signal('All').asReadonly(),
+      minPrice: signal<number | null>(null).asReadonly(),
+      maxPrice: signal<number | null>(null).asReadonly(),
+      inStockOnly: signal(false).asReadonly(),
+      sortOrder: signal('default').asReadonly(),
+      categories: signal(['All', 'Power Tools']).asReadonly(),
+      setSearchFilter: jest.fn(),
+      setCategoryFilter: jest.fn(),
+      setMinPrice: jest.fn(),
+      setMaxPrice: jest.fn(),
+      setInStockOnly: jest.fn(),
+      setSortOrder: jest.fn(),
+      resetFilters: jest.fn(),
+      loadItems: jest.fn()
+    };
+
+    mockTitleService = {
+      setTitle: jest.fn(),
+      getTitle: jest.fn()
+    };
+
+    mockDestroyRef = {
+      onDestroy: jest.fn()
+    };
+
+    component = createComponent();
   });
 
   it('should create items component instance', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should set the page title to the products listing title on construction', () => {
+    expect(mockTitleService.setTitle).toHaveBeenCalledWith('Products - DodgeConstructions');
   });
 
   it('should expose stateService signals for template binding', () => {
@@ -72,5 +93,41 @@ describe('ItemsComponent (Jest)', () => {
     expect(component.filteredItems().length).toBe(1);
     expect(component.loading()).toBe(false);
     expect(component.error()).toBeNull();
+    expect(component.categories()).toEqual(['All', 'Power Tools']);
+  });
+
+  it('should delegate onSearchChange to stateService.setSearchFilter', () => {
+    component.onSearchChange('drill');
+    expect(mockStateService.setSearchFilter).toHaveBeenCalledWith('drill');
+  });
+
+  it('should delegate onCategoryChange to stateService.setCategoryFilter', () => {
+    component.onCategoryChange('Safety');
+    expect(mockStateService.setCategoryFilter).toHaveBeenCalledWith('Safety');
+  });
+
+  it('should delegate onMinPriceChange to stateService.setMinPrice', () => {
+    component.onMinPriceChange(25);
+    expect(mockStateService.setMinPrice).toHaveBeenCalledWith(25);
+  });
+
+  it('should delegate onMaxPriceChange to stateService.setMaxPrice', () => {
+    component.onMaxPriceChange(200);
+    expect(mockStateService.setMaxPrice).toHaveBeenCalledWith(200);
+  });
+
+  it('should delegate onInStockToggle to stateService.setInStockOnly', () => {
+    component.onInStockToggle(true);
+    expect(mockStateService.setInStockOnly).toHaveBeenCalledWith(true);
+  });
+
+  it('should delegate onSortChange to stateService.setSortOrder', () => {
+    component.onSortChange('price-desc');
+    expect(mockStateService.setSortOrder).toHaveBeenCalledWith('price-desc');
+  });
+
+  it('should delegate resetFilters to stateService.resetFilters', () => {
+    component.resetFilters();
+    expect(mockStateService.resetFilters).toHaveBeenCalled();
   });
 });

@@ -105,6 +105,24 @@ globalThis.expect = function (actual) {
   };
 };
 
+// --- Minimal fake timer support (jest.useFakeTimers / advanceTimersByTime) ---
+const _realSetTimeout = globalThis.setTimeout;
+const _realClearTimeout = globalThis.clearTimeout;
+let _fakeTimersActive = false;
+let _fakeNow = 0;
+let _fakeTimerQueue = [];
+let _fakeTimerIdSeq = 1;
+
+function _fakeSetTimeout(callback, delay = 0, ...args) {
+  const id = _fakeTimerIdSeq++;
+  _fakeTimerQueue.push({ id, time: _fakeNow + Math.max(0, Number(delay) || 0), callback, args });
+  return id;
+}
+
+function _fakeClearTimeout(id) {
+  _fakeTimerQueue = _fakeTimerQueue.filter((timer) => timer.id !== id);
+}
+
 globalThis.jest = {
   fn(initialImpl) {
     let currentImpl = initialImpl;
@@ -130,5 +148,36 @@ globalThis.jest = {
     const spy = globalThis.jest.fn(orig);
     obj[prop] = spy;
     return spy;
+  },
+  useFakeTimers() {
+    if (_fakeTimersActive) return;
+    _fakeTimersActive = true;
+    _fakeNow = 0;
+    _fakeTimerQueue = [];
+    globalThis.setTimeout = _fakeSetTimeout;
+    globalThis.clearTimeout = _fakeClearTimeout;
+  },
+  useRealTimers() {
+    if (!_fakeTimersActive) return;
+    _fakeTimersActive = false;
+    _fakeTimerQueue = [];
+    globalThis.setTimeout = _realSetTimeout;
+    globalThis.clearTimeout = _realClearTimeout;
+  },
+  advanceTimersByTime(msToAdvance) {
+    if (!_fakeTimersActive) return;
+    const target = _fakeNow + Math.max(0, Number(msToAdvance) || 0);
+    for (;;) {
+      _fakeTimerQueue.sort((a, b) => a.time - b.time);
+      const next = _fakeTimerQueue[0];
+      if (!next || next.time > target) break;
+      _fakeTimerQueue.shift();
+      _fakeNow = next.time;
+      next.callback(...next.args);
+    }
+    _fakeNow = target;
+  },
+  clearAllTimers() {
+    _fakeTimerQueue = [];
   }
 };

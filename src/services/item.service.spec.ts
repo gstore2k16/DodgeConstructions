@@ -19,22 +19,35 @@ describe('ItemService (Jest)', () => {
       stockCount: 5,
       image: 'assets/drill.jpg',
       features: ['Cordless']
+    },
+    {
+      id: 2,
+      name: 'Test Saw',
+      category: 'Tools',
+      price: 149.99,
+      description: 'Test saw description',
+      inStock: false,
+      stockCount: 0,
+      image: 'assets/saw.jpg',
+      features: []
     }
   ];
+
+  function createService(httpClientMock: any): ItemService {
+    const injector = Injector.create({
+      providers: [
+        { provide: HttpClient, useValue: httpClientMock },
+        ItemService
+      ]
+    });
+    return injector.get(ItemService);
+  }
 
   beforeEach(() => {
     mockHttpClient = {
       get: jest.fn().mockReturnValue(of(mockRawData))
     };
-
-    const injector = Injector.create({
-      providers: [
-        { provide: HttpClient, useValue: mockHttpClient },
-        ItemService
-      ]
-    });
-
-    service = injector.get(ItemService);
+    service = createService(mockHttpClient);
   });
 
   it('should be created', () => {
@@ -43,10 +56,12 @@ describe('ItemService (Jest)', () => {
 
   it('should fetch items from API/asset URL and transform to ProductItem instances', async () => {
     const items = await firstValueFrom(service.getItems());
-    expect(items.length).toBe(1);
+    expect(items.length).toBe(2);
     expect(items[0].id).toBe(1);
     expect(items[0].name).toBe('Test Drill');
     expect(items[0] instanceof ProductItem).toBe(true);
+    expect(items[1].name).toBe('Test Saw');
+    expect(items[1].inStock).toBe(false);
   });
 
   it('should fetch single item by ID', async () => {
@@ -56,9 +71,34 @@ describe('ItemService (Jest)', () => {
     expect(item?.name).toBe('Test Drill');
   });
 
-  it('should clear cached items observable on clearCache', () => {
-    service.getItems();
+  it('should resolve undefined when no item matches the requested ID', async () => {
+    const item = await firstValueFrom(service.getItemById(999));
+    expect(item).toBeUndefined();
+  });
+
+  it('should only call http.get once across multiple getItems()/getItemById() calls thanks to shareReplay caching', async () => {
+    await firstValueFrom(service.getItems());
+    await firstValueFrom(service.getItems());
+    await firstValueFrom(service.getItemById(2));
+
+    expect(mockHttpClient.get._calls.length).toBe(1);
+  });
+
+  it('should re-fetch from http.get after clearCache is called', async () => {
+    await firstValueFrom(service.getItems());
+    expect(mockHttpClient.get._calls.length).toBe(1);
+
     service.clearCache();
-    expect(service).toBeTruthy();
+
+    await firstValueFrom(service.getItems());
+    expect(mockHttpClient.get._calls.length).toBe(2);
+  });
+
+  it('should return an empty list when the API returns no items', async () => {
+    const emptyHttpClient = { get: jest.fn().mockReturnValue(of([])) };
+    const emptyService = createService(emptyHttpClient);
+
+    const items = await firstValueFrom(emptyService.getItems());
+    expect(items).toEqual([]);
   });
 });

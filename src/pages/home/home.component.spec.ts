@@ -27,4 +27,16 @@ describe('HomeComponent (Jest)', () => {
     component.closeFullSize();
     expect(component.fullSizeImage).toBeNull();
   });
+
+  it('should overwrite fullSizeImage when openFullSize is called again with a different URL', () => {
+    component.openFullSize('assets/first.png');
+    component.openFullSize('assets/second.png');
+    expect(component.fullSizeImage).toBe('assets/second.png');
+  });
+
+  it('should be a no-op to call closeFullSize when no image is open', () => {
+    expect(component.fullSizeImage).toBeNull();
+    component.closeFullSize();
+    expect(component.fullSizeImage).toBeNull();
+  });
 });
