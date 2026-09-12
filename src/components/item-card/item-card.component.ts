@@ -51,7 +51,13 @@ export class ItemCardComponent {
       }
       this.limitNotice.set(true);
       clearTimeout(this.limitNoticeTimeoutId);
-      this.limitNoticeTimeoutId = setTimeout(() => this.limitNotice.set(false), 3500);
+      this.limitNoticeTimeoutId = setTimeout(() => {
+        try {
+          if (this?.limitNotice) {
+            this.limitNotice.set(false);
+          }
+        } catch {}
+      }, 3500);
     }
   }
 }

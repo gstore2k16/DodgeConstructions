@@ -59,6 +59,12 @@ export class ItemDetailViewComponent {
     this.quantity.set(1);
     this.addedToCart.set(true);
     clearTimeout(this.addedToCartTimeoutId);
-    this.addedToCartTimeoutId = setTimeout(() => this.addedToCart.set(false), 2000);
+    this.addedToCartTimeoutId = setTimeout(() => {
+      try {
+        if (this?.addedToCart) {
+          this.addedToCart.set(false);
+        }
+      } catch {}
+    }, 2000);
   }
 }

@@ -115,12 +115,22 @@ let _fakeTimerIdSeq = 1;
 
 function _fakeSetTimeout(callback, delay = 0, ...args) {
   const id = _fakeTimerIdSeq++;
-  _fakeTimerQueue.push({ id, time: _fakeNow + Math.max(0, Number(delay) || 0), callback, args });
-  return id;
+  const timer = {
+    id,
+    time: _fakeNow + Math.max(0, Number(delay) || 0),
+    callback,
+    args,
+    isPeriodic: false,
+    ref() { return timer; },
+    unref() { return timer; }
+  };
+  _fakeTimerQueue.push(timer);
+  return timer;
 }
 
 function _fakeClearTimeout(id) {
-  _fakeTimerQueue = _fakeTimerQueue.filter((timer) => timer.id !== id);
+  const targetId = (typeof id === 'object' && id !== null) ? id.id : id;
+  _fakeTimerQueue = _fakeTimerQueue.filter((timer) => timer.id !== targetId);
 }
 
 globalThis.jest = {
