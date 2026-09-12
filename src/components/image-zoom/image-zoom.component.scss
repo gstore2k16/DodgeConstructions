@@ -49,11 +49,11 @@
     font-size: rem-calc($font-xs);
     font-weight: 500;
     color: $color-text-slate;
-    background: rgba(255, 255, 255, 0.9);
+    background: $color-surface-translucent;
     backdrop-filter: blur(4px);
-    border: 1px solid rgba(226, 232, 240, 0.8);
+    border: 1px solid $color-border-translucent;
     border-radius: rem-calc($radius-pill);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    box-shadow: $shadow-overlay;
     pointer-events: none;
     transition: opacity 0.2s;
 
@@ -75,7 +75,7 @@
     overflow: hidden;
 
     &::backdrop {
-      background: rgba(15, 23, 42, 0.85);
+      background: $color-overlay-dark-strong;
       backdrop-filter: blur(8px);
     }
 
@@ -106,11 +106,11 @@
     align-items: center;
     gap: rem-calc(10);
     z-index: 100;
-    background: rgba(30, 41, 59, 0.8);
+    background: $color-toolbar;
     backdrop-filter: blur(6px);
     padding: rem-calc(6) rem-calc(12);
     border-radius: rem-calc(24);
-    border: 1px solid rgba(255, 255, 255, 0.15);
+    border: 1px solid $color-surface-on-dark;
   }
 
   &__tool-btn {
@@ -124,14 +124,14 @@
     font-weight: 600;
     font-family: $primary-font;
     color: $color-white;
-    background: rgba(255, 255, 255, 0.15);
+    background: $color-surface-on-dark;
     border: none;
     border-radius: $radius-full;
     cursor: pointer;
     transition: background-color 0.15s, transform 0.1s;
 
     &:hover:not(:disabled) {
-      background: rgba(255, 255, 255, 0.3);
+      background: $color-surface-on-dark-hover;
       transform: scale(1.05);
     }
 
@@ -141,10 +141,10 @@
     }
 
     &--close {
-      background: rgba(239, 68, 68, 0.85);
+      background: $color-danger-translucent;
 
       &:hover {
-        background: rgba(220, 38, 38, 1);
+        background: $color-danger-hover;
       }
     }
 

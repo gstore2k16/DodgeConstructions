@@ -1,8 +1,9 @@
-import { Environment } from './environment.model';
+import { Environment } from './environment.interface';
 
+// UAT config — points at the staging API for pre-production verification.
 export const environment: Environment = {
   production: false,
   environmentName: 'uat',
-  apiUrl: 'https://uat-api.dodgeconstructions.com/api/items',
+  apiUrl: 'https://nikhilvijay.com/api/items.json',
   enableLogging: true
 };

@@ -1,12 +1,45 @@
-import { Injector } from '@angular/core';
+import { Injector, signal } from '@angular/core';
 import { ItemDetailViewComponent } from './item-detail-view.component';
+import { ItemStateService } from '../../services/item-state.service';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ItemDetailViewComponent (Jest)', () => {
   let component: ItemDetailViewComponent;
+  let mockStateService: any;
+
+  const mockItem = new ProductItem(
+    1,
+    'DeWalt Cordless Drill',
+    'Power Tools',
+    149.99,
+    'High power cordless drill.',
+    true,
+    15,
+    '/assets/images/drill.jpg',
+    ['20V MAX']
+  );
 
   beforeEach(() => {
-    const injector = Injector.create({ providers: [ItemDetailViewComponent] });
+    jest.useFakeTimers();
+
+    mockStateService = {
+      addToCart: jest.fn()
+    };
+
+    const injector = Injector.create({
+      providers: [
+        { provide: ItemStateService, useValue: mockStateService },
+        ItemDetailViewComponent
+      ]
+    });
+
     component = injector.get(ItemDetailViewComponent);
+    (component as any).item = signal(mockItem);
+  });
+
+  afterEach(() => {
+    jest.clearAllTimers();
+    jest.useRealTimers();
   });
 
   it('should create item detail view component instance', () => {
@@ -20,5 +53,35 @@ describe('ItemDetailViewComponent (Jest)', () => {
   it('should update quantity signal when onQuantityChange is called', () => {
     component.onQuantityChange(5);
     expect(component.quantity()).toBe(5);
+  });
+
+  it('should initialize addedToCart to false', () => {
+    expect(component.addedToCart()).toBe(false);
+  });
+
+  it('should add the current quantity of the item to the cart and show a confirmation', () => {
+    component.onQuantityChange(3);
+
+    component.onAddToCart();
+
+    expect(mockStateService.addToCart).toHaveBeenCalledWith(mockItem.id, 3);
+    expect(component.addedToCart()).toBe(true);
+  });
+
+  it('should reset quantity back to 1 after adding to cart', () => {
+    component.onQuantityChange(4);
+
+    component.onAddToCart();
+
+    expect(component.quantity()).toBe(1);
+  });
+
+  it('should clear the confirmation state after the timeout elapses', () => {
+    component.onAddToCart();
+    expect(component.addedToCart()).toBe(true);
+
+    jest.advanceTimersByTime(2000);
+
+    expect(component.addedToCart()).toBe(false);
   });
 });

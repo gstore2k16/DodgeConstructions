@@ -1,5 +1,5 @@
-import { Component, input, inject, computed, signal, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, inject, computed, signal, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Item } from '../../models/item.model';
 import { ItemStateService } from '../../services/item-state.service';
@@ -9,17 +9,17 @@ import { ItemStateService } from '../../services/item-state.service';
  */
 @Component({
   selector: 'app-item-card',
-  standalone: true,
   imports: [
-    CommonModule,
+    CurrencyPipe,
     RouterLink
   ],
   templateUrl: './item-card.component.html',
-  styleUrls: ['./item-card.component.scss'],
+  styleUrl: './item-card.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemCardComponent {
   private readonly stateService = inject(ItemStateService);
+  private readonly destroyRef = inject(DestroyRef);
 
   /** The product item model to render */
   public readonly item = input.required<Item>();
@@ -29,6 +29,12 @@ export class ItemCardComponent {
 
   /** Temporary alert indicator when user attempts to select more than 2 items */
   public readonly limitNotice = signal<boolean>(false);
+
+  private limitNoticeTimeoutId?: ReturnType<typeof setTimeout>;
+
+  constructor() {
+    this.destroyRef.onDestroy(() => clearTimeout(this.limitNoticeTimeoutId));
+  }
 
   /**
    * Toggles product selection in comparison list.
@@ -44,7 +50,14 @@ export class ItemCardComponent {
         checkbox.checked = false;
       }
       this.limitNotice.set(true);
-      setTimeout(() => this.limitNotice.set(false), 3500);
+      clearTimeout(this.limitNoticeTimeoutId);
+      this.limitNoticeTimeoutId = setTimeout(() => {
+        try {
+          if (this?.limitNotice) {
+            this.limitNotice.set(false);
+          }
+        } catch {}
+      }, 3500);
     }
   }
 }

@@ -1,15 +1,13 @@
 import { Component, input, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
+/** Renders a bullet list of product feature strings under "Product Details". */
 @Component({
-    selector: 'app-item-features',
-    standalone: true,
-    imports: [CommonModule],
-    templateUrl: './item-features.component.html',
-    styleUrls: ['./item-features.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'app-item-features',
+  templateUrl: './item-features.component.html',
+  styleUrl: './item-features.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFeaturesComponent {
-    /** Array of feature bullet points to render under Product Details */
-    public readonly features = input<string[]>([]);
+  /** Array of feature bullet points to render under Product Details */
+  public readonly features = input<readonly string[]>([]);
 }

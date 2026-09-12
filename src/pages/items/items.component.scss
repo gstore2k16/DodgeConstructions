@@ -5,45 +5,11 @@
    ============================================ */
 
 :host {
-  display: block;
-  width: 100%;
-  box-sizing: border-box;
-
-  @include break-to-tablet {
-    position: relative;
-    left: calc(50vw - 2rem);
-    transform: translateX(-50%);
-  }
-
-  @include break-to-desktop {
-    max-width: rem-calc(1200);
-    position: relative;
-    left: calc(50vw - 2rem);
-    transform: translateX(-50%);
-  }
+  @include page-container;
 }
 
 .items-page {
-  background: $color-white;
-  border-radius: rem-calc($radius-2xl);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
-  padding: rem-calc(24);
-  margin: 0 auto;
-  font-family: $primary-font;
-  box-sizing: border-box;
-  width: 100%;
-
-  @include break-to-tablet {
-    padding: rem-calc(32) rem-calc(40);
-  }
-
-  @include break-to-desktop {
-    padding: rem-calc(40) rem-calc(48);
-  }
-
-  @include break-to-wider-desktop {
-    padding: rem-calc(48) rem-calc(56);
-  }
+  @include page-card;
 
   &__title {
     font-size: rem-calc($font-3xl);
@@ -56,30 +22,12 @@
     }
 
     @include break-to-desktop {
-      font-size: rem-calc(32);
+      font-size: rem-calc($font-5xl);
     }
   }
 
   &__reset-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: rem-calc(6);
-    padding: rem-calc(8) rem-calc(14);
-    font-size: rem-calc($font-sm);
-    font-weight: 600;
-    font-family: $primary-font;
-    color: $color-text-subtle;
-    background: $color-white;
-    border: 1px solid $color-border-medium;
-    border-radius: rem-calc($radius-md);
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
-
-    &:hover {
-      color: $color-text-heading;
-      border-color: $color-text-disabled;
-      background: $color-bg-slate-light;
-    }
+    @include secondary-action;
   }
 
   &__empty-state {

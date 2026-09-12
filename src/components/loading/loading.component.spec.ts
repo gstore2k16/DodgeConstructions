@@ -1,4 +1,4 @@
-import { Injector } from '@angular/core';
+import { Injector, signal } from '@angular/core';
 import { LoadingComponent } from './loading.component';
 
 describe('LoadingComponent (Jest)', () => {
@@ -11,5 +11,14 @@ describe('LoadingComponent (Jest)', () => {
 
   it('should create loading component instance', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should default message to "Loading…"', () => {
+    expect(component.message()).toBe('Loading…');
+  });
+
+  it('should reflect a custom message once set', () => {
+    (component as any).message = signal('Fetching products…');
+    expect(component.message()).toBe('Fetching products…');
   });
 });

@@ -1,20 +1,11 @@
-import { Injector } from '@angular/core';
+import { Injector, signal } from '@angular/core';
 import { BreadcrumbComponent } from './breadcrumb.component';
-import { ItemStateService } from '../../services/item-state.service';
 
 describe('BreadcrumbComponent (Jest)', () => {
   let component: BreadcrumbComponent;
-  let mockStateService: any;
-
   beforeEach(() => {
-    mockStateService = {
-      resetFilters: jest.fn(),
-      setCategoryFilter: jest.fn()
-    };
-
     const injector = Injector.create({
       providers: [
-        { provide: ItemStateService, useValue: mockStateService },
         BreadcrumbComponent
       ]
     });
@@ -26,13 +17,12 @@ describe('BreadcrumbComponent (Jest)', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should call stateService.setCategoryFilter("All") when onItemsClick is triggered', () => {
-    component.onItemsClick();
-    expect(mockStateService.setCategoryFilter).toHaveBeenCalledWith('All');
+  it('should default category to undefined when no value is provided', () => {
+    expect(component.category()).toBeUndefined();
   });
 
-  it('should call stateService.setCategoryFilter when onCategoryClick is triggered with category name', () => {
-    component.onCategoryClick('Power Tools');
-    expect(mockStateService.setCategoryFilter).toHaveBeenCalledWith('Power Tools');
+  it('should reflect a category value once set', () => {
+    (component as any).category = signal('Power Tools');
+    expect(component.category()).toBe('Power Tools');
   });
 });

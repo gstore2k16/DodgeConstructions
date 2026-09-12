@@ -1,14 +1,17 @@
-import { Injector, ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
+import { Injector, WritableSignal, ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { signal } from '@angular/core';
 import { ItemDetailComponent } from './item-detail.component';
 import { ItemStateService } from '../../services/item-state.service';
-import { ProductItem } from '../../models/item.model';
+import { ProductItem } from '../../models/product-item.model';
 
 describe('ItemDetailComponent (Jest)', () => {
   let component: ItemDetailComponent;
   let mockStateService: any;
   let mockTitleService: any;
+  let selectedItemSignal: WritableSignal<ProductItem | undefined>;
+  let loadingSignal: WritableSignal<boolean>;
+  let errorSignal: WritableSignal<string | null>;
 
   const mockItem = new ProductItem(
     1,
@@ -23,10 +26,14 @@ describe('ItemDetailComponent (Jest)', () => {
   );
 
   beforeEach(() => {
+    selectedItemSignal = signal<ProductItem | undefined>(mockItem);
+    loadingSignal = signal(false);
+    errorSignal = signal<string | null>(null);
+
     mockStateService = {
-      selectedItem: signal(mockItem).asReadonly(),
-      loading: signal(false).asReadonly(),
-      error: signal<string | null>(null).asReadonly(),
+      selectedItem: selectedItemSignal.asReadonly(),
+      loading: loadingSignal.asReadonly(),
+      error: errorSignal.asReadonly(),
       selectItemById: jest.fn()
     };
 
@@ -56,5 +63,31 @@ describe('ItemDetailComponent (Jest)', () => {
     expect(component.item()).toBe(mockItem);
     expect(component.loading()).toBe(false);
     expect(component.error()).toBeNull();
+  });
+
+  it('should handle missing item gracefully when selectedItem is undefined', () => {
+    selectedItemSignal.set(undefined);
+    expect(component.item()).toBeUndefined();
+    expect(component.loading()).toBe(false);
+  });
+
+  it('should reflect a loading state transition from stateService', () => {
+    loadingSignal.set(true);
+    expect(component.loading()).toBe(true);
+
+    loadingSignal.set(false);
+    expect(component.loading()).toBe(false);
+  });
+
+  it('should reflect an error message from stateService', () => {
+    errorSignal.set('Failed to load products. Please try again later.');
+    expect(component.error()).toBe('Failed to load products. Please try again later.');
+  });
+
+  it('should reflect a different selected item when the underlying signal changes', () => {
+    const otherItem = new ProductItem(2, 'Bosch Saw', 'Power Tools', 199.99, 'Saw', true, 3, '/saw.jpg', []);
+    selectedItemSignal.set(otherItem);
+    expect(component.item()).toBe(otherItem);
+    expect(component.item()?.name).toBe('Bosch Saw');
   });
 });

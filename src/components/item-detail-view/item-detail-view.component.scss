@@ -37,7 +37,7 @@
 
     @include break-to-tablet {
       width: 48%;
-      min-width: rem-calc(340);
+      min-width: rem-calc(300);
       min-height: rem-calc(380);
       padding: rem-calc(32);
     }
@@ -68,9 +68,7 @@
     }
 
     &--skeleton {
-      background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-      background-size: 200% 100%;
-      animation: shimmer 1.5s infinite;
+      @include skeleton-shimmer;
     }
   }
 
@@ -96,30 +94,30 @@
     }
 
     @include break-to-desktop {
-      font-size: rem-calc(32);
+      font-size: rem-calc($font-5xl);
     }
 
     @include break-to-wider-desktop {
-      font-size: rem-calc(36);
+      font-size: rem-calc($font-6xl);
     }
   }
 
   &__price {
-    font-size: rem-calc(22);
+    font-size: rem-calc($font-price-sm);
     font-weight: 700;
     color: $color-text-dark;
     margin: 0 0 rem-calc(16) 0;
 
     @include break-to-tablet {
-      font-size: rem-calc(26);
+      font-size: rem-calc($font-price-md);
     }
 
     @include break-to-desktop {
-      font-size: rem-calc(30);
+      font-size: rem-calc($font-price-lg);
     }
 
     @include break-to-wider-desktop {
-      font-size: rem-calc(32);
+      font-size: rem-calc($font-5xl);
     }
   }
 
@@ -194,7 +192,7 @@
 
     &:hover {
       background: $color-primary-hover;
-      box-shadow: 0 4px 14px rgba(74, 124, 246, 0.3);
+      box-shadow: 0 4px 14px $color-primary-shadow;
     }
 
     &:active {
@@ -204,13 +202,20 @@
     svg {
       flex-shrink: 0;
     }
+
+    &--added {
+      background: $color-success-text;
+
+      &:hover {
+        background: $color-success-text;
+        box-shadow: none;
+      }
+    }
   }
 
   &__skeleton-line,
   &__skeleton-box {
-    background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
-    background-size: 200% 100%;
-    animation: shimmer 1.5s infinite;
+    @include skeleton-shimmer;
     border-radius: rem-calc($radius-xs);
   }
 
@@ -275,7 +280,4 @@
   }
 }
 
-@keyframes shimmer {
-  0% { background-position: 200% 0; }
-  100% { background-position: -200% 0; }
-}
+@include skeleton-shimmer-keyframes;

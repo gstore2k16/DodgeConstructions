@@ -1,34 +1,29 @@
-import { Component, input, output, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { Component, input, output, ChangeDetectionStrategy } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { outputFromObservable } from '@angular/core/rxjs-interop';
 import { ErrorComponent } from '../error/error.component';
-
-export type SortOption = 'default' | 'price-asc' | 'price-desc';
+import { SortOption } from '../../models/item-filter.model';
 
 /**
  * Reusable Filter & Sorting controls component with debounced search stream.
  */
 @Component({
   selector: 'app-item-filter',
-  standalone: true,
   imports: [
-    CommonModule,
     FormsModule,
     ErrorComponent
   ],
   templateUrl: './item-filter.component.html',
-  styleUrls: ['./item-filter.component.scss'],
+  styleUrl: './item-filter.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ItemFilterComponent {
-  private readonly destroyRef = inject(DestroyRef);
   private readonly searchSubject$ = new Subject<string>();
 
   /** List of category options */
-  public readonly categories = input<string[]>(['All']);
+  public readonly categories = input<readonly string[]>(['All']);
 
   /** Search text value */
   public readonly searchTerm = input<string>('');
@@ -49,24 +44,19 @@ export class ItemFilterComponent {
   public readonly sortOrder = input<SortOption>('default');
 
   /** Outputs for filter state mutations */
-  public readonly searchTermChange = output<string>();
+  /** Debounced search output; Angular owns the observable subscription lifecycle. */
+  public readonly searchTermChange = outputFromObservable(
+    this.searchSubject$.pipe(
+      debounceTime(100),
+      distinctUntilChanged()
+    )
+  );
   public readonly categoryChange = output<string>();
   public readonly minPriceChange = output<number | null>();
   public readonly maxPriceChange = output<number | null>();
   public readonly inStockChange = output<boolean>();
   public readonly sortOrderChange = output<SortOption>();
   public readonly reset = output<void>();
-
-  constructor() {
-    // Pipe search inputs through debounceTime and distinctUntilChanged for optimal UI performance
-    this.searchSubject$.pipe(
-      debounceTime(250),
-      distinctUntilChanged(),
-      takeUntilDestroyed(this.destroyRef)
-    ).subscribe((term: string) => {
-      this.searchTermChange.emit(term);
-    });
-  }
 
   /**
    * Pushes user keystrokes into search stream
@@ -86,14 +76,14 @@ export class ItemFilterComponent {
    * Emits minimum price bound change event
    */
   public onMinInput(val: number | null): void {
-    this.minPriceChange.emit(val !== null && val !== undefined && val >= 0 ? val : null);
+    this.minPriceChange.emit(val);
   }
 
   /**
    * Emits maximum price bound change event
    */
   public onMaxInput(val: number | null): void {
-    this.maxPriceChange.emit(val !== null && val !== undefined && val >= 0 ? val : null);
+    this.maxPriceChange.emit(val);
   }
 
   /**

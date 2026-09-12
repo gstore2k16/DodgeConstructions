@@ -22,7 +22,7 @@
   }
 
   &:hover {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: $shadow-card-hover;
     transform: translateY(-2px);
   }
 
@@ -159,7 +159,7 @@
     margin: 0 0 rem-calc(6) 0;
 
     @include break-to-tablet {
-      font-size: rem-calc(22);
+      font-size: rem-calc($font-price-sm);
     }
 
     @include break-to-desktop {
@@ -216,7 +216,7 @@
 
     &:hover {
       background: $color-primary-hover;
-      box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
+      box-shadow: 0 2px 8px $color-primary-hover-shadow;
       color: $color-white;
     }
 

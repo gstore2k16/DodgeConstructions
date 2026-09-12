@@ -1,16 +1,16 @@
-<!-- Loading state -->
+<!-- Product details page container -->
 <section class="detail-page" aria-label="Product details page">
     @if (loading()) {
+        <!-- Loading state -->
         <app-loading message="Loading item details…"></app-loading>
-    }
-
-    <!-- Error state -->
-    @if (error()) {
+    } @else if (error()) {
+        <!-- Network/Service Error state -->
         <app-error [message]="error()!" [showBackLink]="true"></app-error>
-    }
-
-    <!-- Item detail view component -->
-    @if (!loading() && !error() && item()) {
+    } @else if (item()) {
+        <!-- Product detail view component -->
         <app-item-detail-view [item]="item()!"></app-item-detail-view>
+    } @else {
+        <!-- Invalid / Non-existent product ID error state -->
+        <app-error message="Product not found. The requested item does not exist or may have been removed." [showBackLink]="true"></app-error>
     }
 </section>
