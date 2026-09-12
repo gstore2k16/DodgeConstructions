@@ -3,7 +3,7 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subscription } from 'rxjs';
 import { Item } from '../models/item.model';
 import { ItemService } from './item.service';
-import { SortOption } from '../components/item-filter/item-filter.component';
+import { SortOption } from '../models/item-filter.model';
 
 @Injectable({
   providedIn: 'root'
@@ -46,10 +46,7 @@ export class ItemStateService {
     return ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item);
   });
   public readonly categories = computed<string[]>(() => {
-    const all = this._items();
-    const set = new Set<string>();
-    all.forEach((item: Item) => set.add(item.category));
-    return ['All', ...Array.from(set)];
+    return ['All', ...new Set(this._items().map(item => item.category))];
   });
 
   public readonly filteredItems = computed<Item[]>(() => {
@@ -125,7 +122,7 @@ export class ItemStateService {
         this._items.set(data);
         this._loading.set(false);
       },
-      error: (err: Error) => {
+      error: () => {
         this._error.set('Failed to load products. Please try again later.');
         this._loading.set(false);
       }
@@ -142,11 +139,11 @@ export class ItemStateService {
   }
 
   public setMinPrice(min: number | null): void {
-    this._minPrice.set(min);
+    this._minPrice.set(this.normalizePrice(min));
   }
 
   public setMaxPrice(max: number | null): void {
-    this._maxPrice.set(max);
+    this._maxPrice.set(this.normalizePrice(max));
   }
 
   public setInStockOnly(inStock: boolean): void {
@@ -189,5 +186,9 @@ export class ItemStateService {
     this._maxPrice.set(null);
     this._inStockOnly.set(false);
     this._sortOrder.set('default');
+  }
+
+  private normalizePrice(value: number | null): number | null {
+    return value !== null && Number.isFinite(value) && value >= 0 ? value : null;
   }
 }

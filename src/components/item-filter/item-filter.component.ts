@@ -5,8 +5,7 @@ import { Subject } from 'rxjs';
 import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ErrorComponent } from '../error/error.component';
-
-export type SortOption = 'default' | 'price-asc' | 'price-desc';
+import { SortOption } from '../../models/item-filter.model';
 
 /**
  * Reusable Filter & Sorting controls component with debounced search stream.
@@ -86,14 +85,14 @@ export class ItemFilterComponent {
    * Emits minimum price bound change event
    */
   public onMinInput(val: number | null): void {
-    this.minPriceChange.emit(val !== null && val !== undefined && val >= 0 ? val : null);
+    this.minPriceChange.emit(val);
   }
 
   /**
    * Emits maximum price bound change event
    */
   public onMaxInput(val: number | null): void {
-    this.maxPriceChange.emit(val !== null && val !== undefined && val >= 0 ? val : null);
+    this.maxPriceChange.emit(val);
   }
 
   /**

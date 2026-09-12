@@ -5,7 +5,7 @@ import { Title } from '@angular/platform-browser';
 import { ActivatedRoute } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { ItemStateService } from '../../services/item-state.service';
-import { SortOption } from '../../components/item-filter/item-filter.component';
+import { SortOption } from '../../models/item-filter.model';
 import { ItemGridComponent } from '../../components/item-grid/item-grid.component';
 import { ItemFilterComponent } from '../../components/item-filter/item-filter.component';
 import { LoadingComponent } from '../../components/loading/loading.component';
@@ -44,10 +44,7 @@ export class ItemsComponent {
     this.route.queryParamMap.pipe(
       takeUntilDestroyed(this.destroyRef)
     ).subscribe(params => {
-      const cat = params.get('category');
-      if (cat) {
-        this.stateService.setCategoryFilter(cat);
-      }
+      this.stateService.setCategoryFilter(params.get('category') ?? 'All');
     });
   }
 
