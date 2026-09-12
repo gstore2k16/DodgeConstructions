@@ -202,6 +202,15 @@
     svg {
       flex-shrink: 0;
     }
+
+    &--added {
+      background: $color-success-text;
+
+      &:hover {
+        background: $color-success-text;
+        box-shadow: none;
+      }
+    }
   }
 
   &__skeleton-line,

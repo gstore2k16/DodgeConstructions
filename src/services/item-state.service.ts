@@ -52,6 +52,7 @@ export class ItemStateService {
   private readonly _sortOrder = signal<SortOption>('default');
   private readonly _selectedItemId = signal<number | null>(null);
   private readonly _compareIds = signal<readonly number[]>(Object.freeze([]));
+  private readonly _cartItems = signal<readonly CartLine[]>(Object.freeze([]));
 
   // Public Readonly Signals (Exposed to components to prevent direct state mutation)
   public readonly items: Signal<readonly Item[]> = computed(() => this.itemRequest().items);
@@ -65,6 +66,7 @@ export class ItemStateService {
   public readonly sortOrder = this._sortOrder.asReadonly();
   public readonly selectedItemId = this._selectedItemId.asReadonly();
   public readonly compareIds: Signal<readonly number[]> = this._compareIds.asReadonly();
+  public readonly cartItems: Signal<readonly CartLine[]> = this._cartItems.asReadonly();
 
   // Derived Computed Signals (Encapsulated Business Logic)
   public readonly comparedItems: Signal<readonly Item[]> = computed(() => {
@@ -75,6 +77,11 @@ export class ItemStateService {
   public readonly categories: Signal<readonly string[]> = computed(() => {
     return this.freezeArray(['All', ...new Set(this.items().map(item => item.category))]);
   });
+
+  /** Total number of units across all cart lines (for a nav/cart badge). */
+  public readonly cartItemCount: Signal<number> = computed(() =>
+    this._cartItems().reduce((sum, line) => sum + line.quantity, 0)
+  );
 
   public readonly filteredItems: Signal<readonly Item[]> = computed(() => {
     let result = [...this.items()];
@@ -181,6 +188,25 @@ export class ItemStateService {
     this._compareIds.set(Object.freeze([]));
   }
 
+  /**
+   * Adds a quantity of the given item to the cart, merging into an existing
+   * line if the item is already present rather than creating a duplicate.
+   */
+  public addToCart(itemId: number, quantity: number): void {
+    if (!Number.isFinite(quantity) || quantity <= 0) {
+      return;
+    }
+    const current = this._cartItems();
+    const existing = current.find(line => line.itemId === itemId);
+    if (existing) {
+      this._cartItems.set(this.freezeArray(
+        current.map(line => line.itemId === itemId ? { itemId, quantity: line.quantity + quantity } : line)
+      ));
+    } else {
+      this._cartItems.set(this.freezeArray([...current, { itemId, quantity }]));
+    }
+  }
+
   public resetFilters(): void {
     this._filter.set('');
     this._selectedCategory.set('All');
@@ -201,6 +227,11 @@ export class ItemStateService {
   private freezeArray<T>(values: readonly T[]): readonly T[] {
     return Object.freeze([...values]);
   }
+}
+
+interface CartLine {
+  readonly itemId: number;
+  readonly quantity: number;
 }
 
 interface ItemRequestState {

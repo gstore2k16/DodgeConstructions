@@ -105,4 +105,32 @@ describe('ItemStateService (Jest)', () => {
     expect(service.inStockOnly()).toBe(false);
     expect(service.sortOrder()).toBe('default');
   });
+
+  it('should add a new cart line when adding an item for the first time', () => {
+    service.addToCart(1, 2);
+
+    expect(service.cartItems()).toEqual([{ itemId: 1, quantity: 2 }]);
+    expect(service.cartItemCount()).toBe(2);
+  });
+
+  it('should merge quantity into an existing cart line instead of duplicating it', () => {
+    service.addToCart(1, 2);
+    service.addToCart(1, 3);
+    service.addToCart(2, 1);
+
+    expect(service.cartItems()).toEqual([
+      { itemId: 1, quantity: 5 },
+      { itemId: 2, quantity: 1 }
+    ]);
+    expect(service.cartItemCount()).toBe(6);
+  });
+
+  it('should ignore non-positive or invalid quantities when adding to cart', () => {
+    service.addToCart(1, 0);
+    service.addToCart(1, -2);
+    service.addToCart(1, NaN);
+
+    expect(service.cartItems()).toEqual([]);
+    expect(service.cartItemCount()).toBe(0);
+  });
 });
