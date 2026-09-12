@@ -37,7 +37,7 @@
 
     @include break-to-tablet {
       width: 48%;
-      min-width: rem-calc(340);
+      min-width: rem-calc(300);
       min-height: rem-calc(380);
       padding: rem-calc(32);
     }
@@ -192,7 +192,7 @@
 
     &:hover {
       background: $color-primary-hover;
-      box-shadow: 0 4px 14px rgba(74, 124, 246, 0.3);
+      box-shadow: 0 4px 14px $color-primary-shadow;
     }
 
     &:active {

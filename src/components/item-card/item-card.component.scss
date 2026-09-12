@@ -22,7 +22,7 @@
   }
 
   &:hover {
-    box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+    box-shadow: $shadow-card-hover;
     transform: translateY(-2px);
   }
 
@@ -216,7 +216,7 @@
 
     &:hover {
       background: $color-primary-hover;
-      box-shadow: 0 2px 8px rgba(59, 91, 219, 0.25);
+      box-shadow: 0 2px 8px $color-primary-hover-shadow;
       color: $color-white;
     }
 

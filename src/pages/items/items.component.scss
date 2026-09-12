@@ -27,25 +27,7 @@
   }
 
   &__reset-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: rem-calc(6);
-    padding: rem-calc(8) rem-calc(14);
-    font-size: rem-calc($font-sm);
-    font-weight: 600;
-    font-family: $primary-font;
-    color: $color-text-subtle;
-    background: $color-white;
-    border: 1px solid $color-border-medium;
-    border-radius: rem-calc($radius-md);
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
-
-    &:hover {
-      color: $color-text-heading;
-      border-color: $color-text-disabled;
-      background: $color-bg-slate-light;
-    }
+    @include secondary-action;
   }
 
   &__empty-state {

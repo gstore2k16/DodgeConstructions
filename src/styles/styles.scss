@@ -9,7 +9,7 @@ body {
   font-size: rem-calc($font-lg);
   background-color: $color-bg-page;
   color: $color-text-darker;
-  line-height: 1.2;
+  line-height: 1.5;
 }
 
 a {
@@ -39,5 +39,4 @@ a {
   outline: 2px solid $color-primary;
   outline-offset: 2px;
 }
-
 

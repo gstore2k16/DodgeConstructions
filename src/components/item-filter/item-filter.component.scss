@@ -51,8 +51,7 @@
     }
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
+      @include control-focus;
     }
   }
 
@@ -71,6 +70,10 @@
       gap: rem-calc(20);
       padding: rem-calc(18) rem-calc(20);
     }
+
+    @include below-tablet {
+      align-items: stretch;
+    }
   }
 
   &__group {
@@ -84,6 +87,10 @@
 
     &--price {
       min-width: rem-calc(180);
+
+      @include below-tablet {
+        width: 100%;
+      }
     }
 
     &--stock {
@@ -93,6 +100,10 @@
 
     &--reset {
       margin-left: auto;
+
+      @include below-tablet {
+        margin-left: 0;
+      }
     }
   }
 
@@ -118,8 +129,7 @@
     transition: border-color 0.2s, box-shadow 0.2s;
 
     &:focus {
-      border-color: $color-primary;
-      box-shadow: 0 0 0 3px rgba(74, 124, 246, 0.12);
+      @include control-focus;
     }
   }
 
@@ -179,25 +189,7 @@
   }
 
   &__reset-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: rem-calc(6);
-    padding: rem-calc(8) rem-calc(14);
-    font-size: rem-calc($font-sm);
-    font-weight: 600;
-    font-family: $primary-font;
-    color: $color-text-subtle;
-    background: $color-white;
-    border: 1px solid $color-border-medium;
-    border-radius: rem-calc($radius-md);
-    cursor: pointer;
-    transition: color 0.2s, border-color 0.2s, background-color 0.2s;
-
-    &:hover {
-      color: $color-text-heading;
-      border-color: $color-text-disabled;
-      background: $color-bg-slate-light;
-    }
+    @include secondary-action;
 
     svg {
       flex-shrink: 0;

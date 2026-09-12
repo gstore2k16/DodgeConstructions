@@ -1,17 +1,18 @@
 @use 'sass:math';
+@use 'sass:list';
 @forward 'variables';
 @use 'variables' as *;
 
 
 
 @function rem-calc($values, $base-value: $rem-base) {
-  $max: length($values);
+  $max: list.length($values);
   @if $max == 1 {
-    @return convert-to-rem(nth($values, 1), $base-value);
+    @return convert-to-rem(list.nth($values, 1), $base-value);
   }
   $rem-values: ();
   @for $i from 1 through $max {
-    $rem-values: append($rem-values, convert-to-rem(nth($values, $i), $base-value));
+    $rem-values: list.append($rem-values, convert-to-rem(list.nth($values, $i), $base-value));
   }
   @return $rem-values;
 }
@@ -40,6 +41,13 @@
  */
 @mixin break-to-tablet {
   @media (min-width: $break-to-tablet) {
+    @content;
+  }
+}
+
+/** Used for narrow, touch-first layout refinements. */
+@mixin below-tablet {
+  @media (max-width: $break-to-tablet - 1px) {
     @content;
   }
 }
@@ -115,7 +123,7 @@ Used to set styles when device width larger than the target desktop width
 @mixin page-card {
   background: $color-white;
   border-radius: rem-calc($radius-2xl);
-  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.06);
+  box-shadow: $shadow-card;
   padding: rem-calc(24);
   margin: 0 auto;
   font-family: $primary-font;
@@ -132,5 +140,34 @@ Used to set styles when device width larger than the target desktop width
 
   @include break-to-wider-desktop {
     padding: rem-calc(48) rem-calc(56);
+  }
+}
+
+/** Shared focus treatment for native form controls. */
+@mixin control-focus {
+  border-color: $color-primary;
+  box-shadow: 0 0 0 3px $color-focus-ring;
+}
+
+/** Shared secondary action treatment used by filter result reset controls. */
+@mixin secondary-action {
+  display: inline-flex;
+  align-items: center;
+  gap: rem-calc(6);
+  padding: rem-calc(8) rem-calc(14);
+  font-family: $primary-font;
+  font-size: rem-calc($font-sm);
+  font-weight: 600;
+  color: $color-text-subtle;
+  background: $color-white;
+  border: 1px solid $color-border-medium;
+  border-radius: rem-calc($radius-md);
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+
+  &:hover {
+    color: $color-text-heading;
+    border-color: $color-text-disabled;
+    background: $color-bg-slate-light;
   }
 }
