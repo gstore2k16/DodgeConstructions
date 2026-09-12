@@ -60,7 +60,7 @@ export class ItemFilterComponent {
   constructor() {
     // Pipe search inputs through debounceTime and distinctUntilChanged for optimal UI performance
     this.searchSubject$.pipe(
-      debounceTime(250),
+      debounceTime(100),
       distinctUntilChanged(),
       takeUntilDestroyed(this.destroyRef)
     ).subscribe((term: string) => {
