@@ -1,8 +1,7 @@
 <!-- Reusable Error Banner & Alert State Component -->
 <div class="error-state" role="alert" aria-live="assertive">
-    <p class="error-state__message">{{ message() }}</p>
-    @if (showBackLink()) {
-        <a [routerLink]="backLinkRoute()" class="error-state__back-link">{{ backLinkText() }}</a>
-    }
+  <p class="error-state__message">{{ message() }}</p>
+  @if (showBackLink()) {
+    <a [routerLink]="backLinkRoute()" class="error-state__back-link">{{ backLinkText() }}</a>
+  }
 </div>
-

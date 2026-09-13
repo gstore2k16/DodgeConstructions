@@ -1,4 +1,4 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 :host {
   display: block;
@@ -43,7 +43,9 @@
     border-radius: rem-calc($radius-md);
     background: $color-white;
     outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
     box-sizing: border-box;
 
     &::placeholder {
@@ -126,7 +128,9 @@
     outline: none;
     cursor: pointer;
     min-width: rem-calc(150);
-    transition: border-color 0.2s, box-shadow 0.2s;
+    transition:
+      border-color 0.2s,
+      box-shadow 0.2s;
 
     &:focus {
       @include control-focus;

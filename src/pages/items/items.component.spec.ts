@@ -1,4 +1,10 @@
-import { Injector, signal, DestroyRef, ɵChangeDetectionScheduler as ChangeDetectionScheduler, ɵEffectScheduler as EffectScheduler } from '@angular/core';
+import {
+  Injector,
+  signal,
+  DestroyRef,
+  ɵChangeDetectionScheduler as ChangeDetectionScheduler,
+  ɵEffectScheduler as EffectScheduler,
+} from '@angular/core';
 import { provideRouter, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { of } from 'rxjs';
@@ -21,7 +27,7 @@ describe('ItemsComponent (Jest)', () => {
     true,
     15,
     '/assets/images/drill.jpg',
-    ['20V MAX']
+    ['20V MAX'],
   );
 
   beforeEach(() => {
@@ -46,12 +52,12 @@ describe('ItemsComponent (Jest)', () => {
       setInStockOnly: jest.fn(),
       setSortOrder: jest.fn(),
       resetFilters: jest.fn(),
-      loadItems: jest.fn()
+      loadItems: jest.fn(),
     };
 
     mockTitleService = {
       setTitle: jest.fn(),
-      getTitle: jest.fn()
+      getTitle: jest.fn(),
     };
 
     const injector = Injector.create({
@@ -64,10 +70,10 @@ describe('ItemsComponent (Jest)', () => {
         provideRouter([]),
         {
           provide: ActivatedRoute,
-          useValue: { queryParamMap: of(new Map([['category', 'Power Tools']])) }
+          useValue: { queryParamMap: of(new Map([['category', 'Power Tools']])) },
         },
-        ItemsComponent
-      ]
+        ItemsComponent,
+      ],
     });
     component = injector.get(ItemsComponent);
   });

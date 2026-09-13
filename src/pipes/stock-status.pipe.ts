@@ -5,7 +5,7 @@ export type { StockInfo };
 
 @Pipe({
   name: 'stockStatus',
-  pure: true
+  pure: true,
 })
 export class StockStatusPipe implements PipeTransform {
   /**

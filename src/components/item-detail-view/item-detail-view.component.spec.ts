@@ -18,7 +18,7 @@ describe('ItemDetailViewComponent (Jest)', () => {
     true,
     15,
     '/assets/images/drill.jpg',
-    ['20V MAX']
+    ['20V MAX'],
   );
 
   function createComponent() {
@@ -27,8 +27,8 @@ describe('ItemDetailViewComponent (Jest)', () => {
         { provide: DestroyRef, useValue: mockDestroyRef },
         { provide: ItemStateService, useValue: mockStateService },
         provideRouter([]),
-        ItemDetailViewComponent
-      ]
+        ItemDetailViewComponent,
+      ],
     });
     const comp = injector.get(ItemDetailViewComponent);
     (comp as any).item = signal(mockItem);
@@ -40,7 +40,7 @@ describe('ItemDetailViewComponent (Jest)', () => {
 
     mockDestroyRef = { onDestroy: jest.fn() };
     mockStateService = {
-      addToCart: jest.fn()
+      addToCart: jest.fn(),
     };
 
     component = createComponent();

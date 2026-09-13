@@ -3,8 +3,6 @@
 @forward 'variables';
 @use 'variables' as *;
 
-
-
 @function rem-calc($values, $base-value: $rem-base) {
   $max: list.length($values);
   @if $max == 1 {
@@ -79,15 +77,24 @@ Used to set styles when device width larger than the target desktop width
   Pairs with `skeleton-shimmer-keyframes` (include once per file).
  */
 @mixin skeleton-shimmer {
-  background: linear-gradient(90deg, $color-skeleton-base 25%, $color-skeleton-highlight 50%, $color-skeleton-base 75%);
+  background: linear-gradient(
+    90deg,
+    $color-skeleton-base 25%,
+    $color-skeleton-highlight 50%,
+    $color-skeleton-base 75%
+  );
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
 }
 
 @mixin skeleton-shimmer-keyframes {
   @keyframes shimmer {
-    0% { background-position: 200% 0; }
-    100% { background-position: -200% 0; }
+    0% {
+      background-position: 200% 0;
+    }
+    100% {
+      background-position: -200% 0;
+    }
   }
 }
 
@@ -163,7 +170,10 @@ Used to set styles when device width larger than the target desktop width
   border: 1px solid $color-border-medium;
   border-radius: rem-calc($radius-md);
   cursor: pointer;
-  transition: color 0.2s, border-color 0.2s, background-color 0.2s;
+  transition:
+    color 0.2s,
+    border-color 0.2s,
+    background-color 0.2s;
 
   &:hover {
     color: $color-text-heading;

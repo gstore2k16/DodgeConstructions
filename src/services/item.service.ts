@@ -17,14 +17,12 @@ export class ItemService {
    */
   public getItems(): Observable<Item[]> {
     if (!this.items$) {
-      this.items$ = this.http
-        .get<Record<string, unknown>[]>(this.url)
-        .pipe(
-          map((data: Record<string, unknown>[]) =>
-            data.map((raw: Record<string, unknown>) => ProductItem.fromJson(raw))
-          ),
-          shareReplay(1)
-        );
+      this.items$ = this.http.get<Record<string, unknown>[]>(this.url).pipe(
+        map((data: Record<string, unknown>[]) =>
+          data.map((raw: Record<string, unknown>) => ProductItem.fromJson(raw)),
+        ),
+        shareReplay(1),
+      );
     }
     return this.items$;
   }
@@ -33,9 +31,7 @@ export class ItemService {
    * Fetches a single item by its ID.
    */
   public getItemById(id: number): Observable<Item | undefined> {
-    return this.getItems().pipe(
-      map((items: Item[]) => items.find((item: Item) => item.id === id))
-    );
+    return this.getItems().pipe(map((items: Item[]) => items.find((item: Item) => item.id === id)));
   }
 
   /**

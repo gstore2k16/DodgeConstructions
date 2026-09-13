@@ -5,7 +5,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-item-features',
   templateUrl: './item-features.component.html',
   styleUrl: './item-features.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemFeaturesComponent {
   /** Array of feature bullet points to render under Product Details */

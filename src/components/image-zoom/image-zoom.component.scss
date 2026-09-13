@@ -1,4 +1,4 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 :host {
   display: block;
@@ -128,7 +128,9 @@
     border: none;
     border-radius: $radius-full;
     cursor: pointer;
-    transition: background-color 0.15s, transform 0.1s;
+    transition:
+      background-color 0.15s,
+      transform 0.1s;
 
     &:hover:not(:disabled) {
       background: $color-surface-on-dark-hover;

@@ -1,4 +1,4 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 :host {
   display: block;
@@ -15,7 +15,9 @@
   overflow: hidden;
   height: 100%;
   box-sizing: border-box;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
 
   @include break-to-tablet {
     flex-direction: row;
@@ -208,7 +210,9 @@
     text-decoration: none;
     cursor: pointer;
     box-sizing: border-box;
-    transition: background-color 0.2s, box-shadow 0.2s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.2s;
 
     @include break-to-desktop {
       padding: rem-calc(10) rem-calc(24);

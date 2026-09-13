@@ -1,4 +1,11 @@
-import { Component, input, signal, viewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  input,
+  signal,
+  viewChild,
+  ElementRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 
 @Component({
   selector: 'app-image-zoom',
@@ -6,8 +13,8 @@ import { Component, input, signal, viewChild, ElementRef, ChangeDetectionStrateg
   styleUrl: './image-zoom.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
-    '(window:keydown.escape)': 'onEscapeKey()'
-  }
+    '(window:keydown.escape)': 'onEscapeKey()',
+  },
 })
 export class ImageZoomComponent {
   /** Image source URL */

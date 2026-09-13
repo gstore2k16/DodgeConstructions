@@ -19,7 +19,7 @@ describe('ItemCardComponent (Jest)', () => {
     true,
     15,
     '/assets/images/drill.jpg',
-    ['20V MAX']
+    ['20V MAX'],
   );
 
   function createComponent() {
@@ -28,8 +28,8 @@ describe('ItemCardComponent (Jest)', () => {
         { provide: DestroyRef, useValue: mockDestroyRef },
         { provide: ItemStateService, useValue: mockStateService },
         provideRouter([]),
-        ItemCardComponent
-      ]
+        ItemCardComponent,
+      ],
     });
     const comp = injector.get(ItemCardComponent);
     (comp as any).item = signal(mockItem);
@@ -43,7 +43,7 @@ describe('ItemCardComponent (Jest)', () => {
     compareIdsSignal = signal<number[]>([]);
     mockStateService = {
       compareIds: compareIdsSignal.asReadonly(),
-      toggleCompare: jest.fn().mockReturnValue(true)
+      toggleCompare: jest.fn().mockReturnValue(true),
     };
 
     component = createComponent();

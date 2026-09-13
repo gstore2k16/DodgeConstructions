@@ -8,15 +8,12 @@ describe('ItemGridComponent (Jest)', () => {
 
   const mockItems = [
     new ProductItem(1, 'Drill', 'Tools', 100, 'Desc', true, 5, '/a.jpg', []),
-    new ProductItem(2, 'Saw', 'Tools', 150, 'Desc', false, 0, '/b.jpg', [])
+    new ProductItem(2, 'Saw', 'Tools', 150, 'Desc', false, 0, '/b.jpg', []),
   ];
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [
-        provideRouter([]),
-        ItemGridComponent
-      ]
+      providers: [provideRouter([]), ItemGridComponent],
     });
     component = injector.get(ItemGridComponent);
     (component as any).items = signal([]);

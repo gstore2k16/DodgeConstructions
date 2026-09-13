@@ -5,7 +5,7 @@ import { Component, input, output, ChangeDetectionStrategy } from '@angular/core
   selector: 'app-quantity-selector',
   templateUrl: './quantity-selector.component.html',
   styleUrl: './quantity-selector.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class QuantitySelectorComponent {
   /** Current selected quantity value */

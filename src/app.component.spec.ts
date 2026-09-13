@@ -7,10 +7,7 @@ describe('AppComponent (Jest)', () => {
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [
-        provideRouter([]),
-        AppComponent
-      ]
+      providers: [provideRouter([]), AppComponent],
     });
     component = injector.get(AppComponent);
   });

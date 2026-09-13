@@ -4,9 +4,9 @@ import { ProductItem } from '../models/product-item.model';
 describe('PriceDifferencePipe (Jest)', () => {
   let pipe: PriceDifferencePipe;
 
-  const itemA = new ProductItem(1, 'Drill A', 'Tools', 100.00, 'Desc', true, 10, '/a.jpg', []);
-  const itemB = new ProductItem(2, 'Drill B', 'Tools', 150.00, 'Desc', true, 5, '/b.jpg', []);
-  const itemC = new ProductItem(3, 'Drill C', 'Tools', 100.00, 'Desc', true, 8, '/c.jpg', []);
+  const itemA = new ProductItem(1, 'Drill A', 'Tools', 100.0, 'Desc', true, 10, '/a.jpg', []);
+  const itemB = new ProductItem(2, 'Drill B', 'Tools', 150.0, 'Desc', true, 5, '/b.jpg', []);
+  const itemC = new ProductItem(3, 'Drill C', 'Tools', 100.0, 'Desc', true, 8, '/c.jpg', []);
 
   beforeEach(() => {
     pipe = new PriceDifferencePipe();
@@ -43,8 +43,18 @@ describe('PriceDifferencePipe (Jest)', () => {
   });
 
   it('should format the difference to exactly two decimal places', () => {
-    const cheap = new ProductItem(4, 'Cheap Item', 'Tools', 10.00, 'Desc', true, 5, '/d.jpg', []);
-    const pricey = new ProductItem(5, 'Pricey Item', 'Tools', 10.125, 'Desc', true, 5, '/e.jpg', []);
+    const cheap = new ProductItem(4, 'Cheap Item', 'Tools', 10.0, 'Desc', true, 5, '/d.jpg', []);
+    const pricey = new ProductItem(
+      5,
+      'Pricey Item',
+      'Tools',
+      10.125,
+      'Desc',
+      true,
+      5,
+      '/e.jpg',
+      [],
+    );
     expect(pipe.transform([cheap, pricey])).toBe('Cheap Item is $0.13 lower in price.');
   });
 });

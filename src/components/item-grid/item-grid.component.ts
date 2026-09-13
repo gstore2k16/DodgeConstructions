@@ -9,7 +9,7 @@ import { ErrorComponent } from '../error/error.component';
   imports: [ItemCardComponent, ErrorComponent],
   templateUrl: './item-grid.component.html',
   styleUrl: './item-grid.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemGridComponent {
   /** The list of product items to display in the grid */

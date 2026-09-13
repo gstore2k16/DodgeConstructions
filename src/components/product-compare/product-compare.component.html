@@ -12,7 +12,12 @@
           @for (item of comparedItems(); track item.id) {
             <div class="compare-bar__chip">
               <span class="compare-bar__chip-name">{{ item.name }}</span>
-              <button type="button" class="compare-bar__chip-remove" (click)="remove(item.id)" [attr.aria-label]="'Remove ' + item.name + ' from comparison'">
+              <button
+                type="button"
+                class="compare-bar__chip-remove"
+                (click)="remove(item.id)"
+                [attr.aria-label]="'Remove ' + item.name + ' from comparison'"
+              >
                 ×
               </button>
             </div>
@@ -27,10 +32,20 @@
           class="compare-bar__btn compare-bar__btn--primary"
           [disabled]="comparedItems().length !== 2"
           (click)="openModal()"
-          [attr.aria-label]="comparedItems().length === 2 ? 'Compare selected 2 products' : 'Select 1 more product to compare'">
+          [attr.aria-label]="
+            comparedItems().length === 2
+              ? 'Compare selected 2 products'
+              : 'Select 1 more product to compare'
+          "
+        >
           Compare Now
         </button>
-        <button type="button" class="compare-bar__btn compare-bar__btn--secondary" (click)="clearAll()" aria-label="Clear all comparison items">
+        <button
+          type="button"
+          class="compare-bar__btn compare-bar__btn--secondary"
+          (click)="clearAll()"
+          aria-label="Clear all comparison items"
+        >
           Clear All
         </button>
       </div>
@@ -38,12 +53,23 @@
   </aside>
 
   <!-- Side-by-Side Comparison Matrix Dialog Modal -->
-  <dialog #compareDialog class="compare-modal" (click)="closeModal()" aria-modal="true" aria-label="Product Comparison Matrix">
+  <dialog
+    #compareDialog
+    class="compare-modal"
+    (click)="closeModal()"
+    aria-modal="true"
+    aria-label="Product Comparison Matrix"
+  >
     <div class="compare-modal__wrapper" (click)="$event.stopPropagation()">
       <!-- Modal Header -->
       <header class="compare-modal__header">
         <h2 class="compare-modal__title">Product Comparison Matrix</h2>
-        <button type="button" class="compare-modal__close-btn" (click)="closeModal()" aria-label="Close comparison view">
+        <button
+          type="button"
+          class="compare-modal__close-btn"
+          (click)="closeModal()"
+          aria-label="Close comparison view"
+        >
           ×
         </button>
       </header>
@@ -53,14 +79,23 @@
         <div class="compare-modal__body">
           <!-- Price Difference Highlight Summary Banner -->
           <div class="compare-modal__summary-banner">
-            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="12" y1="16" x2="12" y2="12"/>
-              <line x1="12" y1="8" x2="12.01" y2="8"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <circle cx="12" cy="12" r="10" />
+              <line x1="12" y1="16" x2="12" y2="12" />
+              <line x1="12" y1="8" x2="12.01" y2="8" />
             </svg>
-            <span>
-              <strong>Price Summary:</strong> {{ comparedItems() | priceDifference }}
-            </span>
+            <span> <strong>Price Summary:</strong> {{ comparedItems() | priceDifference }} </span>
           </div>
 
           <!-- Side-by-Side Comparison Table Matrix -->
@@ -71,16 +106,38 @@
                   <th class="compare-table__feature-col">Feature</th>
                   <th class="compare-table__product-col">
                     <div class="compare-table__card">
-                      <img [src]="comparedItems()[0].image" [alt]="comparedItems()[0].name" class="compare-table__img" loading="lazy" decoding="async" />
+                      <img
+                        [src]="comparedItems()[0].image"
+                        [alt]="comparedItems()[0].name"
+                        class="compare-table__img"
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <h3 class="compare-table__item-title">{{ comparedItems()[0].name }}</h3>
-                      <a [routerLink]="['/items', comparedItems()[0].id]" (click)="closeModal()" class="compare-table__link">View Details</a>
+                      <a
+                        [routerLink]="['/items', comparedItems()[0].id]"
+                        (click)="closeModal()"
+                        class="compare-table__link"
+                        >View Details</a
+                      >
                     </div>
                   </th>
                   <th class="compare-table__product-col">
                     <div class="compare-table__card">
-                      <img [src]="comparedItems()[1].image" [alt]="comparedItems()[1].name" class="compare-table__img" loading="lazy" decoding="async" />
+                      <img
+                        [src]="comparedItems()[1].image"
+                        [alt]="comparedItems()[1].name"
+                        class="compare-table__img"
+                        loading="lazy"
+                        decoding="async"
+                      />
                       <h3 class="compare-table__item-title">{{ comparedItems()[1].name }}</h3>
-                      <a [routerLink]="['/items', comparedItems()[1].id]" (click)="closeModal()" class="compare-table__link">View Details</a>
+                      <a
+                        [routerLink]="['/items', comparedItems()[1].id]"
+                        (click)="closeModal()"
+                        class="compare-table__link"
+                        >View Details</a
+                      >
                     </div>
                   </th>
                 </tr>
@@ -93,18 +150,28 @@
                 </tr>
                 <tr>
                   <td class="compare-table__label">Price</td>
-                  <td class="compare-table__highlight-val">{{ comparedItems()[0].price | currency:'USD':'symbol':'1.2-2' }}</td>
-                  <td class="compare-table__highlight-val">{{ comparedItems()[1].price | currency:'USD':'symbol':'1.2-2' }}</td>
+                  <td class="compare-table__highlight-val">
+                    {{ comparedItems()[0].price | currency: 'USD' : 'symbol' : '1.2-2' }}
+                  </td>
+                  <td class="compare-table__highlight-val">
+                    {{ comparedItems()[1].price | currency: 'USD' : 'symbol' : '1.2-2' }}
+                  </td>
                 </tr>
                 <tr>
                   <td class="compare-table__label">Availability</td>
                   <td>
-                    <span [class.compare-table__stock--in]="comparedItems()[0].inStock" [class.compare-table__stock--out]="!comparedItems()[0].inStock">
+                    <span
+                      [class.compare-table__stock--in]="comparedItems()[0].inStock"
+                      [class.compare-table__stock--out]="!comparedItems()[0].inStock"
+                    >
                       {{ comparedItems()[0] | stockStatus }}
                     </span>
                   </td>
                   <td>
-                    <span [class.compare-table__stock--in]="comparedItems()[1].inStock" [class.compare-table__stock--out]="!comparedItems()[1].inStock">
+                    <span
+                      [class.compare-table__stock--in]="comparedItems()[1].inStock"
+                      [class.compare-table__stock--out]="!comparedItems()[1].inStock"
+                    >
                       {{ comparedItems()[1] | stockStatus }}
                     </span>
                   </td>

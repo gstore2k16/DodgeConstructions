@@ -1,4 +1,4 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 .item-detail-view {
   &__layout {
@@ -187,7 +187,9 @@
     border: none;
     border-radius: rem-calc($radius-lg);
     cursor: pointer;
-    transition: background-color 0.2s, box-shadow 0.2s;
+    transition:
+      background-color 0.2s,
+      box-shadow 0.2s;
     margin-bottom: rem-calc(32);
 
     &:hover {

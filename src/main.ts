@@ -12,9 +12,9 @@ import { GlobalErrorHandlerService } from './services/global-error-handler.servi
 // component inputs), the HTTP client (with the logging/error interceptor),
 // and the global error handler, then bootstraps the root component.
 bootstrapApplication(AppComponent, {
-    providers: [
-        provideRouter(routes, withComponentInputBinding()),
-        provideHttpClient(withInterceptors([apiInterceptor])),
-        { provide: ErrorHandler, useClass: GlobalErrorHandlerService }
-    ]
-}).catch(err => console.error(err));
+  providers: [
+    provideRouter(routes, withComponentInputBinding()),
+    provideHttpClient(withInterceptors([apiInterceptor])),
+    { provide: ErrorHandler, useClass: GlobalErrorHandlerService },
+  ],
+}).catch((err) => console.error(err));

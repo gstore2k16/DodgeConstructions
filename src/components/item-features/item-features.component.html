@@ -1,11 +1,11 @@
 <!-- Product Technical Specifications & Feature List -->
 @if (features().length > 0) {
-    <section class="item-features" aria-labelledby="product-details-heading">
-        <h3 id="product-details-heading" class="item-features__title">Product Details</h3>
-        <ul class="item-features__list">
-            @for (feature of features(); track $index) {
-                <li class="item-features__item">{{ feature }}</li>
-            }
-        </ul>
-    </section>
+  <section class="item-features" aria-labelledby="product-details-heading">
+    <h3 id="product-details-heading" class="item-features__title">Product Details</h3>
+    <ul class="item-features__list">
+      @for (feature of features(); track $index) {
+        <li class="item-features__item">{{ feature }}</li>
+      }
+    </ul>
+  </section>
 }

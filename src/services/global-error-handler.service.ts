@@ -9,7 +9,7 @@ import { environment } from '../environments/environment';
  * message rather than attempting recovery.
  */
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class GlobalErrorHandlerService implements ErrorHandler {
   /** Logs the error with a timestamp/environment tag, branching on error shape for a clearer message. */
@@ -22,13 +22,13 @@ export class GlobalErrorHandlerService implements ErrorHandler {
       console.error(
         `[${timestamp}] [GLOBAL_ERROR_HANDLER] [${envName}] HTTP Error Status: ${error.status} ${error.statusText}`,
         `URL: ${error.url}`,
-        error
+        error,
       );
     } else if (error instanceof Error) {
       // Uncaught JS Runtime Exception
       console.error(
         `[${timestamp}] [GLOBAL_ERROR_HANDLER] [${envName}] Runtime Error: ${error.message}`,
-        `Stack trace:\n${error.stack}`
+        `Stack trace:\n${error.stack}`,
       );
     } else {
       // Unknown Error Object

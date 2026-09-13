@@ -6,7 +6,7 @@ describe('LoadingComponent (Jest)', () => {
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [LoadingComponent]
+      providers: [LoadingComponent],
     });
     component = injector.get(LoadingComponent);
   });

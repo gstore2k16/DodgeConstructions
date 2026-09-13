@@ -6,7 +6,7 @@ describe('BreadcrumbComponent (Jest)', () => {
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [BreadcrumbComponent]
+      providers: [BreadcrumbComponent],
     });
 
     component = injector.get(BreadcrumbComponent);

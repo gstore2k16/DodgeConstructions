@@ -8,7 +8,7 @@ import { CartLine } from '../interfaces/cart-line.interface';
 import { ItemRequestState } from '../interfaces/item-request-state.interface';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class ItemStateService {
   private readonly itemService = inject(ItemService);
@@ -22,25 +22,29 @@ export class ItemStateService {
   private readonly itemRequest = toSignal<ItemRequestState, ItemRequestState>(
     this.reloadItems$.pipe(
       startWith(undefined),
-      switchMap(() => concat(
-        of<ItemRequestState>(initialItemRequestState),
-        this.itemService.getItems().pipe(
-          map((items: Item[]): ItemRequestState => ({
-            items,
-            loading: false,
-            error: null
-          })),
-          catchError(() => of<ItemRequestState>({
-            items: [],
-            loading: false,
-            error: 'Failed to load products. Please try again later.'
-          }))
-        )
-      ))
+      switchMap(() =>
+        concat(
+          of<ItemRequestState>(initialItemRequestState),
+          this.itemService.getItems().pipe(
+            map((items: Item[]): ItemRequestState => ({
+              items,
+              loading: false,
+              error: null,
+            })),
+            catchError(() =>
+              of<ItemRequestState>({
+                items: [],
+                loading: false,
+                error: 'Failed to load products. Please try again later.',
+              }),
+            ),
+          ),
+        ),
+      ),
     ),
     {
-      initialValue: initialItemRequestState
-    }
+      initialValue: initialItemRequestState,
+    },
   );
 
   // Private writable signals (Controlled internal state)
@@ -72,15 +76,17 @@ export class ItemStateService {
   public readonly comparedItems: Signal<readonly Item[]> = computed(() => {
     const ids = this._compareIds();
     const all = this.items();
-    return ids.map(id => all.find(item => item.id === id)).filter((item): item is Item => !!item);
+    return ids
+      .map((id) => all.find((item) => item.id === id))
+      .filter((item): item is Item => !!item);
   });
   public readonly categories: Signal<readonly string[]> = computed(() => {
-    return ['All', ...new Set(this.items().map(item => item.category))];
+    return ['All', ...new Set(this.items().map((item) => item.category))];
   });
 
   /** Total number of units across all cart lines (for a nav/cart badge). */
   public readonly cartItemCount: Signal<number> = computed(() =>
-    this._cartItems().reduce((sum, line) => sum + line.quantity, 0)
+    this._cartItems().reduce((sum, line) => sum + line.quantity, 0),
   );
 
   public readonly filteredItems: Signal<readonly Item[]> = computed(() => {
@@ -170,7 +176,7 @@ export class ItemStateService {
   public toggleCompare(id: number): boolean {
     const current = this._compareIds();
     if (current.includes(id)) {
-      this._compareIds.set(current.filter(i => i !== id));
+      this._compareIds.set(current.filter((i) => i !== id));
       return true;
     }
     if (current.length >= 2) {
@@ -181,7 +187,7 @@ export class ItemStateService {
   }
 
   public removeCompare(id: number): void {
-    this._compareIds.set(this._compareIds().filter(i => i !== id));
+    this._compareIds.set(this._compareIds().filter((i) => i !== id));
   }
 
   public clearCompare(): void {
@@ -197,10 +203,12 @@ export class ItemStateService {
       return;
     }
     const current = this._cartItems();
-    const existing = current.find(line => line.itemId === itemId);
+    const existing = current.find((line) => line.itemId === itemId);
     if (existing) {
       this._cartItems.set(
-        current.map(line => line.itemId === itemId ? { itemId, quantity: line.quantity + quantity } : line)
+        current.map((line) =>
+          line.itemId === itemId ? { itemId, quantity: line.quantity + quantity } : line,
+        ),
       );
     } else {
       this._cartItems.set([...current, { itemId, quantity }]);
@@ -224,5 +232,5 @@ export class ItemStateService {
 const initialItemRequestState: ItemRequestState = {
   items: [],
   loading: true,
-  error: null
+  error: null,
 };
