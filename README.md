@@ -27,23 +27,31 @@ These images are **for inspiration only**. You do not need to replicate them exa
 
 ---
 
-## Setup
+## Setup & Available Commands
 
-The app is fully standalone — no NgModules required.
+The application is built with Angular 21 using standalone components and modern toolchains.
 
-### Running the App
+### Commands Overview
 
-**Option 1: StackBlitz**
+| Command                | Usage                  | Description                                                                                 |
+| :--------------------- | :--------------------- | :------------------------------------------------------------------------------------------ |
+| `npm start`            | `npm start`            | Launches local development server at `http://localhost:4200/` with hot reloading.           |
+| `npm test`             | `npm test`             | Executes unit test suite across all `*.spec.ts` files using the test runner.                |
+| `npm run build`        | `npm run build`        | Builds optimized production artifacts output to the `dist/` directory.                      |
+| `npm run format`       | `npm run format`       | Runs Prettier to automatically format code files (`.ts`, `.html`, `.scss`, `.json`, `.md`). |
+| `npm run format:check` | `npm run format:check` | Verifies code formatting across files with Prettier without modifying them.                 |
+| `npm run prepare`      | `npm run prepare`      | Configures Husky pre-commit git hooks for automated formatting and testing.                 |
+| `ng`                   | `npx ng <command>`     | Runs Angular CLI commands (e.g., `ng generate`, `ng serve`).                                |
 
-1. Open the project in StackBlitz.
-2. The app should load automatically in the preview window.
-
-**Option 2: Local Development**
+### Quick Start (Local Development)
 
 ```bash
-# Install dependencies
+# 1. Install dependencies
 npm install
 
-# Start development server
-ng serve
+# 2. Run unit tests
+npm test
+
+# 3. Start development server
+npm start
 ```
