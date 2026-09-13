@@ -41,7 +41,6 @@ The application is built with Angular 21 using standalone components and modern 
 | `npm run format`       | `npm run format`       | Runs Prettier to automatically format code files (`.ts`, `.html`, `.scss`, `.json`, `.md`). |
 | `npm run format:check` | `npm run format:check` | Verifies code formatting across files with Prettier without modifying them.                 |
 | `npm run prepare`      | `npm run prepare`      | Configures Husky pre-commit git hooks for automated formatting and testing.                 |
-| `ng`                   | `npx ng <command>`     | Runs Angular CLI commands (e.g., `ng generate`, `ng serve`).                                |
 
 ### Quick Start (Local Development)
 
