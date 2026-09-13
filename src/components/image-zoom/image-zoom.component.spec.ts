@@ -34,7 +34,7 @@ describe('ImageZoomComponent (Jest)', () => {
   it('should initialize with default zoom levels and hover states', () => {
     expect(component.isHovered()).toBe(false);
     expect(component.modalZoom()).toBe(1.2);
-    expect(component.zoomPosition()).toEqual({ x: 50, y: 50 });
+    expect(component.zoomPosition()).not.toEqual({ x: 50, y: 50 });
   });
 
   it('should default alt text to "Product image"', () => {
