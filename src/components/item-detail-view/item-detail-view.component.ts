@@ -1,4 +1,11 @@
-import { Component, input, signal, inject, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  input,
+  signal,
+  inject,
+  DestroyRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { Item } from '../../models/item.model';
 import { ItemStateService } from '../../services/item-state.service';
@@ -21,11 +28,11 @@ import { ErrorComponent } from '../error/error.component';
     QuantitySelectorComponent,
     ItemFeaturesComponent,
     ImageZoomComponent,
-    ErrorComponent
+    ErrorComponent,
   ],
   templateUrl: './item-detail-view.component.html',
   styleUrl: './item-detail-view.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemDetailViewComponent {
   private readonly stateService = inject(ItemStateService);

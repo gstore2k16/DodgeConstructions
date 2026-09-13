@@ -5,7 +5,7 @@ import { Component, input, ChangeDetectionStrategy } from '@angular/core';
   selector: 'app-loading',
   templateUrl: './loading.component.html',
   styleUrl: './loading.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoadingComponent {
   /** Custom loading message string */

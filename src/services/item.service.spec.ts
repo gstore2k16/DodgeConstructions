@@ -18,7 +18,7 @@ describe('ItemService (Jest)', () => {
       inStock: true,
       stockCount: 5,
       image: 'assets/drill.jpg',
-      features: ['Cordless']
+      features: ['Cordless'],
     },
     {
       id: 2,
@@ -29,23 +29,20 @@ describe('ItemService (Jest)', () => {
       inStock: false,
       stockCount: 0,
       image: 'assets/saw.jpg',
-      features: []
-    }
+      features: [],
+    },
   ];
 
   function createService(httpClientMock: any): ItemService {
     const injector = Injector.create({
-      providers: [
-        { provide: HttpClient, useValue: httpClientMock },
-        ItemService
-      ]
+      providers: [{ provide: HttpClient, useValue: httpClientMock }, ItemService],
     });
     return injector.get(ItemService);
   }
 
   beforeEach(() => {
     mockHttpClient = {
-      get: jest.fn().mockReturnValue(of(mockRawData))
+      get: jest.fn().mockReturnValue(of(mockRawData)),
     };
     service = createService(mockHttpClient);
   });

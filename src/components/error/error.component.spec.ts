@@ -7,10 +7,7 @@ describe('ErrorComponent (Jest)', () => {
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [
-        provideRouter([]),
-        ErrorComponent
-      ]
+      providers: [provideRouter([]), ErrorComponent],
     });
     component = injector.get(ErrorComponent);
     (component as any).message = signal('Initial error message');

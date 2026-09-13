@@ -1,14 +1,18 @@
 import { Injector, signal } from '@angular/core';
 import { ImageZoomComponent } from './image-zoom.component';
 
-function makeMouseEvent(clientX: number, clientY: number, rect: { left: number; top: number; width: number; height: number }): MouseEvent {
+function makeMouseEvent(
+  clientX: number,
+  clientY: number,
+  rect: { left: number; top: number; width: number; height: number },
+): MouseEvent {
   const target = {
-    getBoundingClientRect: () => rect
+    getBoundingClientRect: () => rect,
   };
   return {
     clientX,
     clientY,
-    currentTarget: target
+    currentTarget: target,
   } as unknown as MouseEvent;
 }
 
@@ -17,7 +21,7 @@ describe('ImageZoomComponent (Jest)', () => {
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [ImageZoomComponent]
+      providers: [ImageZoomComponent],
     });
     component = injector.get(ImageZoomComponent);
     (component as any).src = signal('/assets/test.jpg');
@@ -84,7 +88,7 @@ describe('ImageZoomComponent (Jest)', () => {
       return {
         open,
         showModal: jest.fn(),
-        close: jest.fn()
+        close: jest.fn(),
       };
     }
 

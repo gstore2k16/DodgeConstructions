@@ -1,4 +1,4 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 :host {
   display: block;
@@ -98,7 +98,9 @@
     border-radius: rem-calc($radius-md);
     border: none;
     cursor: pointer;
-    transition: background-color 0.2s, opacity 0.2s;
+    transition:
+      background-color 0.2s,
+      opacity 0.2s;
 
     &--primary {
       background: $color-primary;
@@ -224,7 +226,8 @@
   border-collapse: collapse;
   text-align: left;
 
-  th, td {
+  th,
+  td {
     padding: rem-calc(14) rem-calc(16);
     border-bottom: 1px solid $color-border-light;
     vertical-align: top;

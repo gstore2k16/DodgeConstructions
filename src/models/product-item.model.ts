@@ -14,7 +14,7 @@ export class ProductItem extends Item {
     public readonly inStock: boolean,
     public readonly stockCount: number,
     public readonly image: string,
-    public readonly features: readonly string[]
+    public readonly features: readonly string[],
   ) {
     super();
   }
@@ -42,7 +42,7 @@ export class ProductItem extends Item {
       Boolean(json['inStock']),
       Number(json['stockCount'] ?? 0),
       rawImage,
-      Array.isArray(json['features']) ? json['features'].map((f: unknown) => String(f)) : []
+      Array.isArray(json['features']) ? json['features'].map((f: unknown) => String(f)) : [],
     );
   }
 }

@@ -1,4 +1,12 @@
-import { Component, input, inject, computed, signal, DestroyRef, ChangeDetectionStrategy } from '@angular/core';
+import {
+  Component,
+  input,
+  inject,
+  computed,
+  signal,
+  DestroyRef,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { CurrencyPipe } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { Item } from '../../models/item.model';
@@ -9,13 +17,10 @@ import { ItemStateService } from '../../services/item-state.service';
  */
 @Component({
   selector: 'app-item-card',
-  imports: [
-    CurrencyPipe,
-    RouterLink
-  ],
+  imports: [CurrencyPipe, RouterLink],
   templateUrl: './item-card.component.html',
   styleUrl: './item-card.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemCardComponent {
   private readonly stateService = inject(ItemStateService);
@@ -25,7 +30,9 @@ export class ItemCardComponent {
   public readonly item = input.required<Item>();
 
   /** Computed signal checking if this item is currently selected for comparison */
-  public readonly isCompared = computed(() => this.stateService.compareIds().includes(this.item().id));
+  public readonly isCompared = computed(() =>
+    this.stateService.compareIds().includes(this.item().id),
+  );
 
   /** Temporary alert indicator when user attempts to select more than 2 items */
   public readonly limitNotice = signal<boolean>(false);

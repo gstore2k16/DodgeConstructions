@@ -14,7 +14,7 @@ import { ErrorComponent } from '../../components/error/error.component';
   imports: [ItemDetailViewComponent, LoadingComponent, ErrorComponent],
   templateUrl: './item-detail.component.html',
   styleUrl: './item-detail.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemDetailComponent {
   private readonly stateService = inject(ItemStateService);
@@ -52,4 +52,3 @@ export class ItemDetailComponent {
     });
   }
 }
-

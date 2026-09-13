@@ -16,29 +16,49 @@
       <!-- Detailed Product Metadata & Purchase Controls -->
       <div class="item-detail-view__info">
         <h1 class="item-detail-view__name">{{ item().name }}</h1>
-        <p class="item-detail-view__price">{{ item().price | currency:'USD':'symbol':'1.2-2' }}</p>
+        <p class="item-detail-view__price">
+          {{ item().price | currency: 'USD' : 'symbol' : '1.2-2' }}
+        </p>
         <p class="item-detail-view__description">{{ item().description }}</p>
 
         <!-- Stock Status & Quantity Indicator Row -->
         <div class="item-detail-view__stock-row">
-          <span class="item-detail-view__stock-badge"
-                [class.item-detail-view__stock-badge--in-stock]="item().inStock"
-                [class.item-detail-view__stock-badge--out-of-stock]="!item().inStock">
+          <span
+            class="item-detail-view__stock-badge"
+            [class.item-detail-view__stock-badge--in-stock]="item().inStock"
+            [class.item-detail-view__stock-badge--out-of-stock]="!item().inStock"
+          >
             @if (item().inStock) {
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="20 6 9 17 4 12" />
               </svg>
               In Stock
             } @else {
-              <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14"
-                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
-                <line x1="18" y1="6" x2="6" y2="18"/>
-                <line x1="6" y1="6" x2="18" y2="18"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="14"
+                height="14"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
               Out of Stock
             }
@@ -54,7 +74,8 @@
           <app-quantity-selector
             [quantity]="quantity()"
             [max]="item().stockCount"
-            (quantityChange)="onQuantityChange($event)">
+            (quantityChange)="onQuantityChange($event)"
+          >
           </app-quantity-selector>
 
           <!-- Add to Cart Action Button -->
@@ -63,22 +84,41 @@
             class="item-detail-view__btn-add"
             [class.item-detail-view__btn-add--added]="addedToCart()"
             (click)="onAddToCart()"
-            [attr.aria-label]="addedToCart() ? item().name + ' added to cart' : 'Add ' + item().name + ' to cart'">
+            [attr.aria-label]="
+              addedToCart() ? item().name + ' added to cart' : 'Add ' + item().name + ' to cart'
+            "
+          >
             @if (addedToCart()) {
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="3" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
-                <polyline points="20 6 9 17 4 12"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <polyline points="20 6 9 17 4 12" />
               </svg>
               Added to Cart
             } @else {
-              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
-                   viewBox="0 0 24 24" fill="none" stroke="currentColor"
-                   stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                   aria-hidden="true">
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 4 4v2"/>
-                <circle cx="12" cy="7" r="4"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 4 4v2" />
+                <circle cx="12" cy="7" r="4" />
               </svg>
               Add to Cart
             }
@@ -97,17 +137,31 @@
       <div class="item-detail-view__info item-detail-view__info--skeleton">
         <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--title"></div>
         <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--price"></div>
-        <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--description"></div>
-        <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--description item-detail-view__skeleton-line--short"></div>
-        <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--stock-badge"></div>
+        <div
+          class="item-detail-view__skeleton-line item-detail-view__skeleton-line--description"
+        ></div>
+        <div
+          class="item-detail-view__skeleton-line item-detail-view__skeleton-line--description item-detail-view__skeleton-line--short"
+        ></div>
+        <div
+          class="item-detail-view__skeleton-line item-detail-view__skeleton-line--stock-badge"
+        ></div>
         <div class="item-detail-view__skeleton-box item-detail-view__skeleton-box--qty"></div>
         <div class="item-detail-view__skeleton-box item-detail-view__skeleton-box--btn"></div>
 
         <div class="item-detail-view__skeleton-features">
-          <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-title"></div>
-          <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"></div>
-          <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"></div>
-          <div class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"></div>
+          <div
+            class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-title"
+          ></div>
+          <div
+            class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"
+          ></div>
+          <div
+            class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"
+          ></div>
+          <div
+            class="item-detail-view__skeleton-line item-detail-view__skeleton-line--feature-bullet"
+          ></div>
         </div>
       </div>
     </div>

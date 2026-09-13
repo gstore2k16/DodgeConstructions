@@ -1,7 +1,6 @@
-@use "normalize.scss/normalize";
+@use 'normalize.scss/normalize';
 @use 'fonts';
-@use "mixins" as *;
-
+@use 'mixins' as *;
 
 /* Global CSS reset / base styles */
 body {
@@ -39,4 +38,3 @@ a {
   outline: 2px solid $color-primary;
   outline-offset: 2px;
 }
-

@@ -1,4 +1,10 @@
-import { Injector, signal, WritableSignal, ɵChangeDetectionScheduler as ChangeDetectionScheduler, ɵEffectScheduler as EffectScheduler } from '@angular/core';
+import {
+  Injector,
+  signal,
+  WritableSignal,
+  ɵChangeDetectionScheduler as ChangeDetectionScheduler,
+  ɵEffectScheduler as EffectScheduler,
+} from '@angular/core';
 import { provideRouter, ActivatedRoute } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 import { of } from 'rxjs';
@@ -23,7 +29,7 @@ describe('ItemDetailComponent (Jest)', () => {
     true,
     15,
     '/assets/images/drill.jpg',
-    ['20V MAX']
+    ['20V MAX'],
   );
 
   beforeEach(() => {
@@ -35,12 +41,12 @@ describe('ItemDetailComponent (Jest)', () => {
       selectedItem: selectedItemSignal.asReadonly(),
       loading: loadingSignal.asReadonly(),
       error: errorSignal.asReadonly(),
-      selectItemById: jest.fn()
+      selectItemById: jest.fn(),
     };
 
     mockTitleService = {
       setTitle: jest.fn(),
-      getTitle: jest.fn()
+      getTitle: jest.fn(),
     };
 
     const injector = Injector.create({
@@ -51,8 +57,8 @@ describe('ItemDetailComponent (Jest)', () => {
         { provide: ItemStateService, useValue: mockStateService },
         { provide: Title, useValue: mockTitleService },
         { provide: ActivatedRoute, useValue: { paramMap: of({ get: () => '1' }) } },
-        ItemDetailComponent
-      ]
+        ItemDetailComponent,
+      ],
     });
     component = injector.get(ItemDetailComponent);
   });
@@ -87,7 +93,17 @@ describe('ItemDetailComponent (Jest)', () => {
   });
 
   it('should reflect a different selected item when the underlying signal changes', () => {
-    const otherItem = new ProductItem(2, 'Bosch Saw', 'Power Tools', 199.99, 'Saw', true, 3, '/saw.jpg', []);
+    const otherItem = new ProductItem(
+      2,
+      'Bosch Saw',
+      'Power Tools',
+      199.99,
+      'Saw',
+      true,
+      3,
+      '/saw.jpg',
+      [],
+    );
     selectedItemSignal.set(otherItem);
     expect(component.item()).toBe(otherItem);
     expect(component.item()?.name).toBe('Bosch Saw');

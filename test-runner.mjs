@@ -1,5 +1,9 @@
 process.on('uncaughtException', (err) => {
-  if (err && err.message && (err.message.includes("reading 'false'") || err.message.includes('asynchronous activity'))) {
+  if (
+    err &&
+    err.message &&
+    (err.message.includes("reading 'false'") || err.message.includes('asynchronous activity'))
+  ) {
     return;
   }
   console.error(err);
@@ -8,10 +12,18 @@ process.on('uncaughtException', (err) => {
 import '@angular/compiler';
 import 'zone.js';
 import 'zone.js/testing';
-import { describe as nodeDescribe, it as nodeIt, beforeEach as nodeBeforeEach, afterEach as nodeAfterEach } from 'node:test';
+import {
+  describe as nodeDescribe,
+  it as nodeIt,
+  beforeEach as nodeBeforeEach,
+  afterEach as nodeAfterEach,
+} from 'node:test';
 import assert from 'node:assert/strict';
 import { TestBed } from '@angular/core/testing';
-import { ɵEffectScheduler as EffectScheduler, ɵChangeDetectionScheduler as ChangeDetectionScheduler } from '@angular/core';
+import {
+  ɵEffectScheduler as EffectScheduler,
+  ɵChangeDetectionScheduler as ChangeDetectionScheduler,
+} from '@angular/core';
 
 import { createPlatformFactory, platformCore } from '@angular/core';
 
@@ -22,8 +34,8 @@ try {
     teardown: { destroyAfterEach: false },
     providers: [
       { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
-      { provide: ChangeDetectionScheduler, useValue: { notify: () => {} } }
-    ]
+      { provide: ChangeDetectionScheduler, useValue: { notify: () => {} } },
+    ],
   });
 } catch {
   // Already initialized
@@ -68,7 +80,10 @@ globalThis.expect = function (actual) {
     },
     toContain(expected) {
       if (typeof actual === 'string') {
-        assert.ok(actual.includes(expected), `Expected string "${actual}" to contain "${expected}"`);
+        assert.ok(
+          actual.includes(expected),
+          `Expected string "${actual}" to contain "${expected}"`,
+        );
       } else if (Array.isArray(actual)) {
         assert.ok(actual.includes(expected), `Expected array to contain item`);
       }
@@ -83,7 +98,7 @@ globalThis.expect = function (actual) {
       assert.ok(actual && actual._called === true, 'Expected function to have been called');
       const lastCall = actual._calls[actual._calls.length - 1];
       assert.deepStrictEqual(lastCall, expectedArgs);
-    }
+    },
   };
 
   const notMatchers = {
@@ -97,7 +112,10 @@ globalThis.expect = function (actual) {
       assert.notStrictEqual(actual, undefined, 'Expected value to be defined');
     },
     toBeInstanceOf(expectedClass) {
-      assert.ok(!(actual instanceof expectedClass), `Expected not instance of ${expectedClass.name}`);
+      assert.ok(
+        !(actual instanceof expectedClass),
+        `Expected not instance of ${expectedClass.name}`,
+      );
     },
     toBeTruthy() {
       assert.ok(!actual);
@@ -119,7 +137,10 @@ globalThis.expect = function (actual) {
     },
     toContain(expected) {
       if (typeof actual === 'string') {
-        assert.ok(!actual.includes(expected), `Expected string "${actual}" not to contain "${expected}"`);
+        assert.ok(
+          !actual.includes(expected),
+          `Expected string "${actual}" not to contain "${expected}"`,
+        );
       } else if (Array.isArray(actual)) {
         assert.ok(!actual.includes(expected), `Expected array not to contain item`);
       }
@@ -128,16 +149,24 @@ globalThis.expect = function (actual) {
       assert.ok(actual <= expected, `Expected ${actual} not to be greater than ${expected}`);
     },
     toHaveBeenCalled() {
-      assert.strictEqual(Boolean(actual && actual._called), false, 'Expected function not to have been called');
+      assert.strictEqual(
+        Boolean(actual && actual._called),
+        false,
+        'Expected function not to have been called',
+      );
     },
     toHaveBeenCalledWith(...expectedArgs) {
-      assert.strictEqual(Boolean(actual && actual._called), false, 'Expected function not to have been called');
-    }
+      assert.strictEqual(
+        Boolean(actual && actual._called),
+        false,
+        'Expected function not to have been called',
+      );
+    },
   };
 
   return {
     ...matchers,
-    not: notMatchers
+    not: notMatchers,
   };
 };
 
@@ -157,15 +186,19 @@ function _fakeSetTimeout(callback, delay = 0, ...args) {
     callback,
     args,
     isPeriodic: false,
-    ref() { return timer; },
-    unref() { return timer; }
+    ref() {
+      return timer;
+    },
+    unref() {
+      return timer;
+    },
   };
   _fakeTimerQueue.push(timer);
   return timer;
 }
 
 function _fakeClearTimeout(id) {
-  const targetId = (typeof id === 'object' && id !== null) ? id.id : id;
+  const targetId = typeof id === 'object' && id !== null ? id.id : id;
   _fakeTimerQueue = _fakeTimerQueue.filter((timer) => timer.id !== targetId);
 }
 
@@ -225,5 +258,5 @@ globalThis.jest = {
   },
   clearAllTimers() {
     _fakeTimerQueue = [];
-  }
+  },
 };

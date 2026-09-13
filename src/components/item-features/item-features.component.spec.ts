@@ -6,7 +6,7 @@ describe('ItemFeaturesComponent (Jest)', () => {
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [ItemFeaturesComponent]
+      providers: [ItemFeaturesComponent],
     });
     component = injector.get(ItemFeaturesComponent);
   });

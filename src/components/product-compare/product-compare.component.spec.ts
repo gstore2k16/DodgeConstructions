@@ -8,22 +8,26 @@ describe('ProductCompareComponent (Jest)', () => {
   let component: ProductCompareComponent;
   let mockStateService: any;
 
-  const mockItem1 = new ProductItem(1, 'Drill A', 'Tools', 100, 'Desc A', true, 10, '/a.jpg', ['Feature 1']);
-  const mockItem2 = new ProductItem(2, 'Drill B', 'Tools', 150, 'Desc B', false, 0, '/b.jpg', ['Feature 2']);
+  const mockItem1 = new ProductItem(1, 'Drill A', 'Tools', 100, 'Desc A', true, 10, '/a.jpg', [
+    'Feature 1',
+  ]);
+  const mockItem2 = new ProductItem(2, 'Drill B', 'Tools', 150, 'Desc B', false, 0, '/b.jpg', [
+    'Feature 2',
+  ]);
 
   beforeEach(() => {
     mockStateService = {
       comparedItems: signal([mockItem1, mockItem2]).asReadonly(),
       removeCompare: jest.fn(),
-      clearCompare: jest.fn()
+      clearCompare: jest.fn(),
     };
 
     const injector = Injector.create({
       providers: [
         { provide: ItemStateService, useValue: mockStateService },
         provideRouter([]),
-        ProductCompareComponent
-      ]
+        ProductCompareComponent,
+      ],
     });
     component = injector.get(ProductCompareComponent);
   });

@@ -20,7 +20,8 @@
     (maxPriceChange)="onMaxPriceChange($event)"
     (inStockChange)="onInStockToggle($event)"
     (sortOrderChange)="onSortChange($event)"
-    (reset)="resetFilters()">
+    (reset)="resetFilters()"
+  >
   </app-item-filter>
 
   <!-- Product Comparison Floating Bar (Displayed below filter when products are selected) -->
@@ -42,7 +43,12 @@
       <!-- Empty Filter Results Message -->
       <div class="items-page__empty-state" role="status" aria-live="polite">
         <p class="items-page__empty-message">No products match your search or filter criteria.</p>
-        <button type="button" class="items-page__reset-btn" (click)="resetFilters()" aria-label="Clear all applied filters">
+        <button
+          type="button"
+          class="items-page__reset-btn"
+          (click)="resetFilters()"
+          aria-label="Clear all applied filters"
+        >
           Clear Filters
         </button>
       </div>

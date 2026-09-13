@@ -16,14 +16,14 @@ To give you some inspiration for the UI, here are two examples:
 
 2. **Product Listing Page**
    ![Product Listing](./src/assets/images/readme/item-list.png)
+
    > Example of a responsive product grid with multiple items, prices, and in-stock badges.
-   
+
 1. **Modern Product Preview**
    ![Product Preview](./src/assets/images/readme/item-detail.png)
    > Example of a single product detail layout with clean typography, stock info, and actionable buttons.
-   
-These images are **for inspiration only**. You do not need to replicate them exactly, but consider similar layout, spacing, and style in your implementation.
 
+These images are **for inspiration only**. You do not need to replicate them exactly, but consider similar layout, spacing, and style in your implementation.
 
 ---
 
@@ -46,3 +46,4 @@ npm install
 
 # Start development server
 ng serve
+```

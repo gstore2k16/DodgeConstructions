@@ -18,12 +18,14 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
   const authReq = req.clone({
     setHeaders: {
       'X-Environment': environment.environmentName,
-      'Accept': 'application/json'
-    }
+      Accept: 'application/json',
+    },
   });
 
   if (environment.enableLogging) {
-    console.log(`[HTTP Request] [${environment.environmentName.toUpperCase()}] ${req.method} ${req.urlWithParams}`);
+    console.log(
+      `[HTTP Request] [${environment.environmentName.toUpperCase()}] ${req.method} ${req.urlWithParams}`,
+    );
   }
 
   return next(authReq).pipe(
@@ -45,9 +47,13 @@ export const apiInterceptor: HttpInterceptorFn = (req, next) => {
         errorMessage = `Server Error [Status ${error.status}]: ${error.message || error.statusText}`;
       }
 
-      console.error(`[HTTP Error] [${environment.environmentName.toUpperCase()}] ${req.method} ${req.url} failed in ${elapsed}ms:`, errorMessage, error);
+      console.error(
+        `[HTTP Error] [${environment.environmentName.toUpperCase()}] ${req.method} ${req.url} failed in ${elapsed}ms:`,
+        errorMessage,
+        error,
+      );
 
       return throwError(() => new Error(errorMessage));
-    })
+    }),
   );
 };

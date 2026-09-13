@@ -10,15 +10,10 @@ import { StockStatusPipe } from '../../pipes/stock-status.pipe';
  */
 @Component({
   selector: 'app-product-compare',
-  imports: [
-    RouterLink,
-    CurrencyPipe,
-    PriceDifferencePipe,
-    StockStatusPipe
-  ],
+  imports: [RouterLink, CurrencyPipe, PriceDifferencePipe, StockStatusPipe],
   templateUrl: './product-compare.component.html',
   styleUrl: './product-compare.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProductCompareComponent {
   private readonly stateService = inject(ItemStateService);

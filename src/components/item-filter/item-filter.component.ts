@@ -11,13 +11,10 @@ import { SortOption } from '../../models/item-filter.model';
  */
 @Component({
   selector: 'app-item-filter',
-  imports: [
-    FormsModule,
-    ErrorComponent
-  ],
+  imports: [FormsModule, ErrorComponent],
   templateUrl: './item-filter.component.html',
   styleUrl: './item-filter.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemFilterComponent {
   private readonly searchSubject$ = new Subject<string>();
@@ -46,10 +43,7 @@ export class ItemFilterComponent {
   /** Outputs for filter state mutations */
   /** Debounced search output; Angular owns the observable subscription lifecycle. */
   public readonly searchTermChange = outputFromObservable(
-    this.searchSubject$.pipe(
-      debounceTime(100),
-      distinctUntilChanged()
-    )
+    this.searchSubject$.pipe(debounceTime(100), distinctUntilChanged()),
   );
   public readonly categoryChange = output<string>();
   public readonly minPriceChange = output<number | null>();

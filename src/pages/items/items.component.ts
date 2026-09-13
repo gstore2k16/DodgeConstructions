@@ -20,11 +20,11 @@ import { ProductCompareComponent } from '../../components/product-compare/produc
     ItemFilterComponent,
     LoadingComponent,
     ErrorComponent,
-    ProductCompareComponent
+    ProductCompareComponent,
   ],
   templateUrl: './items.component.html',
   styleUrl: './items.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ItemsComponent {
   private readonly stateService = inject(ItemStateService);

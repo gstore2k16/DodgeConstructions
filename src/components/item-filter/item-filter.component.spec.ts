@@ -10,7 +10,7 @@ describe('ItemFilterComponent (Jest)', () => {
 
   beforeEach(() => {
     const injector = Injector.create({
-      providers: [ItemFilterComponent]
+      providers: [ItemFilterComponent],
     });
     component = injector.get(ItemFilterComponent);
   });

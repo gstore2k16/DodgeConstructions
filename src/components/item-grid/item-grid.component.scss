@@ -1,4 +1,4 @@
-@use "mixins" as *;
+@use 'mixins' as *;
 
 :host {
   display: block;
@@ -64,9 +64,15 @@
     border-radius: rem-calc($radius-xs);
     @include skeleton-shimmer;
 
-    &--wide { width: 70%; }
-    &--medium { width: 50%; }
-    &--narrow { width: 30%; }
+    &--wide {
+      width: 70%;
+    }
+    &--medium {
+      width: 50%;
+    }
+    &--narrow {
+      width: 30%;
+    }
   }
 }
 

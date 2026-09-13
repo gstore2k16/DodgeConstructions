@@ -9,24 +9,51 @@ describe('ItemStateService (Jest)', () => {
   let mockItemService: any;
 
   const mockItems = [
-    new ProductItem(1, 'DeWalt Cordless Drill', 'Power Tools', 149.99, 'High power cordless drill.', true, 15, '/drill.jpg', ['20V MAX']),
-    new ProductItem(2, 'Bosch Circular Saw', 'Power Tools', 199.99, 'Precision circular saw.', false, 0, '/saw.jpg', ['15 Amp']),
-    new ProductItem(3, 'Safety Goggles', 'Safety', 19.99, 'Impact-resistant goggles.', true, 50, '/goggles.jpg', ['UV Protection'])
+    new ProductItem(
+      1,
+      'DeWalt Cordless Drill',
+      'Power Tools',
+      149.99,
+      'High power cordless drill.',
+      true,
+      15,
+      '/drill.jpg',
+      ['20V MAX'],
+    ),
+    new ProductItem(
+      2,
+      'Bosch Circular Saw',
+      'Power Tools',
+      199.99,
+      'Precision circular saw.',
+      false,
+      0,
+      '/saw.jpg',
+      ['15 Amp'],
+    ),
+    new ProductItem(
+      3,
+      'Safety Goggles',
+      'Safety',
+      19.99,
+      'Impact-resistant goggles.',
+      true,
+      50,
+      '/goggles.jpg',
+      ['UV Protection'],
+    ),
   ];
 
   function createService(itemServiceMock: any): ItemStateService {
     const injector = Injector.create({
-      providers: [
-        { provide: ItemService, useValue: itemServiceMock },
-        ItemStateService
-      ]
+      providers: [{ provide: ItemService, useValue: itemServiceMock }, ItemStateService],
     });
     return injector.get(ItemStateService);
   }
 
   beforeEach(() => {
     mockItemService = {
-      getItems: jest.fn().mockReturnValue(of(mockItems))
+      getItems: jest.fn().mockReturnValue(of(mockItems)),
     };
     service = createService(mockItemService);
   });
@@ -52,7 +79,7 @@ describe('ItemStateService (Jest)', () => {
 
   it('should surface a friendly error message and stop loading when getItems() fails', () => {
     const failingItemService = {
-      getItems: jest.fn().mockReturnValue(throwError(() => new Error('network down')))
+      getItems: jest.fn().mockReturnValue(throwError(() => new Error('network down'))),
     };
     const failingService = createService(failingItemService);
 
@@ -93,19 +120,19 @@ describe('ItemStateService (Jest)', () => {
   it('should filter items by inStockOnly', () => {
     service.setInStockOnly(true);
     expect(service.filteredItems().length).toBe(2);
-    expect(service.filteredItems().every(item => item.inStock)).toBe(true);
+    expect(service.filteredItems().every((item) => item.inStock)).toBe(true);
   });
 
   it('should filter items by minimum price', () => {
     service.setMinPrice(100);
     expect(service.filteredItems().length).toBe(2);
-    expect(service.filteredItems().every(item => item.price >= 100)).toBe(true);
+    expect(service.filteredItems().every((item) => item.price >= 100)).toBe(true);
   });
 
   it('should filter items by maximum price', () => {
     service.setMaxPrice(150);
     expect(service.filteredItems().length).toBe(2);
-    expect(service.filteredItems().every(item => item.price <= 150)).toBe(true);
+    expect(service.filteredItems().every((item) => item.price <= 150)).toBe(true);
   });
 
   it('should filter items within a combined min/max price range', () => {
@@ -232,7 +259,7 @@ describe('ItemStateService (Jest)', () => {
 
     expect(service.cartItems()).toEqual([
       { itemId: 1, quantity: 5 },
-      { itemId: 2, quantity: 1 }
+      { itemId: 2, quantity: 1 },
     ]);
     expect(service.cartItemCount()).toBe(6);
   });
