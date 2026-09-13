@@ -17,7 +17,7 @@ function makeMouseEvent(
 }
 
 describe('ImageZoomComponent (Jest)', () => {
-  let component1: ImageZoomComponent;
+  let component: ImageZoomComponent;
 
   beforeEach(() => {
     const injector = Injector.create({
