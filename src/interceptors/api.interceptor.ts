@@ -5,7 +5,7 @@ import { environment } from '../environments/environment';
 /**
  * Functional HTTP interceptor applied to every outgoing request.
  * - Tags each request with an `X-Environment` header so the API/backend
- *   can see which environment (local/uat/production) it came from.
+ *   can see which environment (local/production) it came from.
  * - When `environment.enableLogging` is on, logs request/response timing
  *   and normalizes any error into a single readable message before
  *   re-throwing it, so downstream subscribers get consistent errors

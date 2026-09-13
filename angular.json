@@ -22,18 +22,6 @@
                 }
               ]
             },
-            "uat": {
-              "extractLicenses": false,
-              "namedChunks": true,
-              "optimization": true,
-              "sourceMap": true,
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.development.ts",
-                  "with": "src/environments/environment.uat.ts"
-                }
-              ]
-            },
             "production": {
               "aot": true,
               "extractLicenses": true,
@@ -69,9 +57,6 @@
           "configurations": {
             "development": {
               "buildTarget": "demo:build:development"
-            },
-            "uat": {
-              "buildTarget": "demo:build:uat"
             },
             "production": {
               "buildTarget": "demo:build:production"
