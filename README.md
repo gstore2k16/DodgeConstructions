@@ -27,6 +27,20 @@ These images are **for inspiration only**. You do not need to replicate them exa
 
 ---
 
+## Architecture & Technical Documentation
+
+For in-depth architectural analysis, design rationale, and engineering guides, explore the documentation in the [`docs/`](docs/) folder:
+
+| Document                                                           | Description                                                                                                                                        |
+| :----------------------------------------------------------------- | :------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 📋 [Architectural Decision Records (ADRs)](docs/adr.md)            | Architectural decision records documenting state mutation prevention, immutable data flow, functional interceptors, and root singleton lifecycles. |
+| 🏗️ [High-Level System Architecture](docs/architecture.md)          | Detailed layer architecture, core services breakdown (`ItemStateService`, `ItemService`), domain models, and routing strategies.                   |
+| 🛠️ [Developer Experience (DX) & Governance](docs/dx-governance.md) | Prettier configuration, Husky pre-commit hooks, and `lint-staged` rules.                                                                           |
+| 🚀 [CI/CD Pipeline & Deployment Strategy](docs/cicd-deployment.md) | GitHub Actions CI matrix (`ci.yml`), production build optimizations, and Netlify deployment strategy.                                              |
+| 📖 [Local Development Setup Guide](docs/setup-guide.md)            | Step-by-step setup guide for cloning, installing, testing, formatting, and running the application.                                                |
+
+---
+
 ## Setup & Available Commands
 
 The application is built with Angular 21 using standalone components and modern toolchains.
