@@ -68,27 +68,7 @@ npx lint-staged
 
 ---
 
-## 3. Conventional Commit Messages
-
-Commit messages MUST follow the **Conventional Commits** format:
-
-```
-<type>(<scope>): <short description>
-```
-
-### Recognized Types:
-
-- `feat`: A new feature added to the application.
-- `fix`: A bug fix or patch.
-- `docs`: Documentation updates.
-- `style`: Code style / formatting changes (no functional code changes).
-- `refactor`: Code changes that neither fix a bug nor add a feature.
-- `test`: Adding missing tests or correcting existing tests.
-- `chore`: Maintenance tasks, dependency updates, CLI updates.
-
----
-
-## 4. GitHub Actions Workflow Integration (`ci.yml`)
+## 3. GitHub Actions Workflow Integration (`ci.yml`)
 
 Every Pull Request against `main` automatically triggers automated CI checks via `.github/workflows/ci.yml`:
 
