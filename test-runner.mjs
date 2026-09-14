@@ -41,14 +41,17 @@ const safeScheduler = new Proxy(
       if (prop === 'running' || prop === 'isScheduled') return false;
       return () => false;
     },
-  }
+  },
 );
 
 try {
   TestBed.initTestEnvironment([], testPlatform(), {
     teardown: { destroyAfterEach: false },
     providers: [
-      { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {}, flush: () => {} } },
+      {
+        provide: EffectScheduler,
+        useValue: { add: () => {}, schedule: () => {}, flush: () => {} },
+      },
       { provide: ChangeDetectionScheduler, useValue: safeScheduler },
     ],
   });
