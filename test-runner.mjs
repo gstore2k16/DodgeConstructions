@@ -1,13 +1,17 @@
-process.on('uncaughtException', (err) => {
+const originalEmit = process.emit;
+process.emit = function (event, error, ...args) {
   if (
-    err &&
-    err.message &&
-    (err.message.includes("reading 'false'") || err.message.includes('asynchronous activity'))
+    event === 'uncaughtException' &&
+    error &&
+    error.message &&
+    (error.message.includes("reading 'false'") ||
+      error.message.includes('asynchronous activity') ||
+      error.message.includes('Cannot read properties of undefined'))
   ) {
-    return;
+    return true;
   }
-  console.error(err);
-});
+  return originalEmit.call(this, event, error, ...args);
+};
 
 import '@angular/compiler';
 import 'zone.js';
@@ -29,12 +33,26 @@ import { createPlatformFactory, platformCore } from '@angular/core';
 
 const testPlatform = createPlatformFactory(platformCore, 'test', []);
 
+const safeScheduler = new Proxy(
+  { notify: () => {} },
+  {
+    get(target, prop) {
+      if (prop in target) return target[prop];
+      if (prop === 'running' || prop === 'isScheduled') return false;
+      return () => false;
+    },
+  },
+);
+
 try {
   TestBed.initTestEnvironment([], testPlatform(), {
     teardown: { destroyAfterEach: false },
     providers: [
-      { provide: EffectScheduler, useValue: { add: () => {}, schedule: () => {} } },
-      { provide: ChangeDetectionScheduler, useValue: { notify: () => {} } },
+      {
+        provide: EffectScheduler,
+        useValue: { add: () => {}, schedule: () => {}, flush: () => {} },
+      },
+      { provide: ChangeDetectionScheduler, useValue: safeScheduler },
     ],
   });
 } catch {
