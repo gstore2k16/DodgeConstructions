@@ -1,6 +1,6 @@
 # Developer Experience (DX) & Governance Guide
 
-This document outlines the developer experience standards, code formatting rules, Git hook automations, branch naming conventions, and code review governance enforced in the **DodgeConstructions** repository.
+This document outlines the developer experience standards, code formatting rules, Git hook automations, and code review governance enforced in the **DodgeConstructions** repository.
 
 ---
 
@@ -68,21 +68,7 @@ npx lint-staged
 
 ---
 
-## 3. Git Branch Naming Conventions
-
-Every feature, fix, or documentation change MUST be developed in a dedicated branch following standardized prefixing:
-
-| Branch Pattern                 | Description                     | Example                           |
-| :----------------------------- | :------------------------------ | :-------------------------------- |
-| `feat/<short-description>`     | New feature development         | `feat/product-search-filter`      |
-| `fix/<short-description>`      | Bug fixes & patches             | `fix/compare-modal-accessibility` |
-| `refactor/<short-description>` | Code refactoring & performance  | `refactor/signal-state-store`     |
-| `docs/<short-description>`     | Documentation updates           | `docs/architecture-guides`        |
-| `ci/<short-description>`       | Pipeline & workflow adjustments | `ci/github-actions-matrix`        |
-
----
-
-## 4. Conventional Commit Messages
+## 3. Conventional Commit Messages
 
 Commit messages MUST follow the **Conventional Commits** format:
 
@@ -102,7 +88,7 @@ Commit messages MUST follow the **Conventional Commits** format:
 
 ---
 
-## 5. GitHub Actions Workflow Integration (`ci.yml`)
+## 4. GitHub Actions Workflow Integration (`ci.yml`)
 
 Every Pull Request against `main` automatically triggers automated CI checks via `.github/workflows/ci.yml`:
 

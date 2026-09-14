@@ -15,12 +15,11 @@ In complex Angular applications, direct mutation of state objects (e.g., mutatin
 1. **Encapsulated Writable State**: All writable state signals inside services (e.g. `ItemStateService`) MUST be declared as `private readonly` prefixed with an underscore (`_cartItems`, `_compareIds`, `_filter`).
 2. **Readonly Public Surface**: Public signals MUST be exposed exclusively as readonly `Signal<T>` via `.asReadonly()` or derived `computed()` properties. Components cannot invoke `.set()` or `.update()` directly.
 3. **Reference-Based Immutability**: All state mutator operations MUST create new array/object reference copies (using `.filter()`, `.map()`, or array spreads `[...current, newItem]`).
-4. **Removal of Artificial `Object.freeze()`**: Artificial wrapping of array emissions in `Object.freeze()` was removed to eliminate runtime spread micro-overhead while retaining clean functional immutability.
 
 ### Consequences
 
 - **Positive**: Guarantees unidirectional data flow; components can only trigger state changes via explicit service methods.
-- **Positive**: High performance change detection without array-freeze micro-overhead.
+- **Positive**: High performance change detection and reference predictability.
 - **Negative**: Requires discipline to ensure mutators inside services return new reference copies.
 
 ---
